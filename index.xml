@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>sujj blog</title>
+    <title>home on sujj blog</title>
     <link>https://sujingjhong.com/</link>
-    <description>Recent content on sujj blog</description>
+    <description>Recent content in home on sujj blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
+    <copyright>© 2019-{year} Su Jing Jhong 版權所有</copyright>
+    <lastBuildDate>Sat, 11 May 2019 07:00:19 +0800</lastBuildDate>
     
 	<atom:link href="https://sujingjhong.com/index.xml" rel="self" type="application/rss+xml" />
     

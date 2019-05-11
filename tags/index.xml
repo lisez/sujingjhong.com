@@ -6,6 +6,7 @@
     <description>Recent content in Tags on sujj blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
+    <copyright>© 2019-{year} Su Jing Jhong 版權所有</copyright>
     
 	<atom:link href="https://sujingjhong.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
