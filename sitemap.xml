@@ -3,6 +3,26 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://sujingjhong.com/posts/what-is-mall-and-how-to-distinguish-it-and-department-store/</loc>
+    <lastmod>2019-05-14T00:24:04+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/posts/</loc>
+    <lastmod>2019-05-14T00:24:04+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/about/</loc>
+    <lastmod>2019-05-12T12:05:05+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://sujingjhong.com/</loc>
     <lastmod>2019-05-11T07:00:19+08:00</lastmod>
     <changefreq>daily</changefreq>

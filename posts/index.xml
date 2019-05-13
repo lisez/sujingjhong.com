@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>home on sujj blog</title>
-    <link>https://sujingjhong.com/</link>
-    <description>Recent content in home on sujj blog</description>
+    <title>Posts on sujj blog</title>
+    <link>https://sujingjhong.com/posts/</link>
+    <description>Recent content in Posts on sujj blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
     <copyright>© 2019-{year} Su Jing Jhong 版權所有</copyright>
-    <lastBuildDate>Sat, 11 May 2019 07:00:19 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 14 May 2019 00:24:04 +0800</lastBuildDate>
     
-	<atom:link href="https://sujingjhong.com/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://sujingjhong.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       
       <guid>https://sujingjhong.com/posts/what-is-mall-and-how-to-distinguish-it-and-department-store/</guid>
       <description>有鑒於自身英文能力的不足，開始想要找外師加強英文能力。在多方比較下，在AmazingTalker上找到一位英文老師，他是來自南非的Fleur</description>
-    </item>
-    
-    <item>
-      <title>關於我</title>
-      <link>https://sujingjhong.com/about/</link>
-      <pubDate>Sun, 12 May 2019 12:05:05 +0800</pubDate>
-      
-      <guid>https://sujingjhong.com/about/</guid>
-      <description>關於我 電子信箱：me.hireme@sujingjhong.com 履歷連結：中文、English 簡歷 2 年以上相關工作經驗 擅長跨領域結合，了解</description>
     </item>
     
   </channel>
