@@ -1,25 +1,16 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on sujj blog</title>
-    <link>https://sujingjhong.com/posts/</link>
-    <description>Recent content in Posts on sujj blog</description>
+    <title>學習 on sujj blog</title>
+    <link>https://sujingjhong.com/tags/%E5%AD%B8%E7%BF%92/</link>
+    <description>Recent content in 學習 on sujj blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
     <copyright>© 2019-{year} Su Jing Jhong 版權所有</copyright>
-    <lastBuildDate>Tue, 14 May 2019 00:24:04 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 03 Mar 2015 13:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://sujingjhong.com/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://sujingjhong.com/tags/%E5%AD%B8%E7%BF%92/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Mall 是什麼？和百貨公司(department store)怎麼區別？</title>
-      <link>https://sujingjhong.com/posts/what-is-mall-and-how-to-distinguish-it-and-department-store/</link>
-      <pubDate>Tue, 14 May 2019 00:24:04 +0800</pubDate>
-      
-      <guid>https://sujingjhong.com/posts/what-is-mall-and-how-to-distinguish-it-and-department-store/</guid>
-      <description>有鑒於自身英文能力的不足，開始想要找外師加強英文能力。在多方比較下，在AmazingTalker上找到一位英文老師，他是來自南非的Fleur</description>
-    </item>
     
     <item>
       <title>單字卡</title>
@@ -46,24 +37,6 @@
       
       <guid>https://sujingjhong.com/posts/reading-without-back-technology/</guid>
       <description>最近在讀書 我發現當你學的比須要背的東西更廣更深 你就可以輕易把要背的東西變成常識 不必刻意去背就可以回憶起來 我認為這是一種奇怪又有趣的現象 想不到</description>
-    </item>
-    
-    <item>
-      <title>學英文經驗談</title>
-      <link>https://sujingjhong.com/posts/the-experience-of-learning-english/</link>
-      <pubDate>Sat, 28 Feb 2015 13:00:00 +0000</pubDate>
-      
-      <guid>https://sujingjhong.com/posts/the-experience-of-learning-english/</guid>
-      <description>學語言真的要有興趣。 我國中時也是聽大家說英語&amp;hellip; 超級沒勁! 其實我都只有閱讀，沒有聽。到大學才體認到語言的重要性，所以開始會聽讀 Biz,</description>
-    </item>
-    
-    <item>
-      <title>筆記的收納</title>
-      <link>https://sujingjhong.com/posts/note-storage/</link>
-      <pubDate>Fri, 27 Feb 2015 13:00:00 +0000</pubDate>
-      
-      <guid>https://sujingjhong.com/posts/note-storage/</guid>
-      <description>大家好 想問一個問題 我在準備考試筆記都是記在電腦裡，要上圖書館時印出來，邊念書邊新增內容回家再把新增的內容key到電腦 然而現在書本念完了 把筆記</description>
     </item>
     
     <item>
