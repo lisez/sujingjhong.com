@@ -3,9 +3,10 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://sujingjhong.com/posts/</loc>
-    <lastmod>2019-05-26T23:30:26+08:00</lastmod>
-    <priority>0</priority>
+    <loc>https://sujingjhong.com/posts/foreignpolicy/</loc>
+    <lastmod>2019-05-28T18:56:42+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>
@@ -20,6 +21,12 @@
     <lastmod>2019-05-14T00:24:04+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/posts/</loc>
+    <lastmod>2019-05-14T00:24:04+08:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
