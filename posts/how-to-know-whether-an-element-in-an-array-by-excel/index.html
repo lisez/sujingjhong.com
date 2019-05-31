@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+
+
+
+<html lang="zh-tw">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  
+    
+    在Excel判斷欄位值是否在陣列裡
+  
+ | sujj blog</title>
+
+
+<link href="https://fonts.googleapis.com/css?family=Oxygen|Oxygen+Mono:300,400,700" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/book.min.cda7c4469e7c019bab3e22a4a84db0dbe60252a459be38206d51f10046db0973.css">
+
+
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+<link rel="canonical" href="https://sujingjhong.com/posts/how-to-know-whether-an-element-in-an-array-by-excel/"/>
+<link rel="index" href="https://sujingjhong.composts"/>
+<link rel="home" href="https://sujingjhong.com" />
+<link rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+    <aside class="book-menu fixed">
+      <nav role="navigation">
+<h2 class="book-brand">
+  <a href="https://sujingjhong.com">sujj blog</a>
+</h2>
+
+
+
+    
+  <style>
+  nav ul a[href] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/about/">關於我</a></li>
+<li><a href="/posts/">文章清單</a></li>
+</ul>
+
+
+
+
+
+</nav>
+
+
+
+    </aside>
+
+    <div class="book-posts">
+      <header class="align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>
+  
+    
+    在Excel判斷欄位值是否在陣列裡
+  
+</strong>
+</header>
+
+      
+
+<header class="markdown">
+  <h1>在Excel判斷欄位值是否在陣列裡</h1>
+  <h5>
+    <strong>September 17, 2017</strong>
+  </h5>
+</header>
+<article class="markdown"><p>今天在臉書上看到一位朋友提問，他的問題是這樣的：</p>
+
+<blockquote>
+<p>如果我要在B欄呈現「該列的A欄的值如果等於C欄任意一列的值的話，就在該列的B欄打V（例如A1的值是2=C欄中的2，所以在B1打V；A6的值是7=C欄中的7，所以也要在B6打V）」</p>
+</blockquote>
+
+<p>這是他的問題範例，以及預期的最終結果：</p>
+
+<table>
+<thead>
+<tr>
+<th><strong>#</strong></th>
+<th><strong>A</strong></th>
+<th><strong>B</strong></th>
+<th><strong>C</strong></th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>2</td>
+<td>V</td>
+<td>2</td>
+</tr>
+
+<tr>
+<td><strong>2</strong></td>
+<td>5</td>
+<td>V</td>
+<td>5</td>
+</tr>
+
+<tr>
+<td><strong>3</strong></td>
+<td>8</td>
+<td>V</td>
+<td>8</td>
+</tr>
+
+<tr>
+<td><strong>4</strong></td>
+<td>6</td>
+<td></td>
+<td>7</td>
+</tr>
+
+<tr>
+<td><strong>5</strong></td>
+<td>8</td>
+<td>V</td>
+<td></td>
+</tr>
+
+<tr>
+<td><strong>6</strong></td>
+<td>7</td>
+<td>V</td>
+<td></td>
+</tr>
+
+<tr>
+<td><strong>7</strong></td>
+<td>3</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><strong>8</strong></td>
+<td>7</td>
+<td>V</td>
+<td></td>
+</tr>
+
+<tr>
+<td><strong>9</strong></td>
+<td>4</td>
+<td></td>
+<td></td>
+</tr>
+
+<tr>
+<td><strong>10</strong></td>
+<td>3</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>他的問題整理下就是：</p>
+
+<blockquote>
+<p>當元素屬於特定一個陣列的元素時，顯示「V」，否則就不做任何事。</p>
+</blockquote>
+
+<p>這時候我們可以把問題拆解成下列步驟來實現：</p>
+
+<ol>
+<li>特定一個陣列範圍，用來檢查元素（把它稱為檢查陣列）</li>
+<li>當一個元素屬於檢查陣列元素時，顯示<code>Ｖ</code></li>
+<li>當一個元素不屬於檢查陣列元素時，不做任何事。</li>
+</ol>
+
+<p>那2, 3就是邏輯控制：<code>if ... is true then ..., else ...</code>。可以用 Excel中的 <a href="https://support.office.com/zh-tw/article/IF-%E5%87%BD%E6%95%B8-69aed7c9-4e8a-4755-a9bc-aa8bbff73be2">IF函數</a> 來處理。</p>
+
+<p>所以這時候問題就聚焦在「<strong>在Excel中如何判斷一個元素是否屬於特定陣列</strong>」</p>
+
+<p>如果是在JavaScript裡，就會很直覺的使用 <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes">Array.prototype.includes()</a>。例如就可以解成：</p>
+
+<pre><code class="language-javascript">const validNums=[2, 5, 8, 7];
+const nums=[2, 5, 8, 6, 8, 7, 3, 7, 4, 3];
+nums.forEach(num=&gt;{
+    if(validNums.includes(num)){
+        console.log(`${num} =&gt; V`);
+    }else{
+        console.log(`${num} =&gt;`);
+    }
+});
+
+// 2 =&gt; V
+// 5 =&gt; V
+// 8 =&gt; V
+// 6 =&gt;
+// 8 =&gt; V
+// 7 =&gt; V
+// 3 =&gt;
+// 7 =&gt; V
+// 4 =&gt;
+// 3 =&gt;
+</code></pre>
+
+<p>那在Excel中該如何解？Excel中用來查表函數主要有<code>VLOOKUP</code>、<code>HLOOKUP</code>、<code>MATCH</code>、<code>INDEX</code>。</p>
+
+<p>在這裡我主要利用<code>MATCH</code>來解，為什麼用<code>MATCH</code>？</p>
+
+<ul>
+<li><code>INDEX</code>主要是以索引值返回元素(search by index)，但我們這裡則反過來，是要用元素來查詢其是否在特定陣列裡面(search by value)。</li>
+<li><code>VLOOKUP</code>、<code>HLOOKUP</code>主要是查詢到後，返回指定欄（列）的值，那還需要在Ｃ欄後增設一欄用來賦值，會再多費工。</li>
+</ul>
+
+<p>那我們參照<a href="https://support.office.com/zh-tw/article/MATCH-%E5%87%BD%E6%95%B8-e8dffd45-c762-47d6-bf89-533f4a37673a">官方文件</a>後，剖析一下match函數式：</p>
+
+<pre><code class="language-EXCEL">=MATCH(lookup_value, lookup_array, [match_type])
+</code></pre>
+
+<p>代表我們需要⋯⋯</p>
+
+<ul>
+<li>需要比對的數值(lookup_value)</li>
+<li>需要搜尋的範圍(lookup_array)</li>
+<li>MATCH函數該如何進行比對？(match_type)</li>
+</ul>
+
+<p>那我們需要比對的數值，就是A欄的數值<code>A1, A2, A3...</code>，這些可以寫好公式，直接利用Excel自動填入即可。</p>
+
+<p>再來需要搜尋範圍，就是C欄的陣列數值，就是<code>C1:C4</code>。</p>
+
+<p>接著<code>MATCH</code>該如何運作？我們是需要精確的比對，所以輸入 <code>0</code>。</p>
+
+<p>最後我們可以完成函數式，我們以需要比對<code>A1</code>值是否屬於C欄值為例，所以我們是需要在<code>B1</code>填入公式：</p>
+
+<pre><code class="language-EXCEL">=MATCH(A1, $C$1:$C$4, 0)
+</code></pre>
+
+<p>不過到這裡還不太正確，我們是需要在比對到時，回傳<code>V</code>，所以在外面再包一層IF函數：</p>
+
+<pre><code class="language-EXCEL">=IF(MATCH(A1, $C$1:$C$4, 0), &quot;V&quot;, &quot;&quot;)
+</code></pre>
+
+<p>接著把它拉到其他列，讓程式協助我們自動完成：</p>
+
+<p><img src="/images/excel-tutorial-20170917-1.png" alt="圖二" /></p>
+
+<p>咦？怎麼顯示<code>#N/A</code>了？</p>
+
+<p>讓我們重新查一下文件，原來⋯⋯</p>
+
+<blockquote>
+<ul>
+<li><strong>MATCH</strong> 會傳回 <strong>lookup_array</strong> 內相符值的位置，而非值本身。例如，<strong>MATCH(&ldquo;b&rdquo;,{&ldquo;a&rdquo;,&ldquo;b&rdquo;,&ldquo;c&rdquo;},0)</strong> 會傳回 2，這是陣列 {&ldquo;a&rdquo;,&ldquo;b&rdquo;,&ldquo;c&rdquo;} 內 &ldquo;b&rdquo; 的相對位置。</li>
+<li>&hellip;</li>
+<li>如果 <strong>MATCH</strong> 函數無法找到符合的項目，則傳回 #N/A 錯誤值。</li>
+<li>&hellip;</li>
+</ul>
+</blockquote>
+
+<p>那這時候代表：</p>
+
+<ol>
+<li>當<code>MATCH</code>函數找到符合項目時，會回傳位置，不會回傳<code>#N/A</code>。</li>
+<li>當<code>MATCH</code>函數找不到時，會回傳<code>#N/A</code>。</li>
+</ol>
+
+<p>那連結回我們要解決的問題就是：</p>
+
+<ol>
+<li>當找到元素時，顯示<code>V</code>；找不到元素時，不做任何事，但也不應該顯示錯誤。所以說當找不到元素時，應該讓欄位顯示空白值，空白值就是<code>&quot;&quot;</code></li>
+<li>而MATCH函數找到元素時，會回傳位置，不會回傳<code>#N/A</code>，這時候應該顯示V；找不到元素時，會回傳<code>#N/A</code>，這時候應該顯示空白值。</li>
+</ol>
+
+<p>簡單講就是：</p>
+
+<ul>
+<li>找到了，不會回傳<code>#N/A</code>，而是會回傳數字。</li>
+<li>沒找到，會回傳<code>#N/A</code>。</li>
+</ul>
+
+<p>那我們要做的就是，判斷他回傳是不是<code>#N/A</code>，如果是<code>#N/A</code>就顯示空白值，不是的話，就顯示<code>V</code>。</p>
+
+<p>那在EXCEL中，判斷是否為<code>#N/A</code>的話，<a href="https://support.office.com/zh-tw/article/IS-%E5%87%BD%E6%95%B8-0f2d7971-6019-40a0-a171-f2d869135665">可以用ISERROR()或者ISNA()</a>。</p>
+
+<p>所以我們就可以改成：</p>
+
+<pre><code class="language-EXCEL">=IF(ISNA(MATCH(A1, $C$1:$C$4, 0)), &quot;&quot;, &quot;V&quot;)
+</code></pre>
+
+<p>讓我們再重新拉一次⋯⋯</p>
+
+<p><img src="/images/excel-tutorial-20170917-2.png" alt="圖二" /></p>
+
+<p>成功！</p>
+</article>
+
+      
+
+<hr />
+<div id="commento"></div>
+
+
+<footer>
+  <span class="copyright">
+    © 2019-2019 Su Jing Jhong 版權所有
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
+  </span>
+</footer>
+
+    </div>
+  </main>
+
+  <script async src="https://cdn.commento.io/js/commento.js"></script>
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-139857297-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

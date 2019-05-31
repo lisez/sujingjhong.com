@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+
+
+
+<html lang="zh-tw">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  
+    
+    取得URL參數值、上傳伺服器沒有反應問題
+  
+ | sujj blog</title>
+
+
+<link href="https://fonts.googleapis.com/css?family=Oxygen|Oxygen+Mono:300,400,700" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/book.min.cda7c4469e7c019bab3e22a4a84db0dbe60252a459be38206d51f10046db0973.css">
+
+
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+<link rel="canonical" href="https://sujingjhong.com/posts/get-url-arguments-and-upload-to-server-but-not-working/"/>
+<link rel="index" href="https://sujingjhong.composts"/>
+<link rel="home" href="https://sujingjhong.com" />
+<link rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+    <aside class="book-menu fixed">
+      <nav role="navigation">
+<h2 class="book-brand">
+  <a href="https://sujingjhong.com">sujj blog</a>
+</h2>
+
+
+
+    
+  <style>
+  nav ul a[href] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/about/">關於我</a></li>
+<li><a href="/posts/">文章清單</a></li>
+</ul>
+
+
+
+
+
+</nav>
+
+
+
+    </aside>
+
+    <div class="book-posts">
+      <header class="align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>
+  
+    
+    取得URL參數值、上傳伺服器沒有反應問題
+  
+</strong>
+</header>
+
+      
+
+<header class="markdown">
+  <h1>取得URL參數值、上傳伺服器沒有反應問題</h1>
+  <h5>
+    <strong>July 17, 2016</strong>
+  </h5>
+</header>
+<article class="markdown">
+
+<h1 id="取得url參數值-上傳伺服器沒有反應問題">取得URL參數值、上傳伺服器沒有反應問題</h1>
+
+<h2 id="取得url參數值">取得URL參數值</h2>
+
+<p>安裝JQuery外掛：<a href="https://plugins.jquery.com/url/">url jQuery Plugin</a>，即可直接用$url() 取得網址參數值。</p>
+
+<h2 id="上傳伺服器沒有反應問題">上傳伺服器沒有反應問題</h2>
+
+<p>今天遇到一個很奇怪的問題，在本地端都可以執行 JS ，結果上傳到伺服器都無法作用。後來查一下原始碼，原來是 Cloudflare 啟用 Rocket Loader ，導致所有 JS 都無法正常啟用。</p>
+
+<p>之後在JS段落全部增加 <code>data-cfasync=&quot;false&quot;</code> ，讓Cloudflare在這檔案關閉Rocket Loader，程式碼就可以正常運作了！</p>
+
+<pre><code>&lt;script data-cfasync=&quot;false&quot; src=&quot;...&quot;&gt;&lt;/script&gt;
+</code></pre>
+</article>
+
+      
+
+<hr />
+<div id="commento"></div>
+
+
+<footer>
+  <span class="copyright">
+    © 2019-2019 Su Jing Jhong 版權所有
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
+  </span>
+</footer>
+
+    </div>
+  </main>
+
+  <script async src="https://cdn.commento.io/js/commento.js"></script>
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-139857297-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

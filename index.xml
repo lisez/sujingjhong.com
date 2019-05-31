@@ -49,6 +49,60 @@
     </item>
     
     <item>
+      <title>在Excel判斷欄位值是否在陣列裡</title>
+      <link>https://sujingjhong.com/posts/how-to-know-whether-an-element-in-an-array-by-excel/</link>
+      <pubDate>Sun, 17 Sep 2017 00:11:00 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/posts/how-to-know-whether-an-element-in-an-array-by-excel/</guid>
+      <description>今天在臉書上看到一位朋友提問，他的問題是這樣的： 如果我要在B欄呈現「該列的A欄的值如果等於C欄任意一列的值的話，就在該列的B欄打V（例如A1</description>
+    </item>
+    
+    <item>
+      <title>專家，來自刻意練習</title>
+      <link>https://sujingjhong.com/books/expertise-from-practice/</link>
+      <pubDate>Sun, 18 Jun 2017 04:26:42 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/books/expertise-from-practice/</guid>
+      <description>Practice makes perfect. 熟能生巧。 今天在逛書店時，撈到一本方智出版社最近出版的《刻意練習》。作者是著名「一萬小時法則」所引用研究來源的研究者 Anders Ericsson</description>
+    </item>
+    
+    <item>
+      <title>Jquery Onclick vs Touchstart</title>
+      <link>https://sujingjhong.com/posts/jquery-onclick-vs-touchstart/</link>
+      <pubDate>Sun, 04 Sep 2016 23:58:34 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/posts/jquery-onclick-vs-touchstart/</guid>
+      <description>目前有朋友反應網站有無反應問題，查了一下，看來是傳統滑鼠的click，和現代觸碰螢幕的touch的頂尖對決⋯⋯ 目前查到幾個解決方案： 在觸發元</description>
+    </item>
+    
+    <item>
+      <title>PHP&#43;MySQL OOP 筆記</title>
+      <link>https://sujingjhong.com/posts/php_with_mysqli_oop/</link>
+      <pubDate>Thu, 01 Sep 2016 01:00:00 +0000</pubDate>
+      
+      <guid>https://sujingjhong.com/posts/php_with_mysqli_oop/</guid>
+      <description>爬一下PHP+MySQL OOP雖然有人寫教學文，但似乎沒有 mysqli 函數的寫法，所以就手動寫了個。 &amp;lt;?php define(&#39;DB_MYSQL_HOST&#39;, &#39;YOUR_DB_HOST_HERE&#39;); define(&#39;DB_MYSQL_USER&#39;, &#39;YOUR_USERNAME&#39;); define(&#39;DB_MYSQL_PW&#39;, &#39;YOUR_PASSWORD&#39;); define(&#39;DB_MYSQL_DB&#39;, &#39;YOUR_DB_TABLE&#39;); ?&amp;gt; &amp;lt;?php require_once(&#39;defines.php&#39;); /************************** * 資料庫登入格式化 **************************/ class DBLogin{</description>
+    </item>
+    
+    <item>
+      <title>取得URL參數值、上傳伺服器沒有反應問題</title>
+      <link>https://sujingjhong.com/posts/get-url-arguments-and-upload-to-server-but-not-working/</link>
+      <pubDate>Sun, 17 Jul 2016 23:00:00 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/posts/get-url-arguments-and-upload-to-server-but-not-working/</guid>
+      <description>取得URL參數值、上傳伺服器沒有反應問題 取得URL參數值 安裝JQuery外掛：url jQuery Plugin，即可直接用$url() 取得網址參數值。 上</description>
+    </item>
+    
+    <item>
+      <title>外交家／中國亞投行邁前一大步</title>
+      <link>https://sujingjhong.com/posts/thediplomat/a-big-step-forward-for-chinas-aiib/</link>
+      <pubDate>Wed, 27 May 2015 01:18:00 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/posts/thediplomat/a-big-step-forward-for-chinas-aiib/</guid>
+      <description>原文：https://thediplomat.com/2015/05/a-big-step-forward-for-chinas-aiib/</description>
+    </item>
+    
+    <item>
       <title>單字卡</title>
       <link>https://sujingjhong.com/posts/word-cards/</link>
       <pubDate>Tue, 03 Mar 2015 13:00:00 +0000</pubDate>

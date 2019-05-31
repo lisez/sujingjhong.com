@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>The Diplomat on sujj blog</title>
+    <link>https://sujingjhong.com/posts/thediplomat/</link>
+    <description>Recent content in The Diplomat on sujj blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <copyright>© 2019-{year} Su Jing Jhong 版權所有</copyright>
+    <lastBuildDate>Fri, 31 May 2019 22:58:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://sujingjhong.com/posts/thediplomat/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>外交家／中國亞投行邁前一大步</title>
+      <link>https://sujingjhong.com/posts/thediplomat/a-big-step-forward-for-chinas-aiib/</link>
+      <pubDate>Wed, 27 May 2015 01:18:00 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/posts/thediplomat/a-big-step-forward-for-chinas-aiib/</guid>
+      <description>原文：https://thediplomat.com/2015/05/a-big-step-forward-for-chinas-aiib/</description>
+    </item>
+    
+  </channel>
+</rss>

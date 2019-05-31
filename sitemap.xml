@@ -3,6 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://sujingjhong.com/posts/thediplomat/</loc>
+    <lastmod>2019-05-31T22:58:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
     <loc>https://sujingjhong.com/posts/foreignpolicy/modis-message-was-simple-hindus-first/</loc>
     <lastmod>2019-05-28T22:39:38+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -51,9 +58,129 @@
   </url>
   
   <url>
-    <loc>https://sujingjhong.com/tags/</loc>
-    <lastmod>2015-03-03T13:00:00+00:00</lastmod>
+    <loc>https://sujingjhong.com/tags/excel/</loc>
+    <lastmod>2017-09-17T00:11:00+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/javascript/</loc>
+    <lastmod>2017-09-17T00:11:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/</loc>
+    <lastmod>2017-09-17T00:11:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/tutorial/</loc>
+    <lastmod>2017-09-17T00:11:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/posts/how-to-know-whether-an-element-in-an-array-by-excel/</loc>
+    <lastmod>2017-09-17T00:11:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/book-review/</loc>
+    <lastmod>2017-06-18T04:26:42+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/books/</loc>
+    <lastmod>2017-06-18T04:26:42+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/books/</loc>
+    <lastmod>2017-06-18T04:26:42+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/learning/</loc>
+    <lastmod>2017-06-18T04:26:42+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/self-improvement/</loc>
+    <lastmod>2017-06-18T04:26:42+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/books/expertise-from-practice/</loc>
+    <lastmod>2017-06-18T04:26:42+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/posts/jquery-onclick-vs-touchstart/</loc>
+    <lastmod>2016-09-04T23:58:34+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/jquery/</loc>
+    <lastmod>2016-09-04T23:58:34+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/mysql/</loc>
+    <lastmod>2016-09-01T01:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/oop/</loc>
+    <lastmod>2016-09-01T01:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/php/</loc>
+    <lastmod>2016-09-01T01:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/posts/php_with_mysqli_oop/</loc>
+    <lastmod>2016-09-01T01:00:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/cloudflare/</loc>
+    <lastmod>2016-07-17T23:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/posts/get-url-arguments-and-upload-to-server-but-not-working/</loc>
+    <lastmod>2016-07-17T23:00:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/posts/thediplomat/a-big-step-forward-for-chinas-aiib/</loc>
+    <lastmod>2015-05-27T01:18:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
   </url>
   
   <url>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+
+
+
+<html lang="zh-tw">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  
+    
+    PHP&#43;MySQL OOP 筆記
+  
+ | sujj blog</title>
+
+
+<link href="https://fonts.googleapis.com/css?family=Oxygen|Oxygen+Mono:300,400,700" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/book.min.cda7c4469e7c019bab3e22a4a84db0dbe60252a459be38206d51f10046db0973.css">
+
+
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+<link rel="canonical" href="https://sujingjhong.com/posts/php_with_mysqli_oop/"/>
+<link rel="index" href="https://sujingjhong.composts"/>
+<link rel="home" href="https://sujingjhong.com" />
+<link rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+    <aside class="book-menu fixed">
+      <nav role="navigation">
+<h2 class="book-brand">
+  <a href="https://sujingjhong.com">sujj blog</a>
+</h2>
+
+
+
+    
+  <style>
+  nav ul a[href] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/about/">關於我</a></li>
+<li><a href="/posts/">文章清單</a></li>
+</ul>
+
+
+
+
+
+</nav>
+
+
+
+    </aside>
+
+    <div class="book-posts">
+      <header class="align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>
+  
+    
+    PHP&#43;MySQL OOP 筆記
+  
+</strong>
+</header>
+
+      
+
+<header class="markdown">
+  <h1>PHP&#43;MySQL OOP 筆記</h1>
+  <h5>
+    <strong>September 1, 2016</strong>
+  </h5>
+</header>
+<article class="markdown"><p>爬一下PHP+MySQL OOP雖然有人寫教學文，但似乎沒有 mysqli 函數的寫法，所以就手動寫了個。</p>
+
+<pre><code class="language-php">&lt;?php
+define('DB_MYSQL_HOST', 'YOUR_DB_HOST_HERE');
+define('DB_MYSQL_USER', 'YOUR_USERNAME');
+define('DB_MYSQL_PW',   'YOUR_PASSWORD');
+define('DB_MYSQL_DB',   'YOUR_DB_TABLE');
+?&gt;
+</code></pre>
+
+<pre><code class="language-php">&lt;?php
+require_once('defines.php');
+
+/**************************
+ * 資料庫登入格式化
+ **************************/
+class DBLogin{
+  var $user;
+  var $password;
+  var $host;
+  var $db;
+
+  function __construct($host, $user, $password, $dbname)
+  {
+    $this-&gt;host     = $host;
+    $this-&gt;user     = $user;
+    $this-&gt;password = $password;
+    $this-&gt;db       = $dbname;
+  }
+
+  public function the_user()
+  {
+    return StringSafe($this-&gt;user,0,255);
+  }
+
+  public function the_pw()
+  {
+    return $this-&gt;password;
+  }
+
+  public function the_host()
+  {
+    return $this-&gt;host;
+  }
+
+  public function the_db()
+  {
+    return $this-&gt;db;
+  }
+}
+
+/**************************
+ * MySQL連線
+ **************************/
+class DBMySQL{
+  //設定變數
+  var $_dbConn; //連線資料
+  var $_qryRes; //儲存資料
+
+  //連線MySQL
+  // function connect($host,$user,$pw,$dbname){
+  function __construct($hostname, $user, $password, $dbname){
+    //建立連線
+    $_mysql_conn = mysqli_connect($hostname,
+                                  $user,
+                                  $password,
+                                  $dbname)
+                                  or die(TXT_ERR_DB.' '.mysqli_connect_error());
+
+    //設定UTF-8
+    mysqli_set_charset($_mysql_conn, &quot;utf8&quot;);
+
+    $this -&gt; _dbConn = $_mysql_conn;
+    return true;
+  }
+
+  //關閉連線
+  function __destruct()
+  {
+    mysqli_close($this-&gt;_dbConn);
+  }
+
+  //單一SQL查詢資料
+  public function query($sql){
+    //逃逸字元
+    //$_sql = mysqli_real_escape_string($this-&gt;_dbConn, $sql);
+    $_sql=$sql;
+
+    //撈資料
+    $qryData = mysqli_query($this-&gt;_dbConn, $_sql)
+                or die(TXT_ERR_DB.' '.mysqli_errno($this-&gt;_dbConn));
+
+    //儲存資料後回傳
+    $this-&gt;_qryRes = $qryData;
+    return $qryData;
+  }
+
+  //複數SQL查詢
+  public function queryMulti($sql)
+  {
+    //逃逸字元
+    //$_sql = mysqli_real_escape_string($this-&gt;_dbConn, $sql);
+    $_sql=$sql;
+
+    //撈資料
+    if(mysqli_multi_query($this-&gt;_dbConn, $_sql)){
+      do {
+        if($_result = mysqli_store_result($this-&gt;_dbConn)){
+          while ($_row = mysqli_fetch_all($_result, MYSQLI_ASSOC)) {
+            $this-&gt;_qryRes[] = $_row;
+          }
+          mysqli_free_result($_result);
+        }
+      } while (mysqli_next_result($this-&gt;_dbConn));
+    }
+
+    return $this-&gt;_qryRes;
+  }
+
+  //回傳查詢值（全部）
+  public function getAllData($type=null)
+  {
+    $_term  = $type;
+
+    switch ($_term) {
+      case 'MYSQLI_NUM':
+        return mysqli_fetch_all($this-&gt;_qryRes, MYSQLI_NUM);
+        break;
+
+      case 'MYSQLI_ASSOC':
+        return mysqli_fetch_all($this-&gt;_qryRes, MYSQLI_ASSOC);
+        break;
+
+      case 'MYSQLI_BOTH':
+        return mysqli_fetch_all($this-&gt;_qryRes, MYSQLI_BOTH);
+        break;
+
+      default:
+        return mysqli_fetch_all($this-&gt;_qryRes, MYSQLI_ASSOC);
+        break;
+    }
+  }
+
+  //回傳查詢值（逐筆）
+  public function getData($type=null)
+  {
+    $_term  = $type;
+
+    switch ($_term) {
+      case 'MYSQLI_NUM':
+        return mysqli_fetch_array($this-&gt;_qryRes, MYSQLI_NUM);
+        break;
+
+      case 'MYSQLI_ASSOC':
+        return mysqli_fetch_array($this-&gt;_qryRes, MYSQLI_ASSOC);
+        break;
+
+      case 'MYSQLI_BOTH':
+        return mysqli_fetch_array($this-&gt;_qryRes, MYSQLI_BOTH);
+        break;
+
+      default:
+        return mysqli_fetch_array($this-&gt;_qryRes, MYSQLI_NUM);
+        break;
+    }
+  }
+
+  //回傳查詢值總數
+  public function getRowsNum()
+  {
+    return mysqli_num_rows($this-&gt;_qryRes);
+  }
+}
+?&gt;
+</code></pre>
+</article>
+
+      
+
+<hr />
+<div id="commento"></div>
+
+
+<footer>
+  <span class="copyright">
+    © 2019-2019 Su Jing Jhong 版權所有
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
+  </span>
+</footer>
+
+    </div>
+  </main>
+
+  <script async src="https://cdn.commento.io/js/commento.js"></script>
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-139857297-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

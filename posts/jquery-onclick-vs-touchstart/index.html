@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+
+
+
+<html lang="zh-tw">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  
+    
+    Jquery Onclick vs Touchstart
+  
+ | sujj blog</title>
+
+
+<link href="https://fonts.googleapis.com/css?family=Oxygen|Oxygen+Mono:300,400,700" rel="stylesheet">
+
+
+
+<link rel="stylesheet" href="/book.min.cda7c4469e7c019bab3e22a4a84db0dbe60252a459be38206d51f10046db0973.css">
+
+
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+<link rel="canonical" href="https://sujingjhong.com/posts/jquery-onclick-vs-touchstart/"/>
+<link rel="index" href="https://sujingjhong.composts"/>
+<link rel="home" href="https://sujingjhong.com" />
+<link rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+    <aside class="book-menu fixed">
+      <nav role="navigation">
+<h2 class="book-brand">
+  <a href="https://sujingjhong.com">sujj blog</a>
+</h2>
+
+
+
+    
+  <style>
+  nav ul a[href] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/about/">關於我</a></li>
+<li><a href="/posts/">文章清單</a></li>
+</ul>
+
+
+
+
+
+</nav>
+
+
+
+    </aside>
+
+    <div class="book-posts">
+      <header class="align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>
+  
+    
+    Jquery Onclick vs Touchstart
+  
+</strong>
+</header>
+
+      
+
+<header class="markdown">
+  <h1>Jquery Onclick vs Touchstart</h1>
+  <h5>
+    <strong>September 4, 2016</strong>
+  </h5>
+</header>
+<article class="markdown"><p>目前有朋友反應網站有無反應問題，查了一下，看來是傳統滑鼠的click，和現代觸碰螢幕的touch的頂尖對決⋯⋯</p>
+
+<p>目前查到幾個解決方案：</p>
+
+<ul>
+<li>在觸發元素中加入 <code>onclick=&quot;void(0)&quot;</code> ，去模擬點擊</li>
+<li>改成 <code>$(/*DOM*/).on('touchstart', function(){/*something else to do*/});</code></li>
+</ul>
+
+<p>不過似乎二者間可能會有相衝突問題，還有改起來其實是大工程啊！</p>
+
+<p>幸好目前網站規模小，有發現這問題⋯⋯</p>
+</article>
+
+      
+
+
+<footer>
+  <span class="copyright">
+    © 2019-2019 Su Jing Jhong 版權所有
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
+  </span>
+</footer>
+
+    </div>
+  </main>
+
+  <script async src="https://cdn.commento.io/js/commento.js"></script>
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-139857297-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

@@ -7,10 +7,118 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
     <copyright>© 2019-{year} Su Jing Jhong 版權所有</copyright>
-    <lastBuildDate>Tue, 03 Mar 2015 13:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 17 Sep 2017 00:11:00 +0800</lastBuildDate>
     
 	<atom:link href="https://sujingjhong.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Excel</title>
+      <link>https://sujingjhong.com/tags/excel/</link>
+      <pubDate>Sun, 17 Sep 2017 00:11:00 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/excel/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>JavaScript</title>
+      <link>https://sujingjhong.com/tags/javascript/</link>
+      <pubDate>Sun, 17 Sep 2017 00:11:00 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>tutorial</title>
+      <link>https://sujingjhong.com/tags/tutorial/</link>
+      <pubDate>Sun, 17 Sep 2017 00:11:00 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/tutorial/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Book Review</title>
+      <link>https://sujingjhong.com/tags/book-review/</link>
+      <pubDate>Sun, 18 Jun 2017 04:26:42 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/book-review/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Books</title>
+      <link>https://sujingjhong.com/tags/books/</link>
+      <pubDate>Sun, 18 Jun 2017 04:26:42 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/books/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Learning</title>
+      <link>https://sujingjhong.com/tags/learning/</link>
+      <pubDate>Sun, 18 Jun 2017 04:26:42 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Self Improvement</title>
+      <link>https://sujingjhong.com/tags/self-improvement/</link>
+      <pubDate>Sun, 18 Jun 2017 04:26:42 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/self-improvement/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jQuery</title>
+      <link>https://sujingjhong.com/tags/jquery/</link>
+      <pubDate>Sun, 04 Sep 2016 23:58:34 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/jquery/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>MySQL</title>
+      <link>https://sujingjhong.com/tags/mysql/</link>
+      <pubDate>Thu, 01 Sep 2016 01:00:00 +0000</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/mysql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>OOP</title>
+      <link>https://sujingjhong.com/tags/oop/</link>
+      <pubDate>Thu, 01 Sep 2016 01:00:00 +0000</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/oop/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>PHP</title>
+      <link>https://sujingjhong.com/tags/php/</link>
+      <pubDate>Thu, 01 Sep 2016 01:00:00 +0000</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/php/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CloudFlare</title>
+      <link>https://sujingjhong.com/tags/cloudflare/</link>
+      <pubDate>Sun, 17 Jul 2016 23:00:00 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/cloudflare/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>單字</title>
