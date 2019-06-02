@@ -3,6 +3,43 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://sujingjhong.com/tags/hugo/</loc>
+    <lastmod>2019-06-02T13:02:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/posts/how-to-add-prismjs-into-hugo/</loc>
+    <lastmod>2019-06-02T13:02:44+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/posts/</loc>
+    <lastmod>2019-06-02T13:02:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/</loc>
+    <lastmod>2019-06-02T13:02:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/%E7%A8%8B%E5%BC%8F%E7%A2%BC%E6%A8%99%E6%B3%A8/</loc>
+    <lastmod>2019-06-02T13:02:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/%E7%A8%8B%E5%BC%8F%E7%A2%BC%E9%AB%98%E4%BA%AE/</loc>
+    <lastmod>2019-06-02T13:02:44+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://sujingjhong.com/posts/thediplomat/</loc>
     <lastmod>2019-05-31T22:58:00+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -38,12 +75,6 @@
   </url>
   
   <url>
-    <loc>https://sujingjhong.com/posts/</loc>
-    <lastmod>2019-05-14T00:24:04+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://sujingjhong.com/about/</loc>
     <lastmod>2019-05-12T12:05:05+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -65,12 +96,6 @@
   
   <url>
     <loc>https://sujingjhong.com/tags/javascript/</loc>
-    <lastmod>2017-09-17T00:11:00+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://sujingjhong.com/tags/</loc>
     <lastmod>2017-09-17T00:11:00+08:00</lastmod>
     <priority>0</priority>
   </url>
