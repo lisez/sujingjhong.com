@@ -18,7 +18,7 @@
       <pubDate>Sun, 02 Jun 2019 13:02:44 +0800</pubDate>
       
       <guid>https://sujingjhong.com/posts/how-to-add-prismjs-into-hugo/</guid>
-      <description>為什麼不用 Hugo 內建的程式碼標註？ 理由一：不方便 Hugo 本身有提供語法標註功能沒錯，他是用 golang 的通用性程式碼標註套件 Chroma 產生，並且提供許多語法支援以及行標</description>
+      <description>如何在 Hugo 中用 Prism.js 提供程式碼色彩標註 為什麼不用 Hugo 內建的程式碼標註？ 理由一：不方便 Hugo 本身有提供語法標註功能沒錯，他是用 golang 的通用性程式碼標註套件 Chroma 產</description>
     </item>
     
     <item>
@@ -27,7 +27,25 @@
       <pubDate>Tue, 14 May 2019 00:24:04 +0800</pubDate>
       
       <guid>https://sujingjhong.com/posts/what-is-mall-and-how-to-distinguish-it-and-department-store/</guid>
-      <description>有鑒於自身英文能力的不足，開始想要找外師加強英文能力。在多方比較下，在AmazingTalker上找到一位英文老師，他是來自南非的Fleur</description>
+      <description>Mall 是什麼？和百貨公司(department store)怎麼區別？ 有鑒於自身英文能力的不足，開始想要找外師加強英文能力。在多方比較下，在Ama</description>
+    </item>
+    
+    <item>
+      <title>Golang / GVM for Go</title>
+      <link>https://sujingjhong.com/posts/golang-gvm-for-go/</link>
+      <pubDate>Thu, 23 Aug 2018 02:06:04 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/posts/golang-gvm-for-go/</guid>
+      <description>GVM for Go gvm 是 golang 語言的版本管理系統，類似 nodejs 的 nvm，以及 ruby 的 rvm等等。 對這軟體的功用就不再贅述了。 安裝 gvm gvm 是用 shell 語言寫成，基本上直接用 curl 就可以</description>
+    </item>
+    
+    <item>
+      <title>英文字中形容說話</title>
+      <link>https://sujingjhong.com/posts/word_power_ch1_speech/</link>
+      <pubDate>Sun, 05 Nov 2017 23:25:04 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/posts/word_power_ch1_speech/</guid>
+      <description>英文字中形容說話 體系圖 graph LR root{speech} root==quantity quantity--little--taciturn quantity--much--loquacious taciturn--meaningful--laconic taciturn--no words--inarticulate loquacious--quick--voluble loquacious--repeat--verbose loquacious--little meaning--garrulous root==quality quality--convince--cogent quality--unoriginal--banal quality--sound and fury--vociferous 不說話 沈默 taciturn(adj.) 詞源為拉丁動詞 taceo，表示沈默的。 相較其他同義字，更意味著永久、</description>
     </item>
     
     <item>
@@ -37,6 +55,15 @@
       
       <guid>https://sujingjhong.com/posts/how-to-know-whether-an-element-in-an-array-by-excel/</guid>
       <description>今天在臉書上看到一位朋友提問，他的問題是這樣的： 如果我要在B欄呈現「該列的A欄的值如果等於C欄任意一列的值的話，就在該列的B欄打V（例如A1</description>
+    </item>
+    
+    <item>
+      <title>[node.js] #1 node-gyp: xcode-select error</title>
+      <link>https://sujingjhong.com/posts/node-js-1-node-gyp-xcode-select-error/</link>
+      <pubDate>Sat, 29 Apr 2017 18:12:00 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/posts/node-js-1-node-gyp-xcode-select-error/</guid>
+      <description>今天在練習編譯node-gyp，結果編譯時產生問題 xcode-select: error: tool &#39;xcodebuild&#39; requires Xcode, but active developer directory &#39;/Library/Developer/CommandLineTools&#39; is a command line tools instance 解決方法可以參考node-gyp #539。 基本解決方法就</description>
     </item>
     
     <item>

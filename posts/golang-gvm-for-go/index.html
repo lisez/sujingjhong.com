@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-tw">
+
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  
+    
+    Golang / GVM for Go
+  
+ | sujj blog</title>
+
+
+
+<link rel="stylesheet" href="/book.min.09e914154a1b0fcbea04ad9f05523e056762a0d49317049f0a7ff63dcdf9cffc.css">
+
+
+<link rel="icon" href="/favicon.png" type="image/x-icon">
+
+
+<!--
+Made with Book Theme
+https://github.com/alex-shpak/hugo-book
+-->
+
+  
+<link rel="canonical" href="https://sujingjhong.com/posts/golang-gvm-for-go/"/>
+<link rel="index" href="https://sujingjhong.composts"/>
+<link rel="home" href="https://sujingjhong.com" />
+<link rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
+<link rel="preload" href="https://cdn.commento.io/js/commento.js" as="script"/>
+<script defer src="https://cdn.commento.io/js/commento.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/plugins/line-numbers/prism-line-numbers.css" integrity="sha256-udLi8HM3vM4cuDDMGyRFzG8ek0UN0+uytPLWkbTpagg=" crossorigin="anonymous" onload="if(media!='all')media='all'">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.1.0/themes/prism-duotone-light.css" integrity="sha256-Lrmqc9uRan64PfLOXuC9bA3nPkD4/q5eK6P3XTJvLpg=" crossorigin="anonymous" media="none" onload="if(media!='all')media='all'">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.0.0/dist/mermaid.min.js" integrity="sha256-0w92bcB21IY5+rGI84MGj52jNfHNbXVeQLrZ0CGdjNY=" crossorigin="anonymous" onload="mermaid.initialize({startOnLoad:true});"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/prism-core.min.js" integrity="sha256-sSTatLHEEY8GQrdYAuhkqrYogKZ/jDlgfYaqK3ld/uQ=" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha256-9O/uwV3X6y7CHvgfS2Gdex8+wzQAZT2XG2U+nDkIpT8=" crossorigin="anonymous" onload="Prism.plugins.autoloader.languages_path='https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/';"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/plugins/line-numbers/prism-line-numbers.min.js" integrity="sha256-hep5s8952MqR7Y79JYfCXZD6vQjVHs7sOu/ZGrs1OEQ=" crossorigin="anonymous" onload="document.querySelectorAll('pre>code').forEach(function(e){e.classList.add('line-numbers')});"></script>
+</head>
+
+<body>
+  <input type="checkbox" style="display: none" id="menu-control" />
+  <main class="flex container">
+    <aside class="book-menu fixed">
+      <nav>
+<h2 class="book-brand">
+  <a href="https://sujingjhong.com">sujj blog</a>
+</h2>
+
+
+
+    
+  <style>
+  nav ul a[href] {
+      color: #004ed0;
+  }
+  </style>
+
+<ul>
+<li><a href="/about/">關於我</a></li>
+<li><a href="/search/">站內搜尋</a></li>
+<li><a href="/posts/">文章清單</a></li>
+<li><a href="/posts/eng-class/">英文筆記</a></li>
+<li><a href="/posts/foreignpolicy/">外交政策</a></li>
+</ul>
+
+
+
+
+
+</nav>
+
+
+
+    </aside>
+
+    <div class="book-posts">
+      <header class="align-center justify-between book-header">
+  <label for="menu-control">
+    <img src="/svg/menu.svg" alt="Menu" />
+  </label>
+  <strong>
+  
+    
+    Golang / GVM for Go
+  
+</strong>
+</header>
+
+      
+
+<header class="markdown">
+  <h1>Golang / GVM for Go</h1>
+  <h5>
+    <strong>August 23, 2018</strong>
+  </h5>
+</header>
+
+
+
+  <ul class="tags">
+    
+      <li class="mark-block tag-block">
+          <a href="https://sujingjhong.com/tags/golang/">golang</a>
+        </li>
+      <li class="mark-block tag-block">
+          <a href="https://sujingjhong.com/tags/software/">software</a>
+        </li>
+      
+      <li class="mark-block tag-block">
+          <a href="https://sujingjhong.com/tags/tutorial/">tutorial</a>
+        </li>
+      <li class="mark-block tag-block">
+          <a href="https://sujingjhong.com/tags/bugs/">bugs</a>
+        </li></ul>
+
+
+<article class="markdown">
+
+<h1 id="gvm-for-go">GVM for Go</h1>
+
+<p><code>gvm</code> 是 <code>golang</code> 語言的版本管理系統，類似 <code>nodejs</code> 的 <code>nvm</code>，以及 <code>ruby</code> 的 <code>rvm</code>等等。</p>
+
+<p>對這軟體的功用就不再贅述了。</p>
+
+<h2 id="安裝-gvm">安裝 gvm</h2>
+
+<p><code>gvm</code> 是用 <code>shell</code> 語言寫成，基本上直接用 <code>curl</code> 就可以安裝了</p>
+
+<pre><code class="language-bash">bash &lt; &lt;(curl -s -S -L https://raw.githubusercontent.com/moovweb/gvm/master/binscripts/gvm-installer)
+</code></pre>
+
+<p>如果是用 <code>zsh</code> 就將首字的 <code>bash</code> 改成 <code>zsh</code> 即可</p>
+
+<p>安裝完成後在終端機輸入 <code>gvm</code> 就可以看到如下畫面</p>
+
+<pre><code class="language-shell">$ gvm
+Usage: gvm [command]
+
+Description:
+  GVM is the Go Version Manager
+
+Commands:
+  version    - print the gvm version number
+  get        - gets the latest code (for debugging)
+  use        - select a go version to use (--default to set permanently)
+  diff       - view changes to Go root
+  help       - display this usage text
+  implode    - completely remove gvm
+  install    - install go versions
+  uninstall  - uninstall go versions
+  cross      - install go cross compilers
+  linkthis   - link this directory into GOPATH
+  list       - list installed go versions
+  listall    - list available versions
+  alias      - manage go version aliases
+  pkgset     - manage go packages sets
+  pkgenv     - edit the environment for a package set
+</code></pre>
+
+<h2 id="安裝-go">安裝 go</h2>
+
+<p>如果要安裝 <code>&lt;1.5</code> 以降版本，例如 <code>1.4</code> 就直接安裝即可：</p>
+
+<pre><code class="language-shell">gvm install go1.4
+gvm use go1.4 [--default]
+</code></pre>
+
+<p>但如果要安裝 <code>&gt;=1.5</code> 以上版本，因為 <code>1.5</code>以上版本的 <code>Golang</code> 已經完成自舉，需要 <code>go 1.4</code> 進行編譯。</p>
+
+<p>所以需要先安裝 <code>1.4</code> 版本後再行編譯。參照官方文件就是：</p>
+
+<pre><code class="language-shell">gvm install go1.4 -B
+gvm use go1.4
+export GOROOT_BOOTSTRAP=$GOROOT
+gvm install go1.5
+</code></pre>
+
+<h2 id="fatal-error-mspanlist-insert">fatal error: MSpanList_Insert</h2>
+
+<p>不過雖然官方說直接安裝 <code>go1.4</code> 即可，個人作業系統為 <code>MacOS 10.13.6</code>，在啟用 <code>go</code> 語言時，一直發生錯誤。</p>
+
+<p>詳細錯誤內容我就不附錄了，網路上找了一堆方法都不行。一度想要直接用 <code>brew</code> 或者官方編譯好的 pkg 檔案安裝，放棄 <code>gvm</code> 管理 <code>golang</code></p>
+
+<p>後來個人是直接用 <code>go1.10.3</code> 進行 <code>binary</code> 安裝，就解決這問題了：</p>
+
+<pre><code>gvm install go1.10.3 -B
+</code></pre>
+
+<h2 id="defalut">&ndash;defalut</h2>
+
+<p>在這裡建議將某個 <code>golang</code> 版本設定為預設版本。</p>
+
+<p>因為 gvm 會自動調整 GOPATH 以及 GOROOT 還有 PATH 位置，很方便。但如果沒有將某個版本設定為 default，在未經修改的設定上，GOPATH 還有 GOROOT可能會是空的，這時候就會採很多坑。</p>
+
+<p>設定方法，就是在 use 指令的最後面加上 <code>--default</code>：</p>
+
+<pre><code class="language-shell">gvm use go1.10.3 --default
+</code></pre>
+
+<p>例如設定為 <code>go1.9.7</code> 為預設版本：</p>
+
+<pre><code class="language-shell">gmv use go1.9.7 --default
+</code></pre>
+</article>
+
+
+
+
+  <h2 id="相關文章">相關文章</h2>
+  <ul class="related">
+    
+    <li><a href="/posts/how-to-know-whether-an-element-in-an-array-by-excel/">在Excel判斷欄位值是否在陣列裡</a></li>
+    
+    <li><a href="/posts/how-to-add-prismjs-into-hugo/">Hugo / 如何在 Hugo 中用 Prism.js 提供程式碼色彩標註</a></li>
+    
+    <li><a href="/posts/node-js-1-node-gyp-xcode-select-error/">[node.js] #1 node-gyp: xcode-select error</a></li>
+    
+    <li><a href="/posts/jquery-onclick-vs-touchstart/">Jquery Onclick vs Touchstart</a></li>
+    
+    <li><a href="/posts/php_with_mysqli_oop/">PHP&#43;MySQL OOP 筆記</a></li>
+    
+  </ul>
+
+
+
+      
+
+<hr />
+<div id="commento"></div>
+
+
+<footer>
+  <span class="copyright">
+    © 2019-2019 Su Jing Jhong 版權所有
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
+  </span>
+</footer>
+
+    </div>
+
+    
+  
+
+  <aside class="book-toc level-6 fixed">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#gvm-for-go">GVM for Go</a>
+<ul>
+<li><a href="#安裝-gvm">安裝 gvm</a></li>
+<li><a href="#安裝-go">安裝 go</a></li>
+<li><a href="#fatal-error-mspanlist-insert">fatal error: MSpanList_Insert</a></li>
+<li><a href="#defalut">&ndash;defalut</a></li>
+</ul></li>
+</ul>
+</nav>
+  </aside>
+
+
+
+  </main>
+
+  
+  
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-139857297-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+</body>
+
+</html>

@@ -3,6 +3,7 @@
 
 
 
+
 <html lang="zh-tw">
 
 <head>
@@ -16,11 +17,8 @@
  | sujj blog</title>
 
 
-<link href="https://fonts.googleapis.com/css?family=Oxygen|Oxygen+Mono:300,400,700" rel="stylesheet">
 
-
-
-<link rel="stylesheet" href="/book.min.cda7c4469e7c019bab3e22a4a84db0dbe60252a459be38206d51f10046db0973.css">
+<link rel="stylesheet" href="/book.min.09e914154a1b0fcbea04ad9f05523e056762a0d49317049f0a7ff63dcdf9cffc.css">
 
 
 <link rel="icon" href="/favicon.png" type="image/x-icon">
@@ -40,6 +38,7 @@ https://github.com/alex-shpak/hugo-book
 <script defer src="https://cdn.commento.io/js/commento.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/plugins/line-numbers/prism-line-numbers.css" integrity="sha256-udLi8HM3vM4cuDDMGyRFzG8ek0UN0+uytPLWkbTpagg=" crossorigin="anonymous" onload="if(media!='all')media='all'">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.1.0/themes/prism-duotone-light.css" integrity="sha256-Lrmqc9uRan64PfLOXuC9bA3nPkD4/q5eK6P3XTJvLpg=" crossorigin="anonymous" media="none" onload="if(media!='all')media='all'">
+<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.0.0/dist/mermaid.min.js" integrity="sha256-0w92bcB21IY5+rGI84MGj52jNfHNbXVeQLrZ0CGdjNY=" crossorigin="anonymous" onload="mermaid.initialize({startOnLoad:true});"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/prism-core.min.js" integrity="sha256-sSTatLHEEY8GQrdYAuhkqrYogKZ/jDlgfYaqK3ld/uQ=" crossorigin="anonymous"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha256-9O/uwV3X6y7CHvgfS2Gdex8+wzQAZT2XG2U+nDkIpT8=" crossorigin="anonymous" onload="Prism.plugins.autoloader.languages_path='https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/';"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/plugins/line-numbers/prism-line-numbers.min.js" integrity="sha256-hep5s8952MqR7Y79JYfCXZD6vQjVHs7sOu/ZGrs1OEQ=" crossorigin="anonymous" onload="document.querySelectorAll('pre>code').forEach(function(e){e.classList.add('line-numbers')});"></script>
@@ -49,7 +48,7 @@ https://github.com/alex-shpak/hugo-book
   <input type="checkbox" style="display: none" id="menu-control" />
   <main class="flex container">
     <aside class="book-menu fixed">
-      <nav role="navigation">
+      <nav>
 <h2 class="book-brand">
   <a href="https://sujingjhong.com">sujj blog</a>
 </h2>
@@ -65,7 +64,10 @@ https://github.com/alex-shpak/hugo-book
 
 <ul>
 <li><a href="/about/">關於我</a></li>
+<li><a href="/search/">站內搜尋</a></li>
 <li><a href="/posts/">文章清單</a></li>
+<li><a href="/posts/eng-class/">英文筆記</a></li>
+<li><a href="/posts/foreignpolicy/">外交政策</a></li>
 </ul>
 
 
@@ -99,6 +101,22 @@ https://github.com/alex-shpak/hugo-book
     <strong>September 17, 2017</strong>
   </h5>
 </header>
+
+
+
+  <ul class="tags">
+    
+      <li class="mark-block tag-block">
+          <a href="https://sujingjhong.com/tags/javascript/">javascript</a>
+        </li>
+      <li class="mark-block tag-block">
+          <a href="https://sujingjhong.com/tags/excel/">excel</a>
+        </li>
+      <li class="mark-block tag-block">
+          <a href="https://sujingjhong.com/tags/tutorial/">tutorial</a>
+        </li></ul>
+
+
 <article class="markdown"><p>今天在臉書上看到一位朋友提問，他的問題是這樣的：</p>
 
 <blockquote>
@@ -324,6 +342,26 @@ nums.forEach(num=&gt;{
 <p>成功！</p>
 </article>
 
+
+
+
+  <h2 id="相關文章">相關文章</h2>
+  <ul class="related">
+    
+    <li><a href="/posts/golang-gvm-for-go/">Golang / GVM for Go</a></li>
+    
+    <li><a href="/posts/jquery-onclick-vs-touchstart/">Jquery Onclick vs Touchstart</a></li>
+    
+    <li><a href="/posts/get-url-arguments-and-upload-to-server-but-not-working/">取得URL參數值、上傳伺服器沒有反應問題</a></li>
+    
+    <li><a href="/posts/node-js-1-node-gyp-xcode-select-error/">[node.js] #1 node-gyp: xcode-select error</a></li>
+    
+    <li><a href="/posts/how-to-add-prismjs-into-hugo/">Hugo / 如何在 Hugo 中用 Prism.js 提供程式碼色彩標註</a></li>
+    
+  </ul>
+
+
+
       
 
 <hr />
@@ -338,6 +376,12 @@ nums.forEach(num=&gt;{
 </footer>
 
     </div>
+
+    
+  
+
+
+
   </main>
 
   

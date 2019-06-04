@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>php on sujj blog</title>
+    <link>https://sujingjhong.com/categories/php/</link>
+    <description>Recent content in php on sujj blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <copyright>© 2019-{year} Su Jing Jhong 版權所有</copyright>
+    <lastBuildDate>Thu, 01 Sep 2016 01:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://sujingjhong.com/categories/php/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>PHP&#43;MySQL OOP 筆記</title>
+      <link>https://sujingjhong.com/posts/php_with_mysqli_oop/</link>
+      <pubDate>Thu, 01 Sep 2016 01:00:00 +0000</pubDate>
+      
+      <guid>https://sujingjhong.com/posts/php_with_mysqli_oop/</guid>
+      <description>爬一下PHP+MySQL OOP雖然有人寫教學文，但似乎沒有 mysqli 函數的寫法，所以就手動寫了個。 &amp;lt;?php define(&#39;DB_MYSQL_HOST&#39;, &#39;YOUR_DB_HOST_HERE&#39;); define(&#39;DB_MYSQL_USER&#39;, &#39;YOUR_USERNAME&#39;); define(&#39;DB_MYSQL_PW&#39;, &#39;YOUR_PASSWORD&#39;); define(&#39;DB_MYSQL_DB&#39;, &#39;YOUR_DB_TABLE&#39;); ?&amp;gt; &amp;lt;?php require_once(&#39;defines.php&#39;); /************************** * 資料庫登入格式化 **************************/ class DBLogin{</description>
+    </item>
+    
+  </channel>
+</rss>
