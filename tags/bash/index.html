@@ -11,8 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>
   
-    
-    [node.js] #1 node-gyp: xcode-select error
+    bash
   
  | sujj blog</title>
 
@@ -24,14 +23,15 @@
 <link rel="icon" href="/favicon.png" type="image/x-icon">
 
 
+<link rel="alternate" type="application/rss+xml" href="https://sujingjhong.com/tags/bash/index.xml" title="sujj blog" />
 <!--
 Made with Book Theme
 https://github.com/alex-shpak/hugo-book
 -->
 
   
-<link rel="canonical" href="https://sujingjhong.com/posts/node-js-1-node-gyp-xcode-select-error/"/>
-<link rel="index" href="https://sujingjhong.composts"/>
+
+
 <link rel="home" href="https://sujingjhong.com" />
 <link rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
 <link rel="preload" href="https://cdn.commento.io/js/commento.js" as="script"/>
@@ -87,76 +87,37 @@ https://github.com/alex-shpak/hugo-book
   </label>
   <strong>
   
-    
-    [node.js] #1 node-gyp: xcode-select error
+    bash
   
 </strong>
 </header>
 
       
+  
+  
 
-<header class="markdown">
-  <h1>[node.js] #1 node-gyp: xcode-select error</h1>
-  <h5>
-    <strong>April 29, 2017</strong>
-  </h5>
-</header>
+  <section class="title">
+    <h1>bash</h1>
+  </section>
 
-
-
-  <ul class="tags">
-    
-      <li class="mark-block tag-block">
-          <a href="https://sujingjhong.com/tags/nodejs/">nodejs</a>
-        </li>
+  
+  <article class="markdown">
+    <h2>
+      <a href="/posts/how-to-replace-spaces-in-file-name/">Shell / 如何將檔名中的空白替換掉</a>
+    </h2>
+    <h5>
+      <strong>June 4, 2019</strong>
+    </h5>
+    <p>最近開始在整理先前的文章，發現有些文章檔名那時有用空格，但老實說這在以檔名作為網址的情況下，非常不適合。 所以開始在網路上找沒有類似的問題，整
+        <a href="/posts/how-to-replace-spaces-in-file-name/">...</a>
       
-      <li class="mark-block tag-block">
-          <a href="https://sujingjhong.com/tags/xcode/">xcode</a>
-        </li></ul>
-
-
-<article class="markdown"><p>今天在練習編譯<code>node-gyp</code>，結果編譯時產生問題</p>
-
-<pre><code class="language-bash">xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance
-</code></pre>
-
-<p>解決方法可以參考<a href="https://github.com/nodejs/node-gyp/issues/569#issuecomment-255589932">node-gyp #539</a>。</p>
-
-<p>基本解決方法就是：</p>
-
-<ol>
-<li>安裝xcode/xcode-beta</li>
-<li>在終端機輸入以下指令：</li>
-</ol>
-
-<pre><code class="language-bash">sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
-</code></pre>
-</article>
-
-
-
-
-  <h2 id="相關文章">相關文章</h2>
-  <ul class="related">
-    
-    <li><a href="/posts/jquery-onclick-vs-touchstart/">Jquery Onclick vs Touchstart</a></li>
-    
-    <li><a href="/posts/get-url-arguments-and-upload-to-server-but-not-working/">取得URL參數值、上傳伺服器沒有反應問題</a></li>
-    
-    <li><a href="/posts/how-to-know-whether-an-element-in-an-array-by-excel/">在Excel判斷欄位值是否在陣列裡</a></li>
-    
-    <li><a href="/posts/how-to-replace-spaces-in-file-name/">Shell / 如何將檔名中的空白替換掉</a></li>
-    
-    <li><a href="/posts/how-to-add-prismjs-into-hugo/">Hugo / 如何在 Hugo 中用 Prism.js 提供程式碼色彩標註</a></li>
-    
-  </ul>
-
+    </p>
+  </article>
+  
+  
 
 
       
-
-<hr />
-<div id="commento"></div>
 
 
 <footer>
@@ -169,9 +130,6 @@ https://github.com/alex-shpak/hugo-book
     </div>
 
     
-  
-
-
 
   </main>
 

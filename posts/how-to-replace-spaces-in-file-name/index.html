@@ -12,7 +12,7 @@
 <title>
   
     
-    [node.js] #1 node-gyp: xcode-select error
+    Shell / 如何將檔名中的空白替換掉
   
  | sujj blog</title>
 
@@ -30,7 +30,7 @@ https://github.com/alex-shpak/hugo-book
 -->
 
   
-<link rel="canonical" href="https://sujingjhong.com/posts/node-js-1-node-gyp-xcode-select-error/"/>
+<link rel="canonical" href="https://sujingjhong.com/posts/how-to-replace-spaces-in-file-name/"/>
 <link rel="index" href="https://sujingjhong.composts"/>
 <link rel="home" href="https://sujingjhong.com" />
 <link rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
@@ -88,7 +88,7 @@ https://github.com/alex-shpak/hugo-book
   <strong>
   
     
-    [node.js] #1 node-gyp: xcode-select error
+    Shell / 如何將檔名中的空白替換掉
   
 </strong>
 </header>
@@ -96,9 +96,9 @@ https://github.com/alex-shpak/hugo-book
       
 
 <header class="markdown">
-  <h1>[node.js] #1 node-gyp: xcode-select error</h1>
+  <h1>Shell / 如何將檔名中的空白替換掉</h1>
   <h5>
-    <strong>April 29, 2017</strong>
+    <strong>June 4, 2019</strong>
   </h5>
 </header>
 
@@ -107,30 +107,48 @@ https://github.com/alex-shpak/hugo-book
   <ul class="tags">
     
       <li class="mark-block tag-block">
-          <a href="https://sujingjhong.com/tags/nodejs/">nodejs</a>
+          <a href="https://sujingjhong.com/tags/bash/">bash</a>
         </li>
-      
       <li class="mark-block tag-block">
-          <a href="https://sujingjhong.com/tags/xcode/">xcode</a>
+          <a href="https://sujingjhong.com/tags/%E5%BF%83%E5%BE%97/">心得</a>
         </li></ul>
 
 
-<article class="markdown"><p>今天在練習編譯<code>node-gyp</code>，結果編譯時產生問題</p>
+<article class="markdown"><p>最近開始在整理先前的文章，發現有些文章檔名那時有用空格，但老實說這在以檔名作為網址的情況下，非常不適合。</p>
 
-<pre><code class="language-bash">xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance
-</code></pre>
-
-<p>解決方法可以參考<a href="https://github.com/nodejs/node-gyp/issues/569#issuecomment-255589932">node-gyp #539</a>。</p>
-
-<p>基本解決方法就是：</p>
+<p>所以開始在網路上找沒有類似的問題，整理一下我的需求是：</p>
 
 <ol>
-<li>安裝xcode/xcode-beta</li>
-<li>在終端機輸入以下指令：</li>
+<li>將檔名文字替換</li>
+<li>可以批次化處理 1 問題</li>
+<li>可以用 <code>shell</code> 來處理就好</li>
 </ol>
 
-<pre><code class="language-bash">sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+<p>實際步驟應該會是：</p>
+
+<ol>
+<li>取得檔名</li>
+<li>將檔名中的空白置換</li>
+<li>將舊檔名取代成新檔名</li>
+<li>重複以上步驟直到所有檔案處理完畢</li>
+</ol>
+
+<p>所以一開始先下一組關鍵字 <code>mac terminal filename space replace</code>，就找到這篇：</p>
+
+<ul>
+<li><a href="https://stackoverflow.com/questions/16445082/remove-spaces-from-filenames-in-folder">Remove spaces from filenames in folder</a></li>
+</ul>
+
+<p>很好，問題解決了，然後我是要將空白置換成連字號(-)，所以就將解答更改一個字元變成：</p>
+
+<pre><code class="language-shell">for oldname in *
+do
+  newname=`echo $oldname | sed -e 's/ /-/g'`
+  mv &quot;$oldname&quot; &quot;$newname&quot;
+done
 </code></pre>
+
+<p>接著就切換到目標資料夾，直接把這串指令丟下去跑。結案！</p>
 </article>
 
 
@@ -139,15 +157,15 @@ https://github.com/alex-shpak/hugo-book
   <h2 id="相關文章">相關文章</h2>
   <ul class="related">
     
-    <li><a href="/posts/jquery-onclick-vs-touchstart/">Jquery Onclick vs Touchstart</a></li>
+    <li><a href="/posts/how-to-add-prismjs-into-hugo/">Hugo / 如何在 Hugo 中用 Prism.js 提供程式碼色彩標註</a></li>
     
-    <li><a href="/posts/get-url-arguments-and-upload-to-server-but-not-working/">取得URL參數值、上傳伺服器沒有反應問題</a></li>
+    <li><a href="/posts/golang-gvm-for-go/">Golang / GVM for Go</a></li>
     
     <li><a href="/posts/how-to-know-whether-an-element-in-an-array-by-excel/">在Excel判斷欄位值是否在陣列裡</a></li>
     
-    <li><a href="/posts/how-to-replace-spaces-in-file-name/">Shell / 如何將檔名中的空白替換掉</a></li>
+    <li><a href="/posts/node-js-1-node-gyp-xcode-select-error/">[node.js] #1 node-gyp: xcode-select error</a></li>
     
-    <li><a href="/posts/how-to-add-prismjs-into-hugo/">Hugo / 如何在 Hugo 中用 Prism.js 提供程式碼色彩標註</a></li>
+    <li><a href="/posts/jquery-onclick-vs-touchstart/">Jquery Onclick vs Touchstart</a></li>
     
   </ul>
 

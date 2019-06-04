@@ -12,7 +12,7 @@
 <title>
   
     
-    [node.js] #1 node-gyp: xcode-select error
+    假冒來自 LinkedIn 的詐騙信
   
  | sujj blog</title>
 
@@ -30,7 +30,7 @@ https://github.com/alex-shpak/hugo-book
 -->
 
   
-<link rel="canonical" href="https://sujingjhong.com/posts/node-js-1-node-gyp-xcode-select-error/"/>
+<link rel="canonical" href="https://sujingjhong.com/posts/ms-yee-mann-from-linkedin/"/>
 <link rel="index" href="https://sujingjhong.composts"/>
 <link rel="home" href="https://sujingjhong.com" />
 <link rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
@@ -88,7 +88,7 @@ https://github.com/alex-shpak/hugo-book
   <strong>
   
     
-    [node.js] #1 node-gyp: xcode-select error
+    假冒來自 LinkedIn 的詐騙信
   
 </strong>
 </header>
@@ -96,9 +96,9 @@ https://github.com/alex-shpak/hugo-book
       
 
 <header class="markdown">
-  <h1>[node.js] #1 node-gyp: xcode-select error</h1>
+  <h1>假冒來自 LinkedIn 的詐騙信</h1>
   <h5>
-    <strong>April 29, 2017</strong>
+    <strong>June 4, 2019</strong>
   </h5>
 </header>
 
@@ -107,30 +107,71 @@ https://github.com/alex-shpak/hugo-book
   <ul class="tags">
     
       <li class="mark-block tag-block">
-          <a href="https://sujingjhong.com/tags/nodejs/">nodejs</a>
+          <a href="https://sujingjhong.com/tags/spam/">spam</a>
         </li>
-      
       <li class="mark-block tag-block">
-          <a href="https://sujingjhong.com/tags/xcode/">xcode</a>
+          <a href="https://sujingjhong.com/tags/%E8%A9%90%E9%A8%99/">詐騙</a>
         </li></ul>
 
 
-<article class="markdown"><p>今天在練習編譯<code>node-gyp</code>，結果編譯時產生問題</p>
+<article class="markdown"><p>在現代無時無刻都會收到一堆奇怪的信。在實體信箱收到最多的不是信，而是廣告傳單。在電子郵件則是有無數種垃圾信件。不管是什麼信，他們都把你信箱塞爆，然後都試圖在取得你的注意力。</p>
 
-<pre><code class="language-bash">xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance
-</code></pre>
+<p>這時候不得不說 <code>Gmail</code> 真的很強大。他的演算法和學習機制，都能大致上將真的垃圾信分到垃圾信夾裡去。不過總是有些漏網之魚。</p>
 
-<p>解決方法可以參考<a href="https://github.com/nodejs/node-gyp/issues/569#issuecomment-255589932">node-gyp #539</a>。</p>
+<p>比方說，我昨天收到一封來自 <code>Yee M Hau</code> 的信件，他的非常簡陋：</p>
 
-<p>基本解決方法就是：</p>
+<blockquote>
+<p>Hello, how are you doing today? I hope i can have your attention.</p>
 
-<ol>
-<li>安裝xcode/xcode-beta</li>
-<li>在終端機輸入以下指令：</li>
-</ol>
+<p>Ms Yee</p>
+</blockquote>
 
-<pre><code class="language-bash">sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
-</code></pre>
+<p>這種信非常的自然，所以他被 Gmail 當成正常信件，出現在我的收信夾裡，不過我沒當一回事，就把它丟到垃圾桶裡。</p>
+
+<p>接著今天，來了一封來自 <code>Yee Hau</code> 的信：</p>
+
+<blockquote>
+<p>Hello;</p>
+
+<p>Good Day am Ms Yee From linkedin,did you get my email about the OFFER ?</p>
+
+<p>Regards</p>
+
+<p>Ms Yee Mann</p>
+</blockquote>
+
+<p>OK，這下厲害了。連續兩天有很像的人寄信給我，這下讓我有點懷疑了。</p>
+
+<p>既然是從 <code>LinkedIn</code> 上看到我，那代表這個人可能存在在 <code>LinkedIn</code> 上，我就開始找到底是何方神聖，很不巧的找到蠻多人的，看起來真的是煞有其事：<a href="https://www.linkedin.com/search/results/people/?firstName=Yee&amp;lastName=Hau">https://www.linkedin.com/search/results/people/?firstName=Yee&amp;lastName=Hau</a></p>
+
+<p>不過接著找到致命性的一篇文章：<a href="http://www.twipu.com/jackocrain/tweet/1082999122989379584">http://www.twipu.com/jackocrain/tweet/1082999122989379584</a></p>
+
+<p>看起來就是 100% 詐騙無誤啦！</p>
+
+<p>所以我嘗試寫了一封文情並茂的回信給他，過一下就收到回信啦：</p>
+
+<blockquote>
+<p>This is the mail system at host ******.</p>
+
+<p>I&rsquo;m sorry to have to inform you that your message could not
+be delivered to one or more recipients. It&rsquo;s attached below.</p>
+
+<p>For further assistance, please send mail to postmaster.</p>
+
+<p>If you do so, please include this problem report. You can
+delete your own text from the attached returned message.</p>
+
+<p>The mail system</p>
+</blockquote>
+
+<p>看一下被 google 退信的理由：</p>
+
+<blockquote>
+<p>The email account that you tried to reach is disabled.
+    Learn more at 550 5.2.1  <a href="https://support.google.com/mail/?p=DisabledUser">https://support.google.com/mail/?p=DisabledUser</a></p>
+</blockquote>
+
+<p>看來他是很快就被封鎖了呢。</p>
 </article>
 
 
@@ -139,15 +180,15 @@ https://github.com/alex-shpak/hugo-book
   <h2 id="相關文章">相關文章</h2>
   <ul class="related">
     
-    <li><a href="/posts/jquery-onclick-vs-touchstart/">Jquery Onclick vs Touchstart</a></li>
+    <li><a href="/posts/what-is-mall-and-how-to-distinguish-it-and-department-store/">Mall 是什麼？和百貨公司(department store)怎麼區別？</a></li>
     
-    <li><a href="/posts/get-url-arguments-and-upload-to-server-but-not-working/">取得URL參數值、上傳伺服器沒有反應問題</a></li>
+    <li><a href="/posts/word_power_ch1_speech/">英文字中形容說話</a></li>
     
-    <li><a href="/posts/how-to-know-whether-an-element-in-an-array-by-excel/">在Excel判斷欄位值是否在陣列裡</a></li>
+    <li><a href="/posts/word-cards/">單字卡</a></li>
     
-    <li><a href="/posts/how-to-replace-spaces-in-file-name/">Shell / 如何將檔名中的空白替換掉</a></li>
+    <li><a href="/posts/read-method-would/">讀書心法發想</a></li>
     
-    <li><a href="/posts/how-to-add-prismjs-into-hugo/">Hugo / 如何在 Hugo 中用 Prism.js 提供程式碼色彩標註</a></li>
+    <li><a href="/posts/reading-without-back-technology/">讀書不用背的技術</a></li>
     
   </ul>
 
