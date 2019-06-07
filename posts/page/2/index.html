@@ -17,7 +17,7 @@
 
 
 
-<link rel="stylesheet" href="/book.min.09e914154a1b0fcbea04ad9f05523e056762a0d49317049f0a7ff63dcdf9cffc.css">
+<link rel="stylesheet" href="/book.min.5354aae977071c14a12b5087b0995e9c79ed6b472f3474d2246b38baded4c6ee.css">
 
 
 <link rel="icon" href="/favicon.png" type="image/x-icon">
@@ -95,6 +95,32 @@ https://github.com/alex-shpak/hugo-book
       
   
   
+  
+  <article class="markdown">
+    <h2>
+      <a href="/posts/jquery-onclick-vs-touchstart/">Jquery Onclick vs Touchstart</a>
+    </h2>
+    <h5>
+      <strong>September 4, 2016</strong>
+    </h5>
+    <p>目前有朋友反應網站有無反應問題，查了一下，看來是傳統滑鼠的click，和現代觸碰螢幕的touch的頂尖對決⋯⋯ 目前查到幾個解決方案： 在觸發元
+        <a href="/posts/jquery-onclick-vs-touchstart/">...</a>
+      
+    </p>
+  </article>
+  
+  <article class="markdown">
+    <h2>
+      <a href="/posts/php_with_mysqli_oop/">PHP&#43;MySQL OOP 筆記</a>
+    </h2>
+    <h5>
+      <strong>September 1, 2016</strong>
+    </h5>
+    <p>爬一下PHP+MySQL OOP雖然有人寫教學文，但似乎沒有 mysqli 函數的寫法，所以就手動寫了個。 &lt;?php define('DB_MYSQL_HOST', 'YOUR_DB_HOST_HERE'); define('DB_MYSQL_USER', 'YOUR_USERNAME'); define('DB_MYSQL_PW', 'YOUR_PASSWORD'); define('DB_MYSQL_DB', 'YOUR_DB_TABLE'); ?&gt; &lt;?php require_once('defines.php'); /************************** * 資料庫登入格式化 **************************/ class DBLogin{
+        <a href="/posts/php_with_mysqli_oop/">...</a>
+      
+    </p>
+  </article>
   
   <article class="markdown">
     <h2>
@@ -200,32 +226,6 @@ https://github.com/alex-shpak/hugo-book
     </p>
   </article>
   
-  <article class="markdown">
-    <h2>
-      <a href="/posts/on-procedures-for-taking-notes-and-tips/">關於做筆記的程式和技巧</a>
-    </h2>
-    <h5>
-      <strong>February 24, 2015</strong>
-    </h5>
-    <p>不知道大家有沒有推薦的電腦軟體用來做筆記？ 例如x mind（沒有用過） 由於我要做的是心理學的筆記，內容繁雜，常常重寫筆記花太多時間，想試試看用
-        <a href="/posts/on-procedures-for-taking-notes-and-tips/">...</a>
-      
-    </p>
-  </article>
-  
-  <article class="markdown">
-    <h2>
-      <a href="/posts/learning-how-to-learn-summary-of-others-finishing/">學習如何學習（Learn How to Learn）他人摘要整理</a>
-    </h2>
-    <h5>
-      <strong>February 23, 2015</strong>
-    </h5>
-    <p>學習如何學習 編者：lisez I. 基本概念 二種思考模式：集中模式與發散模式 研究證明人類目前有兩種思考模式集中模式以及發散模式： 集中模式適合用在簡
-        <a href="/posts/learning-how-to-learn-summary-of-others-finishing/">...</a>
-      
-    </p>
-  </article>
-  
   
 
 <ul class="pagination">
@@ -262,12 +262,23 @@ https://github.com/alex-shpak/hugo-book
     <li class="page-item active"><a class="page-link" href="/posts/page/2/">2</a></li>
     
     
-    <li class="page-item disabled">
-    <a href="" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/posts/page/3/">3</a></li>
+    
+    
+    <li class="page-item">
+    <a href="/posts/page/3/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
     </li>
     
     <li class="page-item">
-        <a href="/posts/page/2/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/posts/page/3/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>
@@ -289,7 +300,14 @@ https://github.com/alex-shpak/hugo-book
 
   </main>
 
-  
+  <script defer>
+var links = document.getElementsByTagName("a");
+for (var i = 0; i < links.length; i++) {
+  if (links[i].hostname != window.location.hostname) {
+    links[i].target = '_blank';
+  }
+}
+</script>
   
 <script type="application/javascript">
 var doNotTrack = false;

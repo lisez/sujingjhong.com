@@ -7,15 +7,69 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
     <copyright>© 2019-{year} Su Jing Jhong 版權所有</copyright>
-    <lastBuildDate>Tue, 04 Jun 2019 23:48:05 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 06 Jun 2019 22:35:08 +0800</lastBuildDate>
     
 	<atom:link href="https://sujingjhong.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Tutorial</title>
+      <link>https://sujingjhong.com/tags/tutorial/</link>
+      <pubDate>Thu, 06 Jun 2019 22:35:08 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/tutorial/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>office</title>
+      <link>https://sujingjhong.com/tags/office/</link>
+      <pubDate>Thu, 06 Jun 2019 22:35:08 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/office/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>phonetic</title>
+      <link>https://sujingjhong.com/tags/phonetic/</link>
+      <pubDate>Thu, 06 Jun 2019 22:35:08 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/phonetic/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>word 2016</title>
+      <link>https://sujingjhong.com/tags/word-2016/</link>
+      <pubDate>Thu, 06 Jun 2019 22:35:08 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/word-2016/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>word 2019</title>
+      <link>https://sujingjhong.com/tags/word-2019/</link>
+      <pubDate>Thu, 06 Jun 2019 22:35:08 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/word-2019/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>word for mac</title>
+      <link>https://sujingjhong.com/tags/word-for-mac/</link>
+      <pubDate>Thu, 06 Jun 2019 22:35:08 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/word-for-mac/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>spam</title>
       <link>https://sujingjhong.com/tags/spam/</link>
-      <pubDate>Tue, 04 Jun 2019 23:48:05 +0800</pubDate>
+      <pubDate>Wed, 05 Jun 2019 16:43:34 +0800</pubDate>
       
       <guid>https://sujingjhong.com/tags/spam/</guid>
       <description></description>
@@ -24,7 +78,7 @@
     <item>
       <title>詐騙</title>
       <link>https://sujingjhong.com/tags/%E8%A9%90%E9%A8%99/</link>
-      <pubDate>Tue, 04 Jun 2019 23:48:05 +0800</pubDate>
+      <pubDate>Wed, 05 Jun 2019 16:43:34 +0800</pubDate>
       
       <guid>https://sujingjhong.com/tags/%E8%A9%90%E9%A8%99/</guid>
       <description></description>
@@ -126,15 +180,6 @@
       <pubDate>Thu, 23 Aug 2018 02:06:04 +0800</pubDate>
       
       <guid>https://sujingjhong.com/tags/software/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Tutorial</title>
-      <link>https://sujingjhong.com/tags/tutorial/</link>
-      <pubDate>Thu, 23 Aug 2018 02:06:04 +0800</pubDate>
-      
-      <guid>https://sujingjhong.com/tags/tutorial/</guid>
       <description></description>
     </item>
     
