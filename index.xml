@@ -13,6 +13,15 @@
     
     
     <item>
+      <title>JS / 為什麼不把 Redux type 設定成 Symbol 呢？</title>
+      <link>https://sujingjhong.com/posts/why-not-make-actiontypes-as-symbols/</link>
+      <pubDate>Tue, 06 Aug 2019 22:55:49 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/posts/why-not-make-actiontypes-as-symbols/</guid>
+      <description>為什麼不把 Redux Type 設定成 Symbol 呢？ 前端有用 Redux 的工程師都知道，用 Redux 如果需要改變狀態，需要發送行為到 store 裡去，我們常常會寫類似下面的工廠函數： function someAciton(todo){ return { type: &amp;quot;SOME_ACTION&amp;quot;,</description>
+    </item>
+    
+    <item>
       <title>Office / 如何在 MS Word 2016/2019 for Mac 中使用日文注音標示</title>
       <link>https://sujingjhong.com/posts/how-to-add-phoetic-guides-to-text-in-ms-word-for-mac/</link>
       <pubDate>Thu, 06 Jun 2019 22:35:08 +0800</pubDate>

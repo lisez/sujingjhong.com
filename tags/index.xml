@@ -7,10 +7,55 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
     <copyright>© 2019-{year} Su Jing Jhong 版權所有</copyright>
-    <lastBuildDate>Thu, 06 Jun 2019 22:35:08 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 06 Aug 2019 22:55:49 +0800</lastBuildDate>
     
 	<atom:link href="https://sujingjhong.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>JavaScript</title>
+      <link>https://sujingjhong.com/tags/javascript/</link>
+      <pubDate>Tue, 06 Aug 2019 22:55:49 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/javascript/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>actiontypes</title>
+      <link>https://sujingjhong.com/tags/actiontypes/</link>
+      <pubDate>Tue, 06 Aug 2019 22:55:49 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/actiontypes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>frontend</title>
+      <link>https://sujingjhong.com/tags/frontend/</link>
+      <pubDate>Tue, 06 Aug 2019 22:55:49 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/frontend/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redux</title>
+      <link>https://sujingjhong.com/tags/redux/</link>
+      <pubDate>Tue, 06 Aug 2019 22:55:49 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/redux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>symbol</title>
+      <link>https://sujingjhong.com/tags/symbol/</link>
+      <pubDate>Tue, 06 Aug 2019 22:55:49 +0800</pubDate>
+      
+      <guid>https://sujingjhong.com/tags/symbol/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Tutorial</title>
@@ -198,15 +243,6 @@
       <pubDate>Sun, 17 Sep 2017 00:11:00 +0800</pubDate>
       
       <guid>https://sujingjhong.com/tags/excel/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>JavaScript</title>
-      <link>https://sujingjhong.com/tags/javascript/</link>
-      <pubDate>Sun, 17 Sep 2017 00:11:00 +0800</pubDate>
-      
-      <guid>https://sujingjhong.com/tags/javascript/</guid>
       <description></description>
     </item>
     

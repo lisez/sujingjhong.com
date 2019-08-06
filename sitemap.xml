@@ -4,7 +4,68 @@
   
   <url>
     <loc>https://sujingjhong.com/categories/</loc>
-    <lastmod>2019-06-06T22:35:08+08:00</lastmod>
+    <lastmod>2019-08-06T22:55:49+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/posts/why-not-make-actiontypes-as-symbols/</loc>
+    <lastmod>2019-08-06T22:55:49+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/javascript/</loc>
+    <lastmod>2019-08-06T22:55:49+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/posts/</loc>
+    <lastmod>2019-08-06T22:55:49+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/</loc>
+    <lastmod>2019-08-06T22:55:49+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/actiontypes/</loc>
+    <lastmod>2019-08-06T22:55:49+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/frontend/</loc>
+    <lastmod>2019-08-06T22:55:49+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/categories/frontend/</loc>
+    <lastmod>2019-08-06T22:55:49+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/categories/javascript/</loc>
+    <lastmod>2019-08-06T22:55:49+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/redux/</loc>
+    <lastmod>2019-08-06T22:55:49+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://sujingjhong.com/tags/symbol/</loc>
+    <lastmod>2019-08-06T22:55:49+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -13,18 +74,6 @@
     <lastmod>2019-06-06T22:35:08+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://sujingjhong.com/posts/</loc>
-    <lastmod>2019-06-06T22:35:08+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://sujingjhong.com/tags/</loc>
-    <lastmod>2019-06-06T22:35:08+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -458,12 +507,6 @@
   </url>
   
   <url>
-    <loc>https://sujingjhong.com/tags/javascript/</loc>
-    <lastmod>2017-09-17T00:11:00+08:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://sujingjhong.com/posts/how-to-know-whether-an-element-in-an-array-by-excel/</loc>
     <lastmod>2017-09-17T00:11:00+08:00</lastmod>
     <changefreq>daily</changefreq>
@@ -530,12 +573,6 @@
     <lastmod>2017-04-29T18:12:00+08:00</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://sujingjhong.com/categories/javascript/</loc>
-    <lastmod>2017-04-29T18:12:00+08:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
