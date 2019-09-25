@@ -1,167 +1,19 @@
-<!DOCTYPE html>
-
-
-
-
-
-<html lang="zh-tw">
-
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>
-  
-    
-    JS / 為什麼不把 Redux type 設定成 Symbol 呢？
-  
- | sujj blog</title>
-
-
-
-<link rel="stylesheet" href="/book.min.99c003ce2d3e71eaa480634cf0ecd6162e972b978842407dea9c153c7e634169.css">
-
-
-<link rel="icon" href="/favicon.png" type="image/x-icon">
-
-
-<!--
-Made with Book Theme
-https://github.com/alex-shpak/hugo-book
--->
-
-  
-<link rel="canonical" href="https://sujingjhong.com/posts/why-not-make-actiontypes-as-symbols/"/>
-<link rel="index" href="https://sujingjhong.composts"/>
-<link rel="home" href="https://sujingjhong.com" />
-<link rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
-<link rel="preload" href="https://cdn.commento.io/js/commento.js" as="script"/>
-<script defer src="https://cdn.commento.io/js/commento.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/plugins/line-numbers/prism-line-numbers.css" integrity="sha256-udLi8HM3vM4cuDDMGyRFzG8ek0UN0+uytPLWkbTpagg=" crossorigin="anonymous" onload="if(media!='all')media='all'">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prism-themes@1.1.0/themes/prism-duotone-light.css" integrity="sha256-Lrmqc9uRan64PfLOXuC9bA3nPkD4/q5eK6P3XTJvLpg=" crossorigin="anonymous" media="none" onload="if(media!='all')media='all'">
-<script defer src="https://cdn.jsdelivr.net/npm/mermaid@8.0.0/dist/mermaid.min.js" integrity="sha256-0w92bcB21IY5+rGI84MGj52jNfHNbXVeQLrZ0CGdjNY=" crossorigin="anonymous" onload="mermaid.initialize({startOnLoad:true});"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/prism-core.min.js" integrity="sha256-sSTatLHEEY8GQrdYAuhkqrYogKZ/jDlgfYaqK3ld/uQ=" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/plugins/autoloader/prism-autoloader.min.js" integrity="sha256-9O/uwV3X6y7CHvgfS2Gdex8+wzQAZT2XG2U+nDkIpT8=" crossorigin="anonymous" onload="Prism.plugins.autoloader.languages_path='https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/';"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/plugins/line-numbers/prism-line-numbers.min.js" integrity="sha256-hep5s8952MqR7Y79JYfCXZD6vQjVHs7sOu/ZGrs1OEQ=" crossorigin="anonymous" onload="document.querySelectorAll('pre>code').forEach(function(e){e.classList.add('line-numbers')});"></script>
-</head>
-
-<body>
-  <input type="checkbox" style="display: none" id="menu-control" />
-  <main class="flex container">
-    <aside class="book-menu fixed">
-      <nav>
-<h2 class="book-brand">
-  <a href="https://sujingjhong.com">sujj blog</a>
-</h2>
-
-
-
-    
-  <style>
-  nav ul a[href] {
-      color: #004ed0;
-  }
-  </style>
-
-<ul>
-<li><a href="/about/">關於我</a></li>
-<li><a href="/search/">站內搜尋</a></li>
-<li><a href="/posts/">文章清單</a></li>
-<li><a href="/posts/eng-class/">英文筆記</a></li>
-<li><a href="/posts/foreignpolicy/">外交政策</a></li>
-</ul>
-
-
-
-
-
-</nav>
-
-
-
-    </aside>
-
-    <div class="book-posts">
-      <header class="align-center justify-between book-header">
-  <label for="menu-control">
-    <img src="/svg/menu.svg" alt="Menu" />
-  </label>
-  <strong>
-  
-    
-    JS / 為什麼不把 Redux type 設定成 Symbol 呢？
-  
-</strong>
-</header>
-
-      
-
-<header class="markdown">
-  <h1>JS / 為什麼不把 Redux type 設定成 Symbol 呢？</h1>
-  <h5>
-    <strong>August 6, 2019</strong>
-  </h5>
-</header>
-
-
-
-  <ul class="tags">
-    
-      <li class="mark-block tag-block">
-          <a href="https://sujingjhong.com/tags/redux/">redux</a>
-        </li>
-      <li class="mark-block tag-block">
-          <a href="https://sujingjhong.com/tags/actiontypes/">actiontypes</a>
-        </li>
-      <li class="mark-block tag-block">
-          <a href="https://sujingjhong.com/tags/symbol/">symbol</a>
-        </li>
-      <li class="mark-block tag-block">
-          <a href="https://sujingjhong.com/tags/javascript/">javascript</a>
-        </li>
-      <li class="mark-block tag-block">
-          <a href="https://sujingjhong.com/tags/frontend/">frontend</a>
-        </li></ul>
-
-
-<article class="markdown">
-
-<h1 id="為什麼不把-redux-type-設定成-symbol-呢">為什麼不把 Redux Type 設定成 Symbol 呢？</h1>
-
-<p>前端有用 <code>Redux</code> 的工程師都知道，用 <code>Redux</code> 如果需要改變狀態，需要發送行為到 <code>store</code> 裡去，我們常常會寫類似下面的工廠函數：</p>
-
-<pre><code class="language-javascript">function someAciton(todo){
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>JS / 為什麼不把 Redux type 設定成 Symbol 呢？ | sujj blog</title><link rel=stylesheet href=/book.min.82f7a1628d9730af663fed3bce4dc24898c6e4c933779af5c8ed2e9fa9f448ef.css integrity="sha256-gvehYo2XMK9mP&#43;07zk3CSJjG5Mkzd5r1yO0un6n0SO8="><script defer src=/search.min.051c7e0b58774a518a35abc30687835d4274fc8a913162ae7a675c9580538e02.js integrity="sha256-BRx&#43;C1h3SlGKNavDBoeDXUJ0/IqRMWKuemdclYBTjgI="></script><link rel=icon href=/favicon.png type=image/x-icon><link rel=canonical href=https://sujingjhong.com/posts/why-not-make-actiontypes-as-symbols/><link rel=index href=https://sujingjhong.composts><link rel=home href=https://sujingjhong.com><link rel=license href=http://creativecommons.org/licenses/by-nc/4.0/><link rel=preload href=https://cdn.commento.io/js/commento.js as=script><script defer src=https://cdn.commento.io/js/commento.js></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/prismjs@1.17.1/plugins/line-numbers/prism-line-numbers.css crossorigin=anonymous onload="if(media!='all')media='all'"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/prism-themes@1.1.0/themes/prism-duotone-light.css crossorigin=anonymous media=none onload="if(media!='all')media='all'"><script defer src=https://cdn.jsdelivr.net/npm/mermaid@8.0.0/dist/mermaid.min.js crossorigin=anonymous onload=mermaid.initialize({startOnLoad:true});></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.17.1/components/prism-core.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.17.1/plugins/autoloader/prism-autoloader.min.js crossorigin=anonymous onload="Prism.plugins.autoloader.languages_path='https://cdn.jsdelivr.net/npm/prismjs@1.17.1/components/';"></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.17.1/plugins/line-numbers/prism-line-numbers.min.js crossorigin=anonymous onload="document.querySelectorAll('pre>code').forEach(function(e){e.classList.add('line-numbers')});"></script></head><body><input type=checkbox class=hidden id=menu-control><main class="flex container"><aside class="book-menu fixed"><nav><h2 class=book-brand><a href=https://sujingjhong.com><span>sujj blog</span></a></h2><div class=book-search><input type=text placeholder=Search id=book-search-input maxlength=64 readonly><div class="book-search-spinner spinner hidden"></div><ul id=book-search-results></ul></div><style>nav ul a[href]{color:#004ed0}</style><ul><li><a href=/about/>關於我</a></li><li><a href=/search/>站內搜尋</a></li><li><a href=/posts/>文章清單</a></li><li><a href=/posts/eng-class/>英文筆記</a></li><li><a href=/posts/foreignpolicy/>外交政策</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-posts><header class="flex align-center justify-between book-header"><label for=menu-control><img src=/svg/menu.svg alt=Menu></label>
+<strong>JS / 為什麼不把 Redux type 設定成 Symbol 呢？</strong></header><header class=markdown><h1>JS / 為什麼不把 Redux type 設定成 Symbol 呢？</h1><h5><strong>August 6, 2019</strong></h5></header><ul class=tags><li class="mark-block tag-block"><a href=https://sujingjhong.com/tags/redux/>redux</a></li><li class="mark-block tag-block"><a href=https://sujingjhong.com/tags/actiontypes/>actiontypes</a></li><li class="mark-block tag-block"><a href=https://sujingjhong.com/tags/symbol/>symbol</a></li><li class="mark-block tag-block"><a href=https://sujingjhong.com/tags/javascript/>javascript</a></li><li class="mark-block tag-block"><a href=https://sujingjhong.com/tags/frontend/>frontend</a></li></ul><article class=markdown><h1 id=為什麼不把-redux-type-設定成-symbol-呢>為什麼不把 Redux Type 設定成 Symbol 呢？</h1><p>前端有用 <code>Redux</code> 的工程師都知道，用 <code>Redux</code> 如果需要改變狀態，需要發送行為到 <code>store</code> 裡去，我們常常會寫類似下面的工廠函數：</p><pre><code class=language-javascript>function someAciton(todo){
   return {
     type: &quot;SOME_ACTION&quot;,
     payload: todo
   };
 }
-</code></pre>
-
-<p>接下來為了避免 <code>type</code> 有重複問題，會另外建立一個 ActionTypes 清單，裡面會長的類似：</p>
-
-<pre><code class="language-javascript">export const ACTION_A = 'ACTION_A';
+</code></pre><p>接下來為了避免 <code>type</code> 有重複問題，會另外建立一個 ActionTypes 清單，裡面會長的類似：</p><pre><code class=language-javascript>export const ACTION_A = 'ACTION_A';
 export const ACTION_B = 'ACTION_B';
 export const GOD_DAMN_ACTION = 'GOD_DAMN_ACTION';
 ...
-</code></pre>
-
-<p>這時候如果有 100 個 action 你就需要建立 100個 <code>ActionType</code>。OK, fine.</p>
-
-<p>於是我就想到，既然都要建那麼多個了，有什麼可以比較省事的方法呢？</p>
-
-<p>我就想到 <code>Symbol</code>。<code>Symbol</code> 是 <code>ES6</code> 引進的，每個 <code>Symbol</code> 都是獨一無二，就算是同一個 <code>Symbol('I_AM_A_SYMBOL')</code> 和另外一個 <code>Symbol('I_AM_A_SYMBOL')</code> ，即使傳入的值一樣，他還是獨一無二。</p>
-
-<p>所以用在上述情境就變成：</p>
-
-<pre><code class="language-javascript">export const ACTION_A = Symbol('');
+</code></pre><p>這時候如果有 100 個 action 你就需要建立 100個 <code>ActionType</code>。OK, fine.</p><p>於是我就想到，既然都要建那麼多個了，有什麼可以比較省事的方法呢？</p><p>我就想到 <code>Symbol</code>。<code>Symbol</code> 是 <code>ES6</code> 引進的，每個 <code>Symbol</code> 都是獨一無二，就算是同一個 <code>Symbol('I_AM_A_SYMBOL')</code> 和另外一個 <code>Symbol('I_AM_A_SYMBOL')</code> ，即使傳入的值一樣，他還是獨一無二。</p><p>所以用在上述情境就變成：</p><pre><code class=language-javascript>export const ACTION_A = Symbol('');
 export const ACTION_B = Symbol('');
 export const GOD_DAMN_ACTION = Symbol('');
 ...
-</code></pre>
-
-<p>在動作函數就可以：</p>
-
-<pre><code class="language-javascript">import { ACTION_A } from './ActionTypes.js'
+</code></pre><p>在動作函數就可以：</p><pre><code class=language-javascript>import { ACTION_A } from './ActionTypes.js'
 
 function someAciton(todo){
   return {
@@ -169,171 +21,16 @@ function someAciton(todo){
     payload: todo
   };
 }
-</code></pre>
-
-<p>看起來好像很棒？</p>
-
-<p>但如果這方法那麼棒，怎 Redux 一開始沒用這個呢？但他還真的有用過：</p>
-
-<ul>
-<li><a href="https://github.com/reduxjs/redux/issues/4">https://github.com/reduxjs/redux/issues/4</a></li>
-</ul>
-
-<p>在 <code>Redux#4</code> 裡面，作者 <code>gaearon</code> 還曾經那麼使用過，<a href="https://github.com/reduxjs/redux/issues/4#issuecomment-108058484">不過他說他後來發現一個問題</a>：</p>
-
-<pre><code>I thought of that, but this kind of screws the replay thing. (AFAIK you can't serialize and then deserialize symbols.) I want to pass them around for devtools, localStorage persistence, etc.
-</code></pre>
-
-<p><a href="https://github.com/reduxjs/redux/issues/4#issuecomment-165209819">接著他更進一步說明</a>：</p>
-
-<pre><code>You can't take an array of actions that use symbols, serialise them to JSON, save to localStorage, and later deserialise and replay them in a different browser session.
-</code></pre>
-
-<p>簡單來說就是不能做 <a href="https://en.wikipedia.org/wiki/SerDes">SerDes</a>。複雜一點就是你不能把一大堆動作轉存成陣列，轉為 JSON 存起來，丟到另一個瀏覽器環境，再把它轉換回來。</p>
-
-<p>雖然說技術上應該是可行的，準備一個 <code>Object</code> 將 <code>type</code> 還有 <code>Symbol</code> 互相映射。或者一開始就將 ActionTypes 改寫成：</p>
-
-<pre><code class="language-javascript">export default {
+</code></pre><p>看起來好像很棒？</p><p>但如果這方法那麼棒，怎 Redux 一開始沒用這個呢？但他還真的有用過：</p><ul><li><a href=https://github.com/reduxjs/redux/issues/4>https://github.com/reduxjs/redux/issues/4</a></li></ul><p>在 <code>Redux#4</code> 裡面，作者 <code>gaearon</code> 還曾經那麼使用過，<a href=https://github.com/reduxjs/redux/issues/4#issuecomment-108058484>不過他說他後來發現一個問題</a>：</p><pre><code>I thought of that, but this kind of screws the replay thing. (AFAIK you can't serialize and then deserialize symbols.) I want to pass them around for devtools, localStorage persistence, etc.
+</code></pre><p><a href=https://github.com/reduxjs/redux/issues/4#issuecomment-165209819>接著他更進一步說明</a>：</p><pre><code>You can't take an array of actions that use symbols, serialise them to JSON, save to localStorage, and later deserialise and replay them in a different browser session.
+</code></pre><p>簡單來說就是不能做 <a href=https://en.wikipedia.org/wiki/SerDes>SerDes</a>。複雜一點就是你不能把一大堆動作轉存成陣列，轉為 JSON 存起來，丟到另一個瀏覽器環境，再把它轉換回來。</p><p>雖然說技術上應該是可行的，準備一個 <code>Object</code> 將 <code>type</code> 還有 <code>Symbol</code> 互相映射。或者一開始就將 ActionTypes 改寫成：</p><pre><code class=language-javascript>export default {
   ACTION_A: Symbol(''),
   ACTION_B: Symbol(''),
   ACTION_C: Symbol(''),
 };
-</code></pre>
-
-<p>不過這樣產生另一個問題：<strong>只有開發者才知道要怎麼映射</strong>。如果要用第三方工具，例如 <code>redux-devtools-extension</code>，其他開發者根本不知道你的 <code>type</code> 要怎麼映射，而根本無法銜接。</p>
-
-<p>再來就算建立好映射表了，在 <code>Console</code> 上要好好的辨識 <code>Symbol</code> 話，就也要好好取名，例如：</p>
-
-<pre><code class="language-javascript">export const ACTION_A = Symbol('');
+</code></pre><p>不過這樣產生另一個問題：<strong>只有開發者才知道要怎麼映射</strong>。如果要用第三方工具，例如 <code>redux-devtools-extension</code>，其他開發者根本不知道你的 <code>type</code> 要怎麼映射，而根本無法銜接。</p><p>再來就算建立好映射表了，在 <code>Console</code> 上要好好的辨識 <code>Symbol</code> 話，就也要好好取名，例如：</p><pre><code class=language-javascript>export const ACTION_A = Symbol('');
 export const ACTION_B = Symbol('');
-</code></pre>
-
-<p>這 <code>ACTION_A</code> 和 <code>ACTION_B</code>在 <code>Console</code> 上都是顯示 <code>Symbol()</code>。很好，那我們加一些辨識字元：</p>
-
-<pre><code class="language-javascript">export const ACTION_A = Symbol('ACTION_A');
+</code></pre><p>這 <code>ACTION_A</code> 和 <code>ACTION_B</code>在 <code>Console</code> 上都是顯示 <code>Symbol()</code>。很好，那我們加一些辨識字元：</p><pre><code class=language-javascript>export const ACTION_A = Symbol('ACTION_A');
 export const ACTION_B = Symbol('ACTION_B');
-</code></pre>
-
-<p>很好，現在在 <code>Console</code> 上就會顯示 <code>Symbol(ACTION_A)</code> 和 <code>Symbol(ACTION_B)</code>。</p>
-
-<p>那和一開始的比較起來，似乎發現了點問題：<strong>這樣根本是多此一舉</strong>。</p>
-
-<p>我目前唯一想到可以用的情境，就是 <code>ActionType</code> 已經和其他人撞名了！不過在現代瀏覽器如果有實現 <code>ES6</code> 標準，<code>String.prototype.length</code> 理論值可以到 <code>2^53-1</code>。</p>
-
-<p>我是想不到哪一種 <code>ActionType</code> 可以在這限制下撞名啦&hellip;.囧</p>
-</article>
-
-<section class="share-buttons">
-  <h2>認同請分享！</h2>
-  <ul class="share-buttons">
-    
-    
-    <li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dFacebook&quote=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f" title="Share on Facebook" target="_blank"><img alt="Share on Facebook" src="/images/flat_web_icon_set/color/Facebook.png" /></a></li>
-
-    
-    
-    <li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dTwitter&text=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f:%20https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dTwitter" target="_blank" title="Tweet"><img alt="Tweet" src="/images/flat_web_icon_set/color/Twitter.png" /></a></li>
-
-    
-    
-    <li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dTumblr&quote=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f&s=" target="_blank" title="Post to Tumblr"><img alt="Post to Tumblr" src="/images/flat_web_icon_set/color/Tumblr.png" /></a></li>
-
-    
-    
-    <li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dPinterest&description=" target="_blank" title="Pin it"><img alt="Pin it" src="/images/flat_web_icon_set/color/Pinterest.png" /></a></li>
-
-    
-    
-    <li><a href="https://getpocket.com/save?url=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dReferral%26utm_source%3dPocket&title=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f" target="_blank" title="Add to Pocket"><img alt="Add to Pocket" src="/images/flat_web_icon_set/color/Pocket.png" /></a></li>
-
-    
-    
-    <li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dReddit&title=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f" target="_blank" title="Submit to Reddit"><img alt="Submit to Reddit" src="/images/flat_web_icon_set/color/Reddit.png" /></a></li>
-
-    
-    
-    <li><a href="http://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dLinkedin&title=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f&summary=&source=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dLinkedin" target="_blank" title="Share on LinkedIn"><img alt="Share on LinkedIn" src="/images/flat_web_icon_set/color/LinkedIn.png" /></a></li>
-
-    
-    
-    <li><a href="http://wordpress.com/press-this.php?u=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dReferral%26utm_source%3dWordpress&quote=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f&s=" target="_blank" title="Publish on WordPress"><img alt="Publish on WordPress" src="/images/flat_web_icon_set/color/Wordpress.png" /></a></li>
-
-    
-    
-    <li><a href="https://pinboard.in/popup_login/?url=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dPinboard&title=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f&description=" target="_blank" title="Save to Pinboard"><img alt="Save to Pinboard" src="/images/flat_web_icon_set/color/Pinboard.png" /></a></li>
-
-    
-    
-    <li><a href="mailto:?subject=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f&body=:%20https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dEmail%26utm_source%3dEmail" target="_blank" title="Send email"><img alt="Send email" src="/images/flat_web_icon_set/color/Email.png" /></a></li>
-  </ul>
-</section>
-
-
-
-
-  <h2 id="相關文章">相關文章</h2>
-  <ul class="related">
-    
-    <li><a href="/posts/jquery-onclick-vs-touchstart/">Jquery Onclick vs Touchstart</a></li>
-    
-    <li><a href="/posts/get-url-arguments-and-upload-to-server-but-not-working/">取得URL參數值、上傳伺服器沒有反應問題</a></li>
-    
-    <li><a href="/posts/node-js-1-node-gyp-xcode-select-error/">[node.js] #1 node-gyp: xcode-select error</a></li>
-    
-  </ul>
-
-
-
-      
-
-<hr />
-<div id="commento"></div>
-
-
-<footer>
-  <span class="copyright">
-    © 2019-2019 Su Jing Jhong 版權所有
-    <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank"><img alt="創用 CC 授權條款" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a>
-  </span>
-</footer>
-
-    </div>
-
-    
-  
-
-  <aside class="book-toc level-6 fixed">
-    <nav id="TableOfContents">
-<ul>
-<li><a href="#為什麼不把-redux-type-設定成-symbol-呢">為什麼不把 Redux Type 設定成 Symbol 呢？</a></li>
-</ul>
-</nav>
-  </aside>
-
-
-
-  </main>
-
-  <script defer>
-var links = document.getElementsByTagName("a");
-for (var i = 0; i < links.length; i++) {
-  if (links[i].hostname != window.location.hostname) {
-    links[i].target = '_blank';
-  }
-}
-</script>
-  
-<script type="application/javascript">
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-139857297-1', 'auto');
-	
-	ga('send', 'pageview');
-}
-</script>
-<script async src='https://www.google-analytics.com/analytics.js'></script>
-
-</body>
-
-</html>
+</code></pre><p>很好，現在在 <code>Console</code> 上就會顯示 <code>Symbol(ACTION_A)</code> 和 <code>Symbol(ACTION_B)</code>。</p><p>那和一開始的比較起來，似乎發現了點問題：<strong>這樣根本是多此一舉</strong>。</p><p>我目前唯一想到可以用的情境，就是 <code>ActionType</code> 已經和其他人撞名了！不過在現代瀏覽器如果有實現 <code>ES6</code> 標準，<code>String.prototype.length</code> 理論值可以到 <code>2^53-1</code>。</p><p>我是想不到哪一種 <code>ActionType</code> 可以在這限制下撞名啦&hellip;.囧</p></article><section class=share-buttons><h2>認同請分享！</h2><ul class=share-buttons><li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dFacebook&quote=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f" title="Share on Facebook" target=_blank><img alt="Share on Facebook" src=/images/flat_web_icon_set/color/Facebook.png></a></li><li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dTwitter&text=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f:%20https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dTwitter" target=_blank title=Tweet><img alt=Tweet src=/images/flat_web_icon_set/color/Twitter.png></a></li><li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dTumblr&quote=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f&s=" target=_blank title="Post to Tumblr"><img alt="Post to Tumblr" src=/images/flat_web_icon_set/color/Tumblr.png></a></li><li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dPinterest&description=" target=_blank title="Pin it"><img alt="Pin it" src=/images/flat_web_icon_set/color/Pinterest.png></a></li><li><a href="https://getpocket.com/save?url=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dReferral%26utm_source%3dPocket&title=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f" target=_blank title="Add to Pocket"><img alt="Add to Pocket" src=/images/flat_web_icon_set/color/Pocket.png></a></li><li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dReddit&title=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f" target=_blank title="Submit to Reddit"><img alt="Submit to Reddit" src=/images/flat_web_icon_set/color/Reddit.png></a></li><li><a href="http://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dLinkedin&title=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f&summary=&source=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dLinkedin" target=_blank title="Share on LinkedIn"><img alt="Share on LinkedIn" src=/images/flat_web_icon_set/color/LinkedIn.png></a></li><li><a href="http://wordpress.com/press-this.php?u=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dReferral%26utm_source%3dWordpress&quote=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f&s=" target=_blank title="Publish on WordPress"><img alt="Publish on WordPress" src=/images/flat_web_icon_set/color/Wordpress.png></a></li><li><a href="https://pinboard.in/popup_login/?url=https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dPinboard&title=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f&description=" target=_blank title="Save to Pinboard"><img alt="Save to Pinboard" src=/images/flat_web_icon_set/color/Pinboard.png></a></li><li><a href="mailto:?subject=JS%20%2f%20%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e6%8a%8a%20Redux%20type%20%e8%a8%ad%e5%ae%9a%e6%88%90%20Symbol%20%e5%91%a2%ef%bc%9f&body=:%20https%3a%2f%2fsujingjhong.com%2fposts%2fwhy-not-make-actiontypes-as-symbols%2f%3futm_campaign%3dShare%26utm_medium%3dEmail%26utm_source%3dEmail" target=_blank title="Send email"><img alt="Send email" src=/images/flat_web_icon_set/color/Email.png></a></li></ul></section><h2 id=相關文章>相關文章</h2><ul class=related><li><a href=/posts/jquery-onclick-vs-touchstart/>Jquery Onclick vs Touchstart</a></li><li><a href=/posts/get-url-arguments-and-upload-to-server-but-not-working/>取得URL參數值、上傳伺服器沒有反應問題</a></li><li><a href=/posts/node-js-1-node-gyp-xcode-select-error/>[node.js] #1 node-gyp: xcode-select error</a></li></ul><hr><div id=commento></div><footer><span class=copyright>© 2019-2019 Su Jing Jhong 版權所有
+<a rel=license href=http://creativecommons.org/licenses/by-nc/4.0/ target=_blank><img alt="創用 CC 授權條款" style=border-width:0 src=https://i.creativecommons.org/l/by-nc/4.0/80x15.png></a></span></footer></div><aside class="book-toc level-6 fixed"><nav id=TableOfContents><ul><li><a href=#為什麼不把-redux-type-設定成-symbol-呢>為什麼不把 Redux Type 設定成 Symbol 呢？</a></li></ul></nav></aside></main><script defer>var links=document.getElementsByTagName("a");for(var i=0;i<links.length;i++){if(links[i].hostname!=window.location.hostname){links[i].target='_blank';}}</script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-139857297-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
