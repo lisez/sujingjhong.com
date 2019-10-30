@@ -1,0 +1,123 @@
+<!doctype html><html lang=zh-tw><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="Elixir 101 / 快速建立 HTTP 伺服器"><meta property="og:description" content="《Elixir 101》快速架設 HTTP 伺服器 在 Elixir 裡要怎麼架設 HTTP 伺服器呢？ 在 NodeJS 架設 HTTP 伺服器 如果是在 NodeJS 底下，我們可以很快透過以下的程式碼建立簡單的伺服"><meta property="og:type" content="article"><meta property="og:url" content="https://sujingjhong.com/posts/elixir101/elixir-101-make-a-http-server-quickly/"><meta property="article:published_time" content="2019-10-31T00:26:22+08:00"><meta property="article:modified_time" content="2019-10-31T00:26:22+08:00"><title>Elixir 101 / 快速建立 HTTP 伺服器 | sujj blog</title><link rel=icon href=/favicon.png type=image/x-icon><link rel=stylesheet href=/book.min.48552c3e5d1e40bd9c75033ab0c904457d8595dffc90ab9785b21d602b5b3323.css integrity="sha256-SFUsPl0eQL2cdQM6sMkERX2Fld/8kKuXhbIdYCtbMyM="><script defer src=/search.min.13bb7e7499231100ba52f212610c223f7d887e4d4869be7518e07cf04194e4be.js integrity="sha256-E7t&#43;dJkjEQC6UvISYQwiP32Ifk1Iab51GOB88EGU5L4="></script><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-139857297-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script><link rel=canonical href=https://sujingjhong.com/posts/elixir101/elixir-101-make-a-http-server-quickly/><link rel=index href=https://sujingjhong.composts><link rel=home href=https://sujingjhong.com><link rel=license href=http://creativecommons.org/licenses/by-nc/4.0/><link rel=preload href=https://cdn.commento.io/js/commento.js as=script><script defer src=https://cdn.commento.io/js/commento.js></script><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/prismjs@1.17.1/plugins/line-numbers/prism-line-numbers.css crossorigin=anonymous onload="if(media!='all')media='all'"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/prism-themes@1.1.0/themes/prism-duotone-light.css crossorigin=anonymous media=none onload="if(media!='all')media='all'"><script defer src=https://cdn.jsdelivr.net/npm/mermaid@8.0.0/dist/mermaid.min.js crossorigin=anonymous onload=mermaid.initialize({startOnLoad:true});></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.17.1/components/prism-core.min.js crossorigin=anonymous></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.17.1/plugins/autoloader/prism-autoloader.min.js crossorigin=anonymous onload="Prism.plugins.autoloader.languages_path='https://cdn.jsdelivr.net/npm/prismjs@1.17.1/components/';"></script><script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.17.1/plugins/line-numbers/prism-line-numbers.min.js crossorigin=anonymous onload="document.querySelectorAll('pre>code').forEach(function(e){e.classList.add('line-numbers')});"></script></head><body><input type=checkbox class=hidden id=menu-control><main class="flex container"><aside class="book-menu fixed"><nav><h2 class=book-brand><a href=https://sujingjhong.com><span>sujj blog</span></a></h2><div class=book-search><input type=text placeholder=Search id=book-search-input maxlength=64><div class="book-search-spinner spinner hidden"></div><ul id=book-search-results></ul></div><ul><li><a href=/about/>關於我</a></li><li><a href=/search/>站內搜尋</a></li><li><a href=/posts/>文章清單</a></li><li><a href=/posts/elixir101/>Elixir101</a></li><li><a href=/posts/eng-class/>英文筆記</a></li><li><a href=/posts/foreignpolicy/>外交政策</a></li></ul></nav><script>(function(){var menu=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(event){localStorage.setItem("menu.scrollTop",menu.scrollTop);});menu.scrollTop=localStorage.getItem("menu.scrollTop");})();</script></aside><div class=book-posts><header class="flex align-center justify-between book-header"><label for=menu-control><img src=/svg/menu.svg alt=Menu></label>
+<strong>Elixir 101 / 快速建立 HTTP 伺服器</strong></header><header class=markdown><h1>Elixir 101 / 快速建立 HTTP 伺服器</h1><h5><strong>October 31, 2019</strong></h5></header><ul class=tags><li class="mark-block tag-block"><a href=https://sujingjhong.com/tags/elixir101/>Elixir101</a></li></ul><article class=markdown><h1 id=elixir-101-快速架設-http-伺服器>《Elixir 101》快速架設 HTTP 伺服器</h1><p>在 Elixir 裡要怎麼架設 HTTP 伺服器呢？</p><h2 id=在-nodejs-架設-http-伺服器>在 NodeJS 架設 HTTP 伺服器</h2><p>如果是在 NodeJS 底下，我們可以很快透過以下的程式碼建立簡單的伺服器：</p><pre><code class=language-javascript>const http = require('http');
+
+function serverHandler(req, res){
+  switch (req.url){
+    case '/':{
+      res.writeHead(200, {'Content-Type':'text/html'});
+      res.write('Hello world');
+      res.end();
+      break;
+    }
+      
+    default:{
+      res.writeHead(404, {'Content-Type':'text/html'});
+      res.end('Not found');
+      break;
+    }
+  }
+}
+
+const server = http.createServer(serverHandler);
+server.listen(3001);
+
+</code></pre><p>但通常我們在 NodeJS 裡面不會這樣直接呼叫 <code>http.createServer</code> 來建立伺服器，我們會利用一些 Web 框架來幫助我們，讓開發上更加便利，<a href=https://github.com/expressjs/express>例如 <code>express</code></a>，例如上述程式碼可以改成：</p><pre><code class=language-javascript>const server = require('express')();
+
+server.get('/', function (req, res) {
+  res.send('Hello World')
+});
+
+server.listen(3000);
+</code></pre><h2 id=在-elixir-中架設伺服器>在 Elixir 中架設伺服器</h2><p>所以一樣的，在 Elixir 中，<a href=https://github.com/elixir-plug/plug>我們透過一套名為 <code>plug</code> 的中間層套件</a>，協助我們架設伺服器。</p><p>首先我們先建立一個乾淨的專案，並且啟用 <code>supervision</code> 模式：</p><pre><code class=language-shell>$ mix new http_server --sup
+</code></pre><p>讓我們看一下資料夾結構：</p><pre><code class=language-shell>.
+├── README.md
+├── lib
+│   ├── http_server
+│   │   └── application.ex
+│   └── http_server.ex
+├── mix.exs
+└── test
+    ├── http_server_test.exs
+    └── test_helper.exs
+</code></pre><h3 id=安裝-plug>安裝 plug</h3><p>首先我們需要先安裝 <code>plug</code>。在 Elixir 安裝套件很簡單。</p><p>先讓我們打開資料夾中的 <code>mix.exs</code> 檔案，他內容會長這樣：</p><pre><code class=language-elixir>defmodule HttpServer.MixProject do
+  use Mix.Project
+
+  def project do
+    [
+      app: :http_server,
+      version: &quot;0.1.0&quot;,
+      elixir: &quot;~&gt; 1.9&quot;,
+      start_permanent: Mix.env() == :prod,
+      deps: deps()
+    ]
+  end
+
+  # Run &quot;mix help compile.app&quot; to learn about applications.
+  def application do
+    [
+      extra_applications: [:logger],
+      mod: {HttpServer.Application, []}
+    ]
+  end
+
+  # Run &quot;mix help deps&quot; to learn about dependencies.
+  defp deps do
+    [
+      # {:dep_from_hexpm, &quot;~&gt; 0.3.0&quot;},
+      # {:dep_from_git, git: &quot;https://github.com/elixir-lang/my_dep.git&quot;, tag: &quot;0.1.0&quot;}
+    ]
+  end
+end
+</code></pre><p>然後讓我們看到 <code>defp deps do</code> 這段函式區塊：</p><pre><code class=language-elixir># Run &quot;mix help deps&quot; to learn about dependencies.
+defp deps do
+	[
+		# {:dep_from_hexpm, &quot;~&gt; 0.3.0&quot;},
+		# {:dep_from_git, git: &quot;https://github.com/elixir-lang/my_dep.git&quot;, tag: &quot;0.1.0&quot;}
+	]
+end
+</code></pre><p>我們在他的 <code>[]</code> 的陣列裡加入 <code>{:plug_cowboy, &quot;~&gt; 2.0&quot;}</code>，這時候應該會長這個樣子：</p><pre><code class=language-elixir># Run &quot;mix help deps&quot; to learn about dependencies.
+defp deps do
+	[
+		{:plug_cowboy, &quot;~&gt; 2.0&quot;}
+	]
+end
+</code></pre><h3 id=首頁顯示-hello-world>首頁顯示 Hello World</h3><p>安裝完後，我們在 <code>lib</code> 資料夾底下，建立一個檔案名為 <code>router.ex</code>，然後裡面寫入：</p><pre><code class=language-elixir>defmodule Router do
+  import Plug.Conn
+
+  def init(options) do
+    options
+  end
+
+  def call(conn, _opts) do
+    conn
+    |&gt; put_resp_content_type(&quot;text/plain&quot;)
+    |&gt; send_resp(200, &quot;Hello world&quot;)
+  end
+end
+</code></pre><h3 id=讓伺服器隨同程式上線>讓伺服器隨同程式上線</h3><p>再來，我們必須讓伺服器隨著程式啟用時上線。所以我們要來更改 <code>lib/http_server/application.ex</code> 檔案。他應該會長這樣：</p><pre><code class=language-elixir>defmodule HttpServer.Application do
+  # See https://hexdocs.pm/elixir/Application.html
+  # for more information on OTP Applications
+  @moduledoc false
+
+  use Application
+
+  def start(_type, _args) do
+    children = [
+      # Starts a worker by calling: HttpServer.Worker.start_link(arg)
+      # {HttpServer.Worker, arg}
+    ]
+
+    # See https://hexdocs.pm/elixir/Supervisor.html
+    # for other strategies and supported options
+    opts = [strategy: :one_for_one, name: HttpServer.Supervisor]
+    Supervisor.start_link(children, opts)
+  end
+end
+</code></pre><p>我們在 <code>start</code> 函式中的 <code>children</code> 陣列加入一行：</p><pre><code class=language-elixir>{Plug.Cowboy, scheme: :http, plug: Router, options: [port: 4001]}
+</code></pre><p>他就變成：</p><pre><code class=language-elixir>children = [
+	{Plug.Cowboy, scheme: :http, plug: Router, options: [port: 4001]}
+]
+</code></pre><h3 id=執行程式>執行程式</h3><p>程式碼都修改好後，我們在終端機打上：</p><pre><code class=language-shell>$ mix run --no-halt
+</code></pre><p>如果沒有東西話記得先切到 <code>http_server</code> 底下：</p><pre><code class=language-shell>$ cd http_server
+</code></pre><p>最後打開瀏覽器，輸入 <code>http://localhost:4001</code>，就大功告成啦！</p><p><img src=/images/elixir101/elixir_plug_hello_world.png alt="hello world 網頁"></p><h2 id=參考文獻>參考文獻</h2><ul><li><a href=https://github.com/elixir-plug/plug>https://github.com/elixir-plug/plug</a></li><li><a href=https://elixirschool.com/zh-hant/lessons/specifics/plug/>https://elixirschool.com/zh-hant/lessons/specifics/plug/</a></li></ul></article><section class=share-buttons><h2>認同請分享！</h2><ul class=share-buttons><li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsujingjhong.com%2fposts%2felixir101%2felixir-101-make-a-http-server-quickly%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dFacebook&quote=Elixir%20101%20%2f%20%e5%bf%ab%e9%80%9f%e5%bb%ba%e7%ab%8b%20HTTP%20%e4%bc%ba%e6%9c%8d%e5%99%a8" title="Share on Facebook" target=_blank><img alt="Share on Facebook" src=/images/flat_web_icon_set/color/Facebook.png></a></li><li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fsujingjhong.com%2fposts%2felixir101%2felixir-101-make-a-http-server-quickly%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dTwitter&text=Elixir%20101%20%2f%20%e5%bf%ab%e9%80%9f%e5%bb%ba%e7%ab%8b%20HTTP%20%e4%bc%ba%e6%9c%8d%e5%99%a8:%20https%3a%2f%2fsujingjhong.com%2fposts%2felixir101%2felixir-101-make-a-http-server-quickly%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dTwitter" target=_blank title=Tweet><img alt=Tweet src=/images/flat_web_icon_set/color/Twitter.png></a></li><li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fsujingjhong.com%2fposts%2felixir101%2felixir-101-make-a-http-server-quickly%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dTumblr&quote=Elixir%20101%20%2f%20%e5%bf%ab%e9%80%9f%e5%bb%ba%e7%ab%8b%20HTTP%20%e4%bc%ba%e6%9c%8d%e5%99%a8&s=" target=_blank title="Post to Tumblr"><img alt="Post to Tumblr" src=/images/flat_web_icon_set/color/Tumblr.png></a></li><li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fsujingjhong.com%2fposts%2felixir101%2felixir-101-make-a-http-server-quickly%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dPinterest&description=" target=_blank title="Pin it"><img alt="Pin it" src=/images/flat_web_icon_set/color/Pinterest.png></a></li><li><a href="https://getpocket.com/save?url=https%3a%2f%2fsujingjhong.com%2fposts%2felixir101%2felixir-101-make-a-http-server-quickly%2f%3futm_campaign%3dShare%26utm_medium%3dReferral%26utm_source%3dPocket&title=Elixir%20101%20%2f%20%e5%bf%ab%e9%80%9f%e5%bb%ba%e7%ab%8b%20HTTP%20%e4%bc%ba%e6%9c%8d%e5%99%a8" target=_blank title="Add to Pocket"><img alt="Add to Pocket" src=/images/flat_web_icon_set/color/Pocket.png></a></li><li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fsujingjhong.com%2fposts%2felixir101%2felixir-101-make-a-http-server-quickly%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dReddit&title=Elixir%20101%20%2f%20%e5%bf%ab%e9%80%9f%e5%bb%ba%e7%ab%8b%20HTTP%20%e4%bc%ba%e6%9c%8d%e5%99%a8" target=_blank title="Submit to Reddit"><img alt="Submit to Reddit" src=/images/flat_web_icon_set/color/Reddit.png></a></li><li><a href="http://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fsujingjhong.com%2fposts%2felixir101%2felixir-101-make-a-http-server-quickly%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dLinkedin&title=Elixir%20101%20%2f%20%e5%bf%ab%e9%80%9f%e5%bb%ba%e7%ab%8b%20HTTP%20%e4%bc%ba%e6%9c%8d%e5%99%a8&summary=&source=https%3a%2f%2fsujingjhong.com%2fposts%2felixir101%2felixir-101-make-a-http-server-quickly%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dLinkedin" target=_blank title="Share on LinkedIn"><img alt="Share on LinkedIn" src=/images/flat_web_icon_set/color/LinkedIn.png></a></li><li><a href="http://wordpress.com/press-this.php?u=https%3a%2f%2fsujingjhong.com%2fposts%2felixir101%2felixir-101-make-a-http-server-quickly%2f%3futm_campaign%3dShare%26utm_medium%3dReferral%26utm_source%3dWordpress&quote=Elixir%20101%20%2f%20%e5%bf%ab%e9%80%9f%e5%bb%ba%e7%ab%8b%20HTTP%20%e4%bc%ba%e6%9c%8d%e5%99%a8&s=" target=_blank title="Publish on WordPress"><img alt="Publish on WordPress" src=/images/flat_web_icon_set/color/Wordpress.png></a></li><li><a href="https://pinboard.in/popup_login/?url=https%3a%2f%2fsujingjhong.com%2fposts%2felixir101%2felixir-101-make-a-http-server-quickly%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dPinboard&title=Elixir%20101%20%2f%20%e5%bf%ab%e9%80%9f%e5%bb%ba%e7%ab%8b%20HTTP%20%e4%bc%ba%e6%9c%8d%e5%99%a8&description=" target=_blank title="Save to Pinboard"><img alt="Save to Pinboard" src=/images/flat_web_icon_set/color/Pinboard.png></a></li><li><a href="mailto:?subject=Elixir%20101%20%2f%20%e5%bf%ab%e9%80%9f%e5%bb%ba%e7%ab%8b%20HTTP%20%e4%bc%ba%e6%9c%8d%e5%99%a8&body=:%20https%3a%2f%2fsujingjhong.com%2fposts%2felixir101%2felixir-101-make-a-http-server-quickly%2f%3futm_campaign%3dShare%26utm_medium%3dEmail%26utm_source%3dEmail" target=_blank title="Send email"><img alt="Send email" src=/images/flat_web_icon_set/color/Email.png></a></li></ul></section><h2 id=相關文章>相關文章</h2><ul class=related><li><a href=/posts/elixir101/elixir-101-function-and-return/>Elixir 101 / 函式與回傳值</a></li><li><a href=/posts/elixir101/elixir-101-hello-world/>Elixir101 / Hello World</a></li><li><a href=/posts/homemade-watch-in-macos/>Shell / 在 macOS 上手作 watch</a></li><li><a href=/posts/fix-recently-pages-in-hugo/>Hugo / 修復無法顯示最近文章問題</a></li><li><a href=/posts/how-to-replace-spaces-in-file-name/>Shell / 如何將檔名中的空白替換掉</a></li></ul><hr><div id=commento></div><footer><span class=copyright>© 2019-2019 Su Jing Jhong 版權所有
+<a rel=license href=http://creativecommons.org/licenses/by-nc/4.0/ target=_blank><img alt="創用 CC 授權條款" style=border-width:0 src=https://i.creativecommons.org/l/by-nc/4.0/80x15.png></a></span></footer></div><aside class="book-toc levels-6 fixed"><nav id=TableOfContents><ul><li><a href=#elixir-101-快速架設-http-伺服器>《Elixir 101》快速架設 HTTP 伺服器</a><ul><li><a href=#在-nodejs-架設-http-伺服器>在 NodeJS 架設 HTTP 伺服器</a></li><li><a href=#在-elixir-中架設伺服器>在 Elixir 中架設伺服器</a><ul><li><a href=#安裝-plug>安裝 plug</a></li><li><a href=#首頁顯示-hello-world>首頁顯示 Hello World</a></li><li><a href=#讓伺服器隨同程式上線>讓伺服器隨同程式上線</a></li><li><a href=#執行程式>執行程式</a></li></ul></li><li><a href=#參考文獻>參考文獻</a></li></ul></li></ul></nav></aside></main><script defer>var links=document.getElementsByTagName("a");for(var i=0;i<links.length;i++){if(links[i].hostname!=window.location.hostname){links[i].target='_blank';}}</script></body></html>
