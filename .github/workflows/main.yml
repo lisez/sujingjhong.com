@@ -1,0 +1,15 @@
+name: CI
+
+on:
+  push:
+    branches: 
+      - master
+
+jobs:
+  upload_sitemap:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: curl
+        uses: wei/curl@v1.1.1
+        with:
+          args: http://www.google.com/ping?sitemap=https://sujingjhong.com/sitemap.xml
