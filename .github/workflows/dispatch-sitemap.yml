@@ -1,4 +1,4 @@
-name: CI
+name: Dispatch sitemap to google
 
 on:
   push:
@@ -7,8 +7,12 @@ on:
 
 jobs:
   upload_sitemap:
-    runs-on: [ubuntu-latest]
+    runs-on: ubuntu-latest
     steps:
+      - name: Wait / Sleep
+        uses: jakejarvis/wait-action@v0.1.0
+        with:
+          time: '30s'
       - name: curl
         uses: wei/curl@v1.1.1
         with:
