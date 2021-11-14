@@ -1,0 +1,146 @@
+<!doctype html><html lang=zh-tw>
+<head>
+<meta name=generator content="Hugo 0.89.2">
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=description content="Unix 是什麼？Unix 是一種作業系統，就如同耳熟能詳的 MacOS、Windows、Android 一樣。現代作業系統除了 Windows 以外，基本上都是 Unix 家族的">
+<meta name=theme-color content="#FFFFFF"><meta property="og:title" content="閱讀 / 《UNIX 傳奇：歷史與回憶》">
+<meta property="og:description" content="Unix 是什麼？Unix 是一種作業系統，就如同耳熟能詳的 MacOS、Windows、Android 一樣。現代作業系統除了 Windows 以外，基本上都是 Unix 家族的">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://sujingjhong.com/posts/book-9787115557179/"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2021-11-14T07:11:50+00:00">
+<meta property="article:modified_time" content="2021-11-14T07:11:50+00:00">
+<title>閱讀 / 《UNIX 傳奇：歷史與回憶》 | sujj blog</title>
+<link rel=manifest href=/manifest.json>
+<link rel=icon href=/favicon.png type=image/x-icon>
+<link rel=stylesheet href=/book.min.762397d706992291f181379ac766397478a7d47c3ab92bc49aed2c3196671e76.css integrity="sha256-diOX1waZIpHxgTeax2Y5dHin1Hw6uSvEmu0sMZZnHnY=">
+<script defer src=/zh-tw.search.min.3dcbfe0c20029e50141f78b41aac9a0f6b479ab71d70610143662e8710f41d26.js integrity="sha256-Pcv+DCACnlAUH3i0GqyaD2tHmrcdcGEBQ2YuhxD0HSY="></script>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga('create','UA-139857297-1','auto'),ga('send','pageview'))</script>
+<script async src=https://www.google-analytics.com/analytics.js></script>
+<link rel=canonical href=https://sujingjhong.com/posts/book-9787115557179/>
+<link rel=index href=https://sujingjhong.composts>
+<link rel=home href=https://sujingjhong.com>
+<link rel=license href=http://creativecommons.org/licenses/by-nc/4.0/>
+<link rel=preload href=https://cdn.commento.io/js/commento.js as=script>
+<script defer src=https://cdn.commento.io/js/commento.js></script>
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/prism-themes@1.4.0/themes/prism-ghcolors.css crossorigin=anonymous media=none onload="media!='all'&&(media='all')">
+<link rel=stylesheet href=https://cdn.jsdelivr.net/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.css crossorigin=anonymous onload="media!='all'&&(media='all')">
+<script defer src=https://cdn.jsdelivr.net/npm/mermaid@8.0.0/dist/mermaid.min.js crossorigin=anonymous onload=mermaid.initialize({startOnLoad:!0})></script>
+<script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.20.0/components/prism-core.min.js crossorigin=anonymous></script>
+<script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.20.0/plugins/autoloader/prism-autoloader.min.js crossorigin=anonymous onload="Prism.plugins.autoloader.languages_path='https://cdn.jsdelivr.net/npm/prismjs@1.20.0/components/'"></script>
+<script defer src=https://cdn.jsdelivr.net/npm/prismjs@1.20.0/plugins/line-numbers/prism-line-numbers.min.js crossorigin=anonymous onload="document.querySelectorAll('pre>code').forEach(function(a){a.classList.add('line-numbers')})"></script>
+<script type=application/ld+json>[{"@context":"https://schema.org","@type":"BlogPosting","headline":"閱讀 / 《UNIX 傳奇：歷史與回憶》","image":"https://sujingjhong.com","datePublished":"2021-11-14T07:11:50Z","dateModified":"2021-11-14T07:11:50Z","author":{"@type":"Person","name":"Su Jing Jhong"},"mainEntityOfPage":{"@type":"WebPage"},"publisher":{"@type":"Organization","name":"lisez","logo":{"@type":"ImageObject","url":null}},"description":"Unix 是什麼？Unix 是一種作業系統，就如同耳熟能詳的 MacOS、Windows、Android 一樣。現代作業系統除了 Windows 以外，基本上都是 Unix 家族的","keywords":["閱讀","Unix","Linux"]},{"@context":"https://schema.org","@type":"Organization","name":"lisez","url":"https://sujingjhong.com","sameAs":["https://www.npmjs.com/~lisez","https://www.linkedin.com/in/jing-jhong-su/","https://github.com/lisez","https://medium.com/@sujj","https://vocus.cc/flyingwhale/","https://vocus.cc/loghowisurvived/"]}]</script>
+</head>
+<body>
+<input type=checkbox class="hidden toggle" id=menu-control>
+<input type=checkbox class="hidden toggle" id=toc-control>
+<main class="container flex">
+<aside class=book-menu>
+<nav>
+<h2 class=book-brand>
+<a href=/><span>sujj blog</span>
+</a>
+</h2>
+<div class=book-search>
+<input type=text id=book-search-input placeholder aria-label maxlength=64 data-hotkeys=s/>
+<div class="book-search-spinner hidden"></div>
+<ul id=book-search-results></ul>
+</div>
+<ul>
+<li><a href=/about/>關於我</a></li>
+<li><a href=/search/>站內搜尋</a></li>
+<li><a href=/posts/>文章清單</a></li>
+<li><a href=/posts/elixir101/>Elixir101</a></li>
+<li><a href=/posts/eng-class/>英文筆記</a></li>
+<li><a href=/posts/foreignpolicy/>外交政策</a></li>
+</ul>
+</nav>
+<script>(function(){var a=document.querySelector("aside.book-menu nav");addEventListener("beforeunload",function(b){localStorage.setItem("menu.scrollTop",a.scrollTop)}),a.scrollTop=localStorage.getItem("menu.scrollTop")})()</script>
+</aside>
+<div class=book-page>
+<header class=book-header>
+<div class="flex align-center justify-between">
+<label for=menu-control>
+<img src=/svg/menu.svg class=book-icon alt=Menu>
+</label>
+<strong>閱讀 / 《UNIX 傳奇：歷史與回憶》</strong>
+<label for=toc-control>
+<img src=/svg/toc.svg class=book-icon alt="Table of Contents">
+</label>
+</div>
+<aside class="hidden clearfix">
+<nav id=TableOfContents></nav>
+</aside>
+</header>
+<article class=markdown>
+<h1>閱讀 / 《UNIX 傳奇：歷史與回憶》</h1>
+<section>
+<h5>November 14, 2021</h5>
+<ul class=tags>
+<li class="mark-block tag-block">
+<a href=https://sujingjhong.com/tags/%E9%96%B1%E8%AE%80/>閱讀</a>
+</li>
+<li class="mark-block tag-block">
+<a href=https://sujingjhong.com/tags/unix/>Unix</a>
+</li>
+<li class="mark-block tag-block">
+<a href=https://sujingjhong.com/tags/linux/>Linux</a>
+</li></ul>
+</section>
+<section class=content><p><img src=/images/2021/11/9787115557179-book-cover.jpeg alt="UNIX 傳奇：歷史與回憶"></p>
+<p>Unix 是什麼？Unix 是一種作業系統，就如同耳熟能詳的 MacOS、Windows、Android 一樣。現代作業系統除了 Windows 以外，基本上都是 Unix 家族的作業系統。</p>
+<p>本書作者是 Unix 早期開發者，同時也是所有軟體教學入門的：Hello world 的締造者。</p>
+<p>內容上圍繞在三個主題：貝爾實驗室、Unix 發展，以及討論貝爾實驗室為何當時得以孕育出 Unix。</p>
+<p>Unix 是作為當時大型打孔機電腦，和現代個人電腦作業系統之間，承先啟後繼往開來的銜接者，同時也有許多功能上在現代理所當然的創舉，例如多層資料夾概念。</p>
+<p>Unix 之所以誕生，作者認為貝爾實驗室提供了穩定自由的環境，但又有著許多樂趣與挑戰性難題，一群人才就在這種環境下交流激盪，提出與實踐許多劃時代想法。</p>
+<p>貝爾實驗室作為當時 AT&T 旗下實驗室，宗旨於改善電話服務，養了一大批博碩士級研究員，這些人有感於現有工具的不足，就改良了現有工具，於是 Unix 就誕生了。接著有人不滿於 AT&T 對於 Unix 商業授權方式，柏克萊大學弄出了 BSD，一個芬蘭人做出一個類似東西還用自己名字，那個就是 Linux 。</p>
+<p>總結而言，Unix 系統就是在不斷改良工具的環境中，其中也有發明新工具，更多是組合改良既有工具情況下，所組合出的「新」工具。</p>
+<p>最後作者也點出，重點不是環境與工具，而是促成環境形成的系統，以及人與人間的密切交流才是本質所在。</p>
+</section>
+</article>
+<section>
+<h2>給我讚！</h2>
+<iframe data-v-456d30bd scrolling=no src="https://button.like.co/in/embed/lisez0618/button?type=wp&referrer=https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f" class="lc-margin-top-64 lc-margin-bottom-32 lc-mobile" frameborder=0 style=width:100%;height:212px></iframe>
+</section>
+<section class=share-buttons>
+<h2>認同請分享</h2>
+<ul class=share-buttons>
+<li><a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dFacebook&quote=%e9%96%b1%e8%ae%80%20%2f%20%e3%80%8aUNIX%20%e5%82%b3%e5%a5%87%ef%bc%9a%e6%ad%b7%e5%8f%b2%e8%88%87%e5%9b%9e%e6%86%b6%e3%80%8b" title="Share on Facebook" target=_blank><img alt="Share on Facebook" src=/images/flat_web_icon_set/color/Facebook.png></a></li>
+<li><a href="https://twitter.com/intent/tweet?source=https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dTwitter&text=%e9%96%b1%e8%ae%80%20%2f%20%e3%80%8aUNIX%20%e5%82%b3%e5%a5%87%ef%bc%9a%e6%ad%b7%e5%8f%b2%e8%88%87%e5%9b%9e%e6%86%b6%e3%80%8b:%20https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dTwitter" target=_blank title=Tweet><img alt=Tweet src=/images/flat_web_icon_set/color/Twitter.png></a></li>
+<li><a href="http://www.tumblr.com/share?v=3&u=https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dTumblr&quote=%e9%96%b1%e8%ae%80%20%2f%20%e3%80%8aUNIX%20%e5%82%b3%e5%a5%87%ef%bc%9a%e6%ad%b7%e5%8f%b2%e8%88%87%e5%9b%9e%e6%86%b6%e3%80%8b&s=" target=_blank title="Post to Tumblr"><img alt="Post to Tumblr" src=/images/flat_web_icon_set/color/Tumblr.png></a></li>
+<li><a href="http://pinterest.com/pin/create/button/?url=https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dPinterest&description=" target=_blank title="Pin it"><img alt="Pin it" src=/images/flat_web_icon_set/color/Pinterest.png></a></li>
+<li><a href="https://getpocket.com/save?url=https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f%3futm_campaign%3dShare%26utm_medium%3dReferral%26utm_source%3dPocket&title=%e9%96%b1%e8%ae%80%20%2f%20%e3%80%8aUNIX%20%e5%82%b3%e5%a5%87%ef%bc%9a%e6%ad%b7%e5%8f%b2%e8%88%87%e5%9b%9e%e6%86%b6%e3%80%8b" target=_blank title="Add to Pocket"><img alt="Add to Pocket" src=/images/flat_web_icon_set/color/Pocket.png></a></li>
+<li><a href="http://www.reddit.com/submit?url=https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dReddit&title=%e9%96%b1%e8%ae%80%20%2f%20%e3%80%8aUNIX%20%e5%82%b3%e5%a5%87%ef%bc%9a%e6%ad%b7%e5%8f%b2%e8%88%87%e5%9b%9e%e6%86%b6%e3%80%8b" target=_blank title="Submit to Reddit"><img alt="Submit to Reddit" src=/images/flat_web_icon_set/color/Reddit.png></a></li>
+<li><a href="http://www.linkedin.com/shareArticle?url=https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dLinkedin&title=%e9%96%b1%e8%ae%80%20%2f%20%e3%80%8aUNIX%20%e5%82%b3%e5%a5%87%ef%bc%9a%e6%ad%b7%e5%8f%b2%e8%88%87%e5%9b%9e%e6%86%b6%e3%80%8b&summary=&source=https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dLinkedin" target=_blank title="Share on LinkedIn"><img alt="Share on LinkedIn" src=/images/flat_web_icon_set/color/LinkedIn.png></a></li>
+<li><a href="http://wordpress.com/press-this.php?u=https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f%3futm_campaign%3dShare%26utm_medium%3dReferral%26utm_source%3dWordpress&quote=%e9%96%b1%e8%ae%80%20%2f%20%e3%80%8aUNIX%20%e5%82%b3%e5%a5%87%ef%bc%9a%e6%ad%b7%e5%8f%b2%e8%88%87%e5%9b%9e%e6%86%b6%e3%80%8b&s=" target=_blank title="Publish on WordPress"><img alt="Publish on WordPress" src=/images/flat_web_icon_set/color/Wordpress.png></a></li>
+<li><a href="https://pinboard.in/popup_login/?url=https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f%3futm_campaign%3dShare%26utm_medium%3dSocial%26utm_source%3dPinboard&title=%e9%96%b1%e8%ae%80%20%2f%20%e3%80%8aUNIX%20%e5%82%b3%e5%a5%87%ef%bc%9a%e6%ad%b7%e5%8f%b2%e8%88%87%e5%9b%9e%e6%86%b6%e3%80%8b&description=" target=_blank title="Save to Pinboard"><img alt="Save to Pinboard" src=/images/flat_web_icon_set/color/Pinboard.png></a></li>
+<li><a href="mailto:?subject=%e9%96%b1%e8%ae%80%20%2f%20%e3%80%8aUNIX%20%e5%82%b3%e5%a5%87%ef%bc%9a%e6%ad%b7%e5%8f%b2%e8%88%87%e5%9b%9e%e6%86%b6%e3%80%8b&body=:%20https%3a%2f%2fsujingjhong.com%2fposts%2fbook-9787115557179%2f%3futm_campaign%3dShare%26utm_medium%3dEmail%26utm_source%3dEmail" target=_blank title="Send email"><img alt="Send email" src=/images/flat_web_icon_set/color/Email.png></a></li>
+</ul>
+</section>
+<h2 id=相關文章>相關文章</h2>
+<ul class=related>
+<li><a href=/posts/book-9789864773824/>閱讀 / 《比上補習班更有效率的自學讀書法》</a></li>
+</ul>
+<footer class=book-footer>
+<div class="flex flex-wrap justify-between">
+</div>
+<hr>
+<div id=commento></div>
+<footer>
+<span class=copyright>
+© 2019-2021 Su Jing Jhong 版權所有
+<a rel=license href=http://creativecommons.org/licenses/by-nc/4.0/ target=_blank><img alt="創用 CC 授權條款" style=border-width:0 src=https://i.creativecommons.org/l/by-nc/4.0/80x15.png></a>
+</span>
+</footer>
+</footer>
+<div class=book-comments>
+</div>
+<label for=menu-control class="hidden book-menu-overlay"></label>
+</div>
+<aside class=book-toc>
+<nav id=TableOfContents></nav>
+</aside>
+</main>
+<script defer>for(var links=document.getElementsByTagName("a"),i=0;i<links.length;i++)links[i].hostname!=window.location.hostname&&(links[i].target='_blank')</script>
+</body>
+</html>
