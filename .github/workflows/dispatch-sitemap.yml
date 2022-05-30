@@ -17,7 +17,3 @@ jobs:
         uses: wei/curl@v1.1.1
         with:
           args: http://www.google.com/ping?sitemap=https://sujingjhong.com/sitemap.xml
-      - name: curl
-        uses: wei/curl@v1.1.1
-        with:
-          args: http://www.bing.com/ping?sitemap=https://sujingjhong.com/sitemap.xml
