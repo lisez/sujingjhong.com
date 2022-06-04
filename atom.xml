@@ -1,4 +1,4 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com</link><language>en</language><copyright>Copyright 2022, Su Jing-Jhong</copyright><lastBuildDate>Sat, 11 May 2019 07:00:19 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>閱讀 / 《UNIX 傳奇：歷史與回憶》</title><link>https://sujingjhong.com/posts/book-9787115557179/</link><description>&lt;p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com</link><language/><copyright>Copyright 2022, Su Jing-Jhong</copyright><lastBuildDate>Sat, 11 May 2019 07:00:19 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>閱讀 / 《UNIX 傳奇：歷史與回憶》</title><link>https://sujingjhong.com/posts/book-9787115557179/</link><description>&lt;p>
 &lt;img
 src="https://sujingjhong.com/images/2021/11/9787115557179-book-cover.jpeg"
 alt="UNIX 傳奇：歷史與回憶"
@@ -529,8 +529,7 @@ class="full-width"
 &lt;li>休息是為了走更長遠的路，但不要做一休二&lt;/li>
 &lt;li>準備考試，考古題94要給他練下去&lt;/li>
 &lt;/ul>
-&lt;p>剩下的總要給人留點活路，去看書吧！&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/book-9789864773824/</guid><pubDate>Wed, 29 Jan 2020 19:18:06 +0800</pubDate></item><item><title>Elixir 101 / 快速建立 HTTP 伺服器</title><link>https://sujingjhong.com/posts/elixir101/elixir-101-make-a-http-server-quickly/</link><description>&lt;h1 id="elixir-101快速架設-http-伺服器">《Elixir 101》快速架設 HTTP 伺服器 &lt;a href="#elixir-101%e5%bf%ab%e9%80%9f%e6%9e%b6%e8%a8%ad-http-%e4%bc%ba%e6%9c%8d%e5%99%a8" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>在 Elixir 裡要怎麼架設 HTTP 伺服器呢？&lt;/p>
+&lt;p>剩下的總要給人留點活路，去看書吧！&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/book-9789864773824/</guid><pubDate>Wed, 29 Jan 2020 19:18:06 +0800</pubDate></item><item><title>Elixir 101 / 快速建立 HTTP 伺服器</title><link>https://sujingjhong.com/posts/elixir101/elixir-101-make-a-http-server-quickly/</link><description>&lt;p>在 Elixir 裡要怎麼架設 HTTP 伺服器呢？&lt;/p>
 &lt;h2 id="在-nodejs-架設-http-伺服器">在 NodeJS 架設 HTTP 伺服器 &lt;a href="#%e5%9c%a8-nodejs-%e6%9e%b6%e8%a8%ad-http-%e4%bc%ba%e6%9c%8d%e5%99%a8" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>如果是在 NodeJS 底下，我們可以很快透過以下的程式碼建立簡單的伺服器：&lt;/p>
 &lt;pre>&lt;code class="language-javascript">const http = require('http');
@@ -687,8 +686,7 @@ class="full-width"
 &lt;ul>
 &lt;li>&lt;a href="https://github.com/elixir-plug/plug">https://github.com/elixir-plug/plug&lt;/a>&lt;/li>
 &lt;li>&lt;a href="https://elixirschool.com/zh-hant/lessons/specifics/plug/">https://elixirschool.com/zh-hant/lessons/specifics/plug/&lt;/a>&lt;/li>
-&lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/elixir101/elixir-101-make-a-http-server-quickly/</guid><pubDate>Thu, 31 Oct 2019 00:26:22 +0800</pubDate></item><item><title>Elixir 101 / 函式與回傳值</title><link>https://sujingjhong.com/posts/elixir101/elixir-101-function-and-return/</link><description>&lt;h1 id="elixir-101函式與回傳值">《Elixir 101》函式與回傳值 &lt;a href="#elixir-101%e5%87%bd%e5%bc%8f%e8%88%87%e5%9b%9e%e5%82%b3%e5%80%bc" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>最近又重新開始學 Elixir，這時遇到一個問題：&lt;/p>
+&lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/elixir101/elixir-101-make-a-http-server-quickly/</guid><pubDate>Thu, 31 Oct 2019 00:26:22 +0800</pubDate></item><item><title>Elixir 101 / 函式與回傳值</title><link>https://sujingjhong.com/posts/elixir101/elixir-101-function-and-return/</link><description>&lt;p>最近又重新開始學 Elixir，這時遇到一個問題：&lt;/p>
 &lt;p>&lt;strong>在 Elixir 裡面要怎麼建立函式，還有函數要怎麼回傳值？&lt;/strong>&lt;/p>
 &lt;p>首先這要從 Elixir 有兩種函數類型說起：&lt;/p>
 &lt;ul>
@@ -1620,7 +1618,6 @@ gvm install go1.5
 &lt;p>例如設定為 &lt;code>go1.9.7&lt;/code> 為預設版本：&lt;/p>
 &lt;pre>&lt;code class="language-shell">gmv use go1.9.7 --default
 &lt;/code>&lt;/pre></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/golang-gvm-for-go/</guid><pubDate>Thu, 23 Aug 2018 02:06:04 +0800</pubDate></item><item><title>Elixir101 / Hello World</title><link>https://sujingjhong.com/posts/elixir101/elixir-101-hello-world/</link><description>&lt;p>&lt;a href="https://medium.com/@sujj/elixir-hello-world-767e33726eb1">本文原刊載於個人 Medium&lt;/a>&lt;/p>
-&lt;h1 id="elixir-101hello-world">《Elixir 101》Hello World &lt;a href="#elixir-101hello-world" class="hash g">#&lt;/a>&lt;/h1>
 &lt;p>最近開始接觸 Elixir 這門語言，語法風格接近 Ruby。而他有一種動靜皆備的特性，老實說還蠻吸引我的。&lt;/p>
 &lt;p>因為 Elixir 可以用副檔名來區別是要直譯還是編譯，而它的 Elixir 的檔名主要有三種：&lt;code>.ex&lt;/code> &lt;code>.exs&lt;/code> &lt;code>.beam&lt;/code>&lt;/p>
 &lt;p>這三種檔名差異，可以直接看&lt;a href="https://elixir-lang.org/getting-started/modules-and-functions.html#scripted-mode">官方說明&lt;/a>：&lt;/p>
