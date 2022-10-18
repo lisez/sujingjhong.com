@@ -1,4 +1,21 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com</link><language/><copyright>Copyright 2022, Su Jing-Jhong</copyright><lastBuildDate>Sat, 11 May 2019 07:00:19 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>Linux / WireGuard note on Linux Debian 10 in 2021</title><link>https://sujingjhong.com/posts/wireguard-note-on-linux-debian-10-in-2021/</link><description>&lt;h1 id="wireguard-note-on-linux-debian-10-in-2021">WireGuard note on Linux Debian 10 in 2021 &lt;a href="#wireguard-note-on-linux-debian-10-in-2021" class="hash g">#&lt;/a>&lt;/h1>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com</link><language/><copyright>Copyright 2022, Su Jing-Jhong</copyright><lastBuildDate>Sat, 11 May 2019 07:00:19 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>後資深工程師的四種職涯角色</title><link>https://sujingjhong.com/posts/four-types-of-post-senior-engineer/</link><description>&lt;p>當晉級到資深工程師後，後面的職涯就開始模糊了，你是否也有一樣的感受呢？&lt;/p>
+&lt;p>軟體工程師約莫 5-8 年後會晉級到職涯中的「資深工程師」（Senior Software Engineer）階段，不過現階段技術更迭以及累積速度加速下，可能會更加快速。在下一階段職涯中，大多數公司都是用「主任工程師」（Staff Engineer）這職稱描述。&lt;/p>
+&lt;p>這抽象的職稱也導致了一些問題：我需要具備什麼能力才能晉升到主任工程師？僅具有技術能力就可以了嘛？其他具有這職位的人是怎麼達到的呢？在職涯中，你的上級或者主管，應該要扮演什麼角色協助你呢？&lt;/p>
+&lt;p>最關鍵問題，當名片上刻印出新職稱後，職務內容真的是自身喜歡的嘛？或者能力是足以勝任的嘛？又或者只是另一位彼得原理的受難者呢？&lt;/p>
+&lt;blockquote>
+&lt;p>備註：彼得原理，在組織或企業的等級制度中，人會因其某種特質或特殊技能，令他被擢升到不能勝任的高階職位，最終變成組織的障礙物（冗員）及負資產。（摘自維基百科）&lt;/p>
+&lt;/blockquote>
+&lt;p>一位美國工程師 Will Larson 注意到這問題，他訪談了許多工程師，在他的書中 Staff Engineer 總結了四種主任工程師在公司中扮演的角色，分別是：技術領袖（Tech Lead）、架構師（Architect）、解題專家（Solver）以及副手（Right Hand）。&lt;/p>
+&lt;p>技術領袖，是組織中的技術擔當，負責在專案中或者小組中，指引與執行技術方案，同時他們也會密切和少數幾位經理人共同協作。在部份組織中，甚至有技術總監（Tech Lead Manager），他們職責和技術領袖一樣，不過多加了領導技術領袖的人事責任。&lt;/p>
+&lt;p>架構師，這在台灣業界應該是最常耳聞的，在作者說明中，架構師是負責在一個範圍中，負責指引開發方向、交付品質以及執行方案之人，所以必須具備有整合了解技術限制、使用者需求，以及組織層面的領導力，在責任領域中掌舵。&lt;/p>
+&lt;p>解題專家，如這個名詞，他們是特定問題或者隨機問題的解答者，他們負責處理組織中棘手、複雜的問題，並運用他們技術與領域知識，在混亂中尋找出路，不一定是解法但至少是前進的方向。他們關注的問題，可能長時間的研究發現，也有可能是在不同問題間不斷跳轉。&lt;/p>
+&lt;p>副手，他們獲得經理人或者管理階層的信任與授權，延伸經理階級的注意範圍與視野，同時也會營運一定組織活動，負責在大型組織中，協助經理人聚焦問題。看到他們，就像是看見背後的管理階層。&lt;/p>
+&lt;p>介紹完四種樣態後，身為一位工程師你該如何做選擇？就組織職涯上來說，這大部分取決於公司當下的需求，現階段公司需要什麼樣的主任工程師。&lt;/p>
+&lt;p>最普遍也是最通常的情況，就是技術領袖型的主任工程師，他也是所有主任工程師原型樣貌，因為公司通常最需要工程師解決技術問題，也是工程師職涯的起點。當公司組織文化強調單兵作戰更甚於團隊作業時，這時他們就需要解題專家，專門克服技術問題，反之，強調團隊、方法論的公司，對此種樣態需求較低。當組織發展迅速或者是百人以上時，這時候就會需要架構師或者副手，進行整體面的規劃與管理。但也必須說，每間公司都有各自的文化，需要什麼樣的工程師，取決於公司文化、歷史與當下的需求。&lt;/p>
+&lt;p>從工作性質面向考量，技術領袖以及架構師，多半需要有一協作團隊，並且有著長期發展目標，會需要緊密的團隊合作關係，但缺點是，在組織中容易存在甚久，而喪失存在感。至於解題專家以及副手，他們多半是扮演救火隊的角色，在不同的問題、危機、團隊中打轉，相較於緊密的團隊合作，他們多半是需要與不同團隊進行專案式合作，進行短期、間歇、任務性的協作，以及通常是管理階層焦點在哪，他們就在哪，他們的目標優先度與管理階層齊平。&lt;/p>
+&lt;p>就大多數情況，成為什麼型的工程師，比起個人選擇，更多是組織需求。但也必須認識到這只是四種原型，在職場中，應該都是混合角色，而是何種成份較多。&lt;/p>
+&lt;p>作者提出四種樣貌，剛好統整了技術能力、領域知識、組織領導力的不同發展方向。技術領袖偏重於技術能力，解題專家專精於領域知識，副手著重於組織領導力，而架構師則是盡可能三者間取得平衡。&lt;/p>
+&lt;p>還是老話一句：擇你所愛，愛你所擇。這裡同意作者所說的，要選擇可以讓你感受到「激勵」的選項，也必須承認人在江湖，身不由己，都在這職位上，工程師天職就是「用技術解決問題」，至於什麼是技術這是定義問題，但盡可能充實技術來解決問題，永遠是不敗的解法。&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/four-types-of-post-senior-engineer/</guid><pubDate>Wed, 19 Oct 2022 01:30:00 +0800</pubDate></item><item><title>Linux / WireGuard note on Linux Debian 10 in 2021</title><link>https://sujingjhong.com/posts/wireguard-note-on-linux-debian-10-in-2021/</link><description>&lt;h1 id="wireguard-note-on-linux-debian-10-in-2021">WireGuard note on Linux Debian 10 in 2021 &lt;a href="#wireguard-note-on-linux-debian-10-in-2021" class="hash g">#&lt;/a>&lt;/h1>
 &lt;p>Linux version: Debian 10&lt;/p>
 &lt;h2 id="vpn-server">VPN Server &lt;a href="#vpn-server" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>First, create a vm on cloud:&lt;/p>
