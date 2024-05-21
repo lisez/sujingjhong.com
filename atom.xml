@@ -1,4 +1,19 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com</link><language/><copyright>Copyright 2022, Su Jing-Jhong</copyright><lastBuildDate>Sat, 11 May 2019 07:00:19 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>後資深工程師的四種職涯角色</title><link>https://sujingjhong.com/posts/four-types-of-post-senior-engineer/</link><description>&lt;h2 id="資深工程師的下一步">資深工程師的下一步 &lt;a href="#%e8%b3%87%e6%b7%b1%e5%b7%a5%e7%a8%8b%e5%b8%ab%e7%9a%84%e4%b8%8b%e4%b8%80%e6%ad%a5" class="hash g">#&lt;/a>&lt;/h2>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Sat, 11 May 2019 07:00:19 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title/><link>https://sujingjhong.com/posts/debugday-1/</link><description>&lt;p>同事 slack python fastapi + pydantic 使用問題。&lt;/p>
+&lt;p>簡言之，就是他用 pydantic 做了一個 api response body model；但不知為何，測試時 fastapi 就是不給用，會跳出錯誤訊息：&lt;/p>
+&lt;pre>&lt;code class="language-bash">Object of type FileListResponse is not JSON serializable
+&lt;/code>&lt;/pre>
+&lt;p>因為名稱是有 File，就猜測是要處理檔案。就之前使用 fastapi 經驗，處理檔案時，要使用它框架物件。所以問了第一個問題：是否有使用框架物件。&lt;/p>
+&lt;p>發現是我誤解了，只是要處理檔案清單，並沒有要處理檔案。&lt;/p>
+&lt;p>接著想到 python 在處理序列化之類的 &lt;strong>metaprogramming&lt;/strong> 是藉由實作約定協定 (protocol)，例如 JSON 序列化可以採用繼承 JSONEncoder 方式。&lt;/p>
+&lt;p>就詢問有沒有實作或引用，沒注意到用 pydantic 這方案問題通常就是交給套件解決。&lt;/p>
+&lt;p>那看來可能是 fastapi，查了下文件，官方有提供相容性編碼器，就請他試試。&lt;/p>
+&lt;p>OK，解決！&lt;/p>
+&lt;p>參考資料：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://docs.python.org/3/library/json.html">https://docs.python.org/3/library/json.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://fastapi.tiangolo.com/tutorial/request-files/">https://fastapi.tiangolo.com/tutorial/request-files/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://fastapi.tiangolo.com/tutorial/encoder/">https://fastapi.tiangolo.com/tutorial/encoder/&lt;/a>&lt;/li>
+&lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-1/</guid><pubDate>Tue, 21 May 2024 01:33:00 +0000</pubDate></item><item><title>後資深工程師的四種職涯角色</title><link>https://sujingjhong.com/posts/four-types-of-post-senior-engineer/</link><description>&lt;h2 id="資深工程師的下一步">資深工程師的下一步 &lt;a href="#%e8%b3%87%e6%b7%b1%e5%b7%a5%e7%a8%8b%e5%b8%ab%e7%9a%84%e4%b8%8b%e4%b8%80%e6%ad%a5" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>當晉級到資深工程師後，後面的職涯就開始模糊了，你是否也有一樣的感受呢？&lt;/p>
 &lt;p>軟體工程師約莫 5-8 年後會晉級到職涯中的「資深工程師」（Senior Software Engineer）階段，不過現階段技術更迭以及累積速度加速下，可能會更加快速。在下一階段職涯中，大多數公司都是用「主任工程師」（Staff Engineer）這職稱描述。&lt;/p>
 &lt;p>這抽象的職稱也導致了一些問題：我需要具備什麼能力才能晉升到主任工程師？僅具有技術能力就可以了嘛？其他具有這職位的人是怎麼達到的呢？在職涯中，你的上級或者主管，應該要扮演什麼角色協助你呢？&lt;/p>
@@ -119,8 +134,8 @@ wg-quick[9098]: Unable to access interface: Protocol not supported
 &lt;p>以下是司法信箱的回函：&lt;/p>
 &lt;blockquote>
 &lt;p>ＯＯ君您好：&lt;/p>
-&lt;p>您於110年1月8日寄給本院「司法信箱」的電子郵件，詢問有關如何代辦除戶者單身宣誓書一事，為您說明如下：&lt;/p>
-&lt;p>一、 公證法施行細則第51條第5款規定：「有下列第一款至第四款情形之一者，公證人應拒絕公、認證之請求；有第五款情形者，得拒絕請求。但其情形可補正者，公證人應當場或定期先命補正：五、請求認證之內容無從查考或不明。」單身宣誓書係證明當事人現為單身之文件，而當事人經戶政事務所逕為遷出登記後，遷出期間是否有應戶籍登記之事項不明，其個人之現行婚姻狀況亦不詳，故公證人藉由除戶之戶籍謄本無從查考當事人是否現為單身，宜請該當事人回國辦理遷入登記後，再行向公證人請求辦理單身宣誓書。&lt;/p>
+&lt;p>您於 110 年 1 月 8 日寄給本院「司法信箱」的電子郵件，詢問有關如何代辦除戶者單身宣誓書一事，為您說明如下：&lt;/p>
+&lt;p>一、 公證法施行細則第 51 條第 5 款規定：「有下列第一款至第四款情形之一者，公證人應拒絕公、認證之請求；有第五款情形者，得拒絕請求。但其情形可補正者，公證人應當場或定期先命補正：五、請求認證之內容無從查考或不明。」單身宣誓書係證明當事人現為單身之文件，而當事人經戶政事務所逕為遷出登記後，遷出期間是否有應戶籍登記之事項不明，其個人之現行婚姻狀況亦不詳，故公證人藉由除戶之戶籍謄本無從查考當事人是否現為單身，宜請該當事人回國辦理遷入登記後，再行向公證人請求辦理單身宣誓書。&lt;/p>
 &lt;p>二、 您如有其他公證法律問題，得向各地方法院公證處或訴訟輔導單位尋求協助。
 感謝! 您的來信，祝您萬事如意！&lt;/p>
 &lt;p>司法院 民事廳&lt;/p>
@@ -291,19 +306,19 @@ loadScript("vega")
 &lt;/ol>
 &lt;h2 id="gist">Gist &lt;a href="#gist" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>這裡一樣將詳細程式碼附上&lt;/p>
-&lt;script type="application/javascript" src="https://gist.github.com/lisez/4374189f1e605010d1d3245485a803a9.js">&lt;/script></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/how-to-show-matplotlib-visual-packages-in-chinese-on-colab/</guid><pubDate>Mon, 02 Nov 2020 17:57:00 +0000</pubDate></item><item><title>其他 / 2020 線上保險資訊平臺</title><link>https://sujingjhong.com/posts/2020-online-insurance-platforms/</link><description>&lt;p>稍微整理一下目前台灣的線上保險資訊平臺。&lt;/p>
+&lt;script src="https://gist.github.com/lisez/4374189f1e605010d1d3245485a803a9.js">&lt;/script></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/how-to-show-matplotlib-visual-packages-in-chinese-on-colab/</guid><pubDate>Mon, 02 Nov 2020 17:57:00 +0000</pubDate></item><item><title>其他 / 2020 線上保險資訊平臺</title><link>https://sujingjhong.com/posts/2020-online-insurance-platforms/</link><description>&lt;p>稍微整理一下目前台灣的線上保險資訊平臺。&lt;/p>
 &lt;p>目前個人是用 My83 大概的篩出自己想要的保險額度還有保單或落在哪，然後再用 Finfo 去做細部的修正。&lt;/p>
 &lt;h2 id="finfo-保險資訊站">Finfo 保險資訊站 &lt;a href="#finfo-%e4%bf%9d%e9%9a%aa%e8%b3%87%e8%a8%8a%e7%ab%99" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>&lt;a href="https://finfo.tw/">https://finfo.tw/&lt;/a>&lt;/p>
 &lt;ul>
 &lt;li>優：使用起來最平易近人，不會把所有資訊都塞給你，但是又可以在網站其他地方找到該保險的重要資訊，並且提供適當的試算工具，可以輕易了解保額對保障內容影響多大。並且提供客製化保單組合工具，可以在網站上做各家保單組合，可以說是保險資訊界的原價屋。&lt;/li>
-&lt;li>缺：沒辦法針對保險項目去做推薦分析，例如說想要意外失能一次性給付500萬然後每月給付5萬，這樣去做保險組合，目前此網站沒辦法。&lt;/li>
+&lt;li>缺：沒辦法針對保險項目去做推薦分析，例如說想要意外失能一次性給付 500 萬然後每月給付 5 萬，這樣去做保險組合，目前此網站沒辦法。&lt;/li>
 &lt;/ul>
 &lt;h2 id="my83-保險網">My83 保險網 &lt;a href="#my83-%e4%bf%9d%e9%9a%aa%e7%b6%b2" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>&lt;a href="https://my83.com.tw/">https://my83.com.tw/&lt;/a>&lt;/p>
 &lt;ul>
-&lt;li>優：使用上起來和 Finfo 差不多。不過有提供 QA 式風險分析提供保險組合推薦系統，可以針對各種保險項目的額度組合想要的保險，例如上面說的想要意外失能一次性給付500萬，加上每月給付5萬，他的系統就可以操作。&lt;/li>
-&lt;li>缺：推薦系統是優點，也就成為缺點，沒辦法針對各家保單去做客製化調整，只能用他的推薦工具篩選。保險項目是直接連到各家DM/條款，沒有針對重點項目說明。&lt;/li>
+&lt;li>優：使用上起來和 Finfo 差不多。不過有提供 QA 式風險分析提供保險組合推薦系統，可以針對各種保險項目的額度組合想要的保險，例如上面說的想要意外失能一次性給付 500 萬，加上每月給付 5 萬，他的系統就可以操作。&lt;/li>
+&lt;li>缺：推薦系統是優點，也就成為缺點，沒辦法針對各家保單去做客製化調整，只能用他的推薦工具篩選。保險項目是直接連到各家 DM/條款，沒有針對重點項目說明。&lt;/li>
 &lt;/ul>
 &lt;h2 id="買保險-smartbeb">買保險 SmartBeb &lt;a href="#%e8%b2%b7%e4%bf%9d%e9%9a%aa-smartbeb" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>&lt;a href="https://www.smartbeb.com.tw/">https://www.smartbeb.com.tw/&lt;/a>&lt;/p>
@@ -350,12 +365,8 @@ class="full-width"
 &lt;/p>
 &lt;p>一開始是找到這些：&lt;/p>
 &lt;ul>
-&lt;li>
-&lt;p>&lt;a href="https://stackoverflow.com/questions/907680/css-printing-avoiding-cut-in-half-divs-between-pages">CSS Printing: Avoiding cut-in-half DIVs between pages?&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://stackoverflow.com/questions/36950165/text-cut-at-page-break-when-print">Text cut at page break when print&lt;/a>&lt;/p>
-&lt;/li>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/907680/css-printing-avoiding-cut-in-half-divs-between-pages">CSS Printing: Avoiding cut-in-half DIVs between pages?&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/36950165/text-cut-at-page-break-when-print">Text cut at page break when print&lt;/a>&lt;/li>
 &lt;/ul>
 &lt;p>就是在列印模式時，將 &lt;code>div&lt;/code> 或者要列印的區域，將 &lt;code>page-break-inside&lt;/code> 設定為 &lt;code>avoid&lt;/code>：&lt;/p>
 &lt;pre>&lt;code class="language-CSS">@media print
@@ -370,12 +381,8 @@ page-break-inside: avoid;
 &lt;p>原來銳眼如他，發現在列印時，上下高度的間距竟然些微不同，經過一陣尋覓後，發現是外層 &lt;code>container&lt;/code> 的 &lt;code>flex&lt;/code> 屬性惹禍，於是就在列印模式中，將那些元素設定成 &lt;code>display: block&lt;/code> 或是 &lt;code>display: inline-block&lt;/code>，不再使用 &lt;code>flex&lt;/code> 彈性調整。&lt;/p>
 &lt;p>接下來再使用適當的關鍵字果然就查到類似的問題了：&lt;/p>
 &lt;ul>
-&lt;li>
-&lt;p>&lt;a href="https://stackoverflow.com/questions/45414152/css-flex-box-not-printing-all-pages-on-firefox">CSS: Flex Box not printing all pages on Firefox&lt;/a>&lt;/p>
-&lt;/li>
-&lt;li>
-&lt;p>&lt;a href="https://stackoverflow.com/questions/20408033/how-to-get-page-break-inside-avoid-to-work-nicely-with-flex-wrap-wrap">How to get &lt;code>page-break-inside: avoid&lt;/code> to work nicely with &lt;code>flex-wrap: wrap&lt;/code>&lt;/a>&lt;/p>
-&lt;/li>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/45414152/css-flex-box-not-printing-all-pages-on-firefox">CSS: Flex Box not printing all pages on Firefox&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/20408033/how-to-get-page-break-inside-avoid-to-work-nicely-with-flex-wrap-wrap">How to get &lt;code>page-break-inside: avoid&lt;/code> to work nicely with &lt;code>flex-wrap: wrap&lt;/code>&lt;/a>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/flexbox-print-issue/</guid><pubDate>Mon, 25 May 2020 22:26:46 +0800</pubDate></item><item><title>Hugo / 如何使用 Github Actions 自動部署 Hugo</title><link>https://sujingjhong.com/posts/how-to-deploy-hugo-automatically-with-github-actions/</link><description>&lt;h1 id="如何使用-github-actions-自動部署-hugo">如何使用 Github Actions 自動部署 Hugo &lt;a href="#%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8-github-actions-%e8%87%aa%e5%8b%95%e9%83%a8%e7%bd%b2-hugo" class="hash g">#&lt;/a>&lt;/h1>
 &lt;p>目前網站是部署在 &lt;a href="https://github.com/lisez/sujingjhong.com">GitHub 的 repo&lt;/a>。&lt;/p>
 &lt;p>然後每次發表新文章時都要做以下動作：&lt;/p>
@@ -397,7 +404,7 @@ page-break-inside: avoid;
 &lt;/ol>
 &lt;p>基本上可以自動化的就是後面 3、4，我需要他 commit 到 github repo 上後，直接用 GitHub Actions 幫我做完後面的 3、4。&lt;/p>
 &lt;h2 id="更新文章流程自動化">更新文章流程自動化 &lt;a href="#%e6%9b%b4%e6%96%b0%e6%96%87%e7%ab%a0%e6%b5%81%e7%a8%8b%e8%87%aa%e5%8b%95%e5%8c%96" class="hash g">#&lt;/a>&lt;/h2>
-&lt;script type="application/javascript" src="https://gist.github.com/lisez/41cebe4eb9190a5c5e879fee5933beb1.js">&lt;/script></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/how-to-deploy-hugo-automatically-with-github-actions/</guid><pubDate>Fri, 31 Jan 2020 18:21:32 +0800</pubDate></item><item><title>Elixir 101 / 快速建立 HTTP 伺服器</title><link>https://sujingjhong.com/posts/elixir101/elixir-101-make-a-http-server-quickly/</link><description>&lt;p>在 Elixir 裡要怎麼架設 HTTP 伺服器呢？&lt;/p>
+&lt;script src="https://gist.github.com/lisez/41cebe4eb9190a5c5e879fee5933beb1.js">&lt;/script></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/how-to-deploy-hugo-automatically-with-github-actions/</guid><pubDate>Fri, 31 Jan 2020 18:21:32 +0800</pubDate></item><item><title>Elixir 101 / 快速建立 HTTP 伺服器</title><link>https://sujingjhong.com/posts/elixir101/elixir-101-make-a-http-server-quickly/</link><description>&lt;p>在 Elixir 裡要怎麼架設 HTTP 伺服器呢？&lt;/p>
 &lt;h2 id="在-nodejs-架設-http-伺服器">在 NodeJS 架設 HTTP 伺服器 &lt;a href="#%e5%9c%a8-nodejs-%e6%9e%b6%e8%a8%ad-http-%e4%bc%ba%e6%9c%8d%e5%99%a8" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>如果是在 NodeJS 底下，我們可以很快透過以下的程式碼建立簡單的伺服器：&lt;/p>
 &lt;pre>&lt;code class="language-javascript">const http = require('http');
@@ -562,7 +569,7 @@ class="full-width"
 &lt;li>具名函示(Named Functions)&lt;/li>
 &lt;/ul>
 &lt;h2 id="匿名函式-anonymous-functions">匿名函式 (Anonymous Functions) &lt;a href="#%e5%8c%bf%e5%90%8d%e5%87%bd%e5%bc%8f-anonymous-functions" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>匿名函式 (Anonymous Functions)，通常指的是這個函式無需有函式的&lt;strong>識別符號(identifier)&lt;/strong>。在有些語言實作上，被稱為 &lt;strong>lambda表示式&lt;/strong>（Pyhton），或者是 &lt;strong>閉包(closures)&lt;/strong> (Rust)。&lt;/p>
+&lt;p>匿名函式 (Anonymous Functions)，通常指的是這個函式無需有函式的&lt;strong>識別符號(identifier)&lt;/strong>。在有些語言實作上，被稱為 &lt;strong>lambda 表示式&lt;/strong>（Pyhton），或者是 &lt;strong>閉包(closures)&lt;/strong> (Rust)。&lt;/p>
 &lt;p>在 Elixir 裡，匿名函式是宣告一個變數，然後將函式用 &lt;code>fn ... end&lt;/code> 包裹起來。&lt;/p>
 &lt;p>例如我們宣告一個叫 &lt;code>hello_world &lt;/code> 的匿名函式，裡面是向顯示器顯示 &lt;code>Hello World&lt;/code> ，那我們可以寫作：&lt;/p>
 &lt;pre>&lt;code class="language-elixir">hello_world = fn() -&amp;gt; IO.puts &amp;quot;Hello World&amp;quot; end
@@ -1430,7 +1437,7 @@ class="full-width"
 &lt;p>我覺得可從&lt;strong>內部格局&lt;/strong>來區分。如果是百貨公司的話，其實櫃位和櫃位之間，是很難區分的，可能用&lt;strong>走道&lt;/strong>或者用&lt;strong>層板&lt;/strong>就把它區隔出來，還是可以感受到是同屬一個空間。但如果是商店街、大型購物中心，會很明顯看到每個店鋪之間，是有明顯的空間區隔，大多就是用&lt;strong>牆壁&lt;/strong>隔開，會很明顯感受到店舖之間的分離。&lt;/p>
 &lt;p>例如在台北中山地下街、東區地下街，會明顯感受到很多間店舖，&lt;a href="http://web.metro.taipei/c/metromall.asp">地圖上也會指出有哪些店鋪&lt;/a>。如果是百貨公司呢，&lt;a href="http://www.att4fun.com.tw/?d=brick&amp;amp;k=floor">以ATT4Fun，明顯感受到一個接連一個&lt;/a>，店鋪之間比較少明顯的區隔。&lt;/p>
 &lt;p>以上就是我對英文單字Mall的認識，分享給大家，當然有錯誤也希望大家不吝於指教呢。&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/what-is-mall-and-how-to-distinguish-it-and-department-store/</guid><pubDate>Tue, 14 May 2019 00:24:04 +0800</pubDate></item><item><title>Golang / GVM for Go</title><link>https://sujingjhong.com/posts/golang-gvm-for-go/</link><description>&lt;h1 id="gvm-for-go">GVM for Go &lt;a href="#gvm-for-go" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;code>gvm&lt;/code> 是 &lt;code>golang&lt;/code> 語言的版本管理系統，類似 &lt;code>nodejs&lt;/code> 的 &lt;code>nvm&lt;/code>，以及 &lt;code>ruby&lt;/code> 的 &lt;code>rvm&lt;/code>等等。&lt;/p>
+&lt;p>&lt;code>gvm&lt;/code> 是 &lt;code>golang&lt;/code> 語言的版本管理系統，類似 &lt;code>nodejs&lt;/code> 的 &lt;code>nvm&lt;/code>，以及 &lt;code>ruby&lt;/code> 的 &lt;code>rvm&lt;/code> 等等。&lt;/p>
 &lt;p>對這軟體的功用就不再贅述了。&lt;/p>
 &lt;h2 id="安裝-gvm">安裝 gvm &lt;a href="#%e5%ae%89%e8%a3%9d-gvm" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>&lt;code>gvm&lt;/code> 是用 &lt;code>shell&lt;/code> 語言寫成，基本上直接用 &lt;code>curl&lt;/code> 就可以安裝了&lt;/p>
@@ -1464,7 +1471,7 @@ pkgenv - edit the environment for a package set
 &lt;pre>&lt;code class="language-shell">gvm install go1.4
 gvm use go1.4 [--default]
 &lt;/code>&lt;/pre>
-&lt;p>但如果要安裝 &lt;code>&amp;gt;=1.5&lt;/code> 以上版本，因為 &lt;code>1.5&lt;/code>以上版本的 &lt;code>Golang&lt;/code> 已經完成自舉，需要 &lt;code>go 1.4&lt;/code> 進行編譯。&lt;/p>
+&lt;p>但如果要安裝 &lt;code>&amp;gt;=1.5&lt;/code> 以上版本，因為 &lt;code>1.5&lt;/code> 以上版本的 &lt;code>Golang&lt;/code> 已經完成自舉，需要 &lt;code>go 1.4&lt;/code> 進行編譯。&lt;/p>
 &lt;p>所以需要先安裝 &lt;code>1.4&lt;/code> 版本後再行編譯。參照官方文件就是：&lt;/p>
 &lt;pre>&lt;code class="language-shell">gvm install go1.4 -B
 gvm use go1.4
@@ -1479,7 +1486,7 @@ gvm install go1.5
 &lt;/code>&lt;/pre>
 &lt;h2 id="--defalut">&amp;ndash;defalut &lt;a href="#--defalut" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>在這裡建議將某個 &lt;code>golang&lt;/code> 版本設定為預設版本。&lt;/p>
-&lt;p>因為 gvm 會自動調整 GOPATH 以及 GOROOT 還有 PATH 位置，很方便。但如果沒有將某個版本設定為 default，在未經修改的設定上，GOPATH 還有 GOROOT可能會是空的，這時候就會採很多坑。&lt;/p>
+&lt;p>因為 gvm 會自動調整 GOPATH 以及 GOROOT 還有 PATH 位置，很方便。但如果沒有將某個版本設定為 default，在未經修改的設定上，GOPATH 還有 GOROOT 可能會是空的，這時候就會採很多坑。&lt;/p>
 &lt;p>設定方法，就是在 use 指令的最後面加上 &lt;code>--default&lt;/code>：&lt;/p>
 &lt;pre>&lt;code class="language-shell">gvm use go1.10.3 --default
 &lt;/code>&lt;/pre>
@@ -1488,13 +1495,13 @@ gvm install go1.5
 &lt;/code>&lt;/pre></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/golang-gvm-for-go/</guid><pubDate>Thu, 23 Aug 2018 02:06:04 +0800</pubDate></item><item><title>Elixir101 / Hello World</title><link>https://sujingjhong.com/posts/elixir101/elixir-101-hello-world/</link><description>&lt;p>&lt;a href="https://medium.com/@sujj/elixir-hello-world-767e33726eb1">本文原刊載於個人 Medium&lt;/a>&lt;/p>
 &lt;p>最近開始接觸 Elixir 這門語言，語法風格接近 Ruby。而他有一種動靜皆備的特性，老實說還蠻吸引我的。&lt;/p>
 &lt;p>因為 Elixir 可以用副檔名來區別是要直譯還是編譯，而它的 Elixir 的檔名主要有三種：&lt;code>.ex&lt;/code> &lt;code>.exs&lt;/code> &lt;code>.beam&lt;/code>&lt;/p>
-&lt;p>這三種檔名差異，可以直接看&lt;a href="https://elixir-lang.org/getting-started/modules-and-functions.html#scripted-mode">官方說明&lt;/a>：&lt;/p>
+&lt;p>這三種檔名差異，可以直接看 &lt;a href="https://elixir-lang.org/getting-started/modules-and-functions.html#scripted-mode">官方說明&lt;/a>：&lt;/p>
 &lt;blockquote>
 &lt;p>In addition to the Elixir file extension &lt;code>.ex&lt;/code>, Elixir also supports &lt;code>.exs&lt;/code> files for scripting. Elixir treats both files exactly the same way, the only difference is in intention. &lt;code>.ex&lt;/code> files are meant to be compiled while &lt;code>.exs&lt;/code> files are used for scripting. When executed, both extensions compile and load their modules into memory, although only &lt;code>.ex&lt;/code> files write their bytecode to disk in the format of &lt;code>.beam&lt;/code> files.&lt;/p>
 &lt;/blockquote>
-&lt;p>Elixir 對於不管是 ex 或者是 exs 檔案，都會將他們編譯後執行；只是在 ex 檔案，Elixir 會將他們寫成 beam格式的二元組碼到硬碟。&lt;/p>
+&lt;p>Elixir 對於不管是 ex 或者是 exs 檔案，都會將他們編譯後執行；只是在 ex 檔案，Elixir 會將他們寫成 beam 格式的二元組碼到硬碟。&lt;/p>
 &lt;p>不過就像當初接觸 JavaScript 一樣，開始踩了很多坑，並且 Elixir 中文文件並沒有很多，故且將這個學習過程記錄一下，為這門語言貢獻一絲心力。&lt;/p>
-&lt;p>而學程式語言免不其然傳統上要由 Hello World開始，所以本篇文章將介紹三種方式的 Elixir Hello Word，分別是直接輸入指令、模組引用以及執行檔案。&lt;/p>
+&lt;p>而學程式語言免不其然傳統上要由 Hello World 開始，所以本篇文章將介紹三種方式的 Elixir Hello Word，分別是直接輸入指令、模組引用以及執行檔案。&lt;/p>
 &lt;h2 id="第一種直接輸入指令">第一種：直接輸入指令 &lt;a href="#%e7%ac%ac%e4%b8%80%e7%a8%ae%e7%9b%b4%e6%8e%a5%e8%bc%b8%e5%85%a5%e6%8c%87%e4%bb%a4" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>第一種方法就是在 Elixir 的互動介面 iex 中輸入 &lt;code>IO.puts(&amp;quot;Hello World&amp;quot;)&lt;/code>&lt;/p>
 &lt;pre>&lt;code class="language-elixir">$ iex
@@ -1522,10 +1529,10 @@ warn/1 warn/2 write/1
 write/2
 iex(1)&amp;gt; IO.
 &lt;/code>&lt;/pre>
-&lt;p>當你輸入 &lt;code>IO. &lt;/code>甚至是完全不輸入，然後按 &lt;code>TAB&lt;/code> 之後，iex 就會提示有哪些語法可以使用，真是太聰明的。&lt;/p>
+&lt;p>當你輸入 &lt;code>IO. &lt;/code> 甚至是完全不輸入，然後按 &lt;code>TAB&lt;/code> 之後，iex 就會提示有哪些語法可以使用，真是太聰明的。&lt;/p>
 &lt;h2 id="第二種執行檔案">第二種：執行檔案 &lt;a href="#%e7%ac%ac%e4%ba%8c%e7%a8%ae%e5%9f%b7%e8%a1%8c%e6%aa%94%e6%a1%88" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>第二種就是將 &lt;code>IO.puts(&amp;quot;Hello World&amp;quot;)&lt;/code> 存成檔案來執行。&lt;/p>
-&lt;p>打開一個新的檔案，命名為&lt;code>hello.ex&lt;/code> 接著在裡面輸入：&lt;/p>
+&lt;p>打開一個新的檔案，命名為 &lt;code>hello.ex&lt;/code> 接著在裡面輸入：&lt;/p>
 &lt;pre>&lt;code class="language-elixir">IO.puts(&amp;quot;Hello World&amp;quot;)
 &lt;/code>&lt;/pre>
 &lt;p>再來我們在命列裡面輸入 &lt;code>elixir hello.ex&lt;/code>&lt;/p>
@@ -1573,7 +1580,7 @@ height="476"
 class="full-width"
 />
 &lt;/p>
-&lt;p>接著我們打開 &lt;code>lib/hello_world.ex&lt;/code>檔案，會發現裡面長這樣：&lt;/p>
+&lt;p>接著我們打開 &lt;code>lib/hello_world.ex&lt;/code> 檔案，會發現裡面長這樣：&lt;/p>
 &lt;pre>&lt;code class="language-elixir">defmodule HelloWorld do
 @moduledoc &amp;quot;&amp;quot;&amp;quot;
 Documentation for HelloWorld.
@@ -3131,12 +3138,12 @@ return mysqli_num_rows($this-&amp;gt;_qryRes);
 &lt;blockquote>
 &lt;p>FM: That’s the difference between having really scary no common sense and being book smart. And you certainly got decent grades in school and you graduated from college. But also, you have good common sense, which in our business is everything.&lt;/p>
 &lt;/blockquote>
-&lt;p>這個差異就是驚人地欠缺常識和變成一位書呆子的不同地方。雖然確實你也在學校裡有著不錯的成績，而且也從大學畢業。但同時你也有著不錯的常識，而這個就是在我們產業裡最重要的東西。&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/frank-mutz-fm-and-phil-mutz-pm/</guid><pubDate>Fri, 26 Aug 2016 10:18:54 +0000</pubDate></item><item><title>取得URL參數值、上傳伺服器沒有反應問題</title><link>https://sujingjhong.com/posts/get-url-arguments-and-upload-to-server-but-not-working/</link><description>&lt;h1 id="取得url參數值上傳伺服器沒有反應問題">取得URL參數值、上傳伺服器沒有反應問題 &lt;a href="#%e5%8f%96%e5%be%97url%e5%8f%83%e6%95%b8%e5%80%bc%e4%b8%8a%e5%82%b3%e4%bc%ba%e6%9c%8d%e5%99%a8%e6%b2%92%e6%9c%89%e5%8f%8d%e6%87%89%e5%95%8f%e9%a1%8c" class="hash g">#&lt;/a>&lt;/h1>
-&lt;h2 id="取得url參數值">取得URL參數值 &lt;a href="#%e5%8f%96%e5%be%97url%e5%8f%83%e6%95%b8%e5%80%bc" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>安裝JQuery外掛：&lt;a href="https://plugins.jquery.com/url/">url jQuery Plugin&lt;/a>，即可直接用$url() 取得網址參數值。&lt;/p>
+&lt;p>這個差異就是驚人地欠缺常識和變成一位書呆子的不同地方。雖然確實你也在學校裡有著不錯的成績，而且也從大學畢業。但同時你也有著不錯的常識，而這個就是在我們產業裡最重要的東西。&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/frank-mutz-fm-and-phil-mutz-pm/</guid><pubDate>Fri, 26 Aug 2016 10:18:54 +0000</pubDate></item><item><title>取得URL參數值、上傳伺服器沒有反應問題</title><link>https://sujingjhong.com/posts/get-url-arguments-and-upload-to-server-but-not-working/</link><description>&lt;h1 id="取得-url-參數值上傳伺服器沒有反應問題">取得 URL 參數值、上傳伺服器沒有反應問題 &lt;a href="#%e5%8f%96%e5%be%97-url-%e5%8f%83%e6%95%b8%e5%80%bc%e4%b8%8a%e5%82%b3%e4%bc%ba%e6%9c%8d%e5%99%a8%e6%b2%92%e6%9c%89%e5%8f%8d%e6%87%89%e5%95%8f%e9%a1%8c" class="hash g">#&lt;/a>&lt;/h1>
+&lt;h2 id="取得-url-參數值">取得 URL 參數值 &lt;a href="#%e5%8f%96%e5%be%97-url-%e5%8f%83%e6%95%b8%e5%80%bc" class="hash g">#&lt;/a>&lt;/h2>
+&lt;p>安裝 JQuery 外掛：&lt;a href="https://plugins.jquery.com/url/">url jQuery Plugin&lt;/a>，即可直接用$url() 取得網址參數值。&lt;/p>
 &lt;h2 id="上傳伺服器沒有反應問題">上傳伺服器沒有反應問題 &lt;a href="#%e4%b8%8a%e5%82%b3%e4%bc%ba%e6%9c%8d%e5%99%a8%e6%b2%92%e6%9c%89%e5%8f%8d%e6%87%89%e5%95%8f%e9%a1%8c" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>今天遇到一個很奇怪的問題，在本地端都可以執行 JS ，結果上傳到伺服器都無法作用。後來查一下原始碼，原來是 Cloudflare 啟用 Rocket Loader ，導致所有 JS 都無法正常啟用。&lt;/p>
-&lt;p>之後在JS段落全部增加 &lt;code>data-cfasync=&amp;quot;false&amp;quot;&lt;/code> ，讓Cloudflare在這檔案關閉Rocket Loader，程式碼就可以正常運作了！&lt;/p>
+&lt;p>之後在 JS 段落全部增加 &lt;code>data-cfasync=&amp;quot;false&amp;quot;&lt;/code> ，讓 Cloudflare 在這檔案關閉 Rocket Loader，程式碼就可以正常運作了！&lt;/p>
 &lt;pre>&lt;code>&amp;lt;script data-cfasync=&amp;quot;false&amp;quot; src=&amp;quot;...&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
 &lt;/code>&lt;/pre></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/get-url-arguments-and-upload-to-server-but-not-working/</guid><pubDate>Sun, 17 Jul 2016 23:00:00 +0800</pubDate></item><item><title>外交家 / 中國亞投行邁前一大步</title><link>https://sujingjhong.com/posts/thediplomat/a-big-step-forward-for-chinas-aiib/</link><description>&lt;p>原文：https://thediplomat.com/2015/05/a-big-step-forward-for-chinas-aiib/&lt;/p>
 &lt;blockquote>
@@ -3369,7 +3376,7 @@ B C
 有人跟我一樣嗎？&lt;/p>
 &lt;/blockquote>
 &lt;p>可以供你參考一下我作法，學科類的書先粗略分成兩大類: 1. 基礎 2. 進階&lt;/p>
-&lt;p>基礎類的書是來打底的，用來鳥瞰該科目，而非學術研究，所以傾向薄薄的那種就可以了，得以快速打底。看不喜歡換另一本也不心痛。挑選基礎書就稍加瀏覽，看喜歡就可以下手了XD&lt;/p>
+&lt;p>基礎類的書是來打底的，用來鳥瞰該科目，而非學術研究，所以傾向薄薄的那種就可以了，得以快速打底。看不喜歡換另一本也不心痛。挑選基礎書就稍加瀏覽，看喜歡就可以下手了 XD&lt;/p>
 &lt;p>進階本就是用來延伸補強基礎本，通常也會比基礎本「厚重些」。看到基礎本不足或闕漏的地方，可以靠進階本補足。&lt;/p>
 &lt;p>再來自己開始做筆記後，又可把書粗略分成三種: 基準本、參考本、工具書&lt;/p>
 &lt;p>基準本就只有&amp;quot;一&amp;quot;本，用來作為整體學科的框架架構，就是地基和骨幹。基準本通常會選用上類的基礎本，參閱多本基礎本後，選一本架構穩健，自己看得開心的，就是好的基準本。那基準本不足的部分就用參考本補強。工具書也可以算是廣義的參考本。但工具書比較偏向查閱用，就好比法典、字典。&lt;/p>
@@ -3384,13 +3391,13 @@ B C
 &lt;li>F 文獻數篇&lt;/li>
 &lt;li>G 考古題數篇&lt;/li>
 &lt;/ul>
-&lt;p>第一分類: 基礎與進階
-基礎類: ABD
-進階類: CF&lt;/p>
-&lt;p>第二分類:
-基準本:A
-參考本:BCD
-工具書:EFG&lt;/p>
+&lt;p>第一分類: 基礎與進階&lt;/p>
+&lt;p>基礎類: ABD&lt;/p>
+&lt;p>進階類: CF&lt;/p>
+&lt;p>第二分類:&lt;/p>
+&lt;p>基準本:A&lt;/p>
+&lt;p>參考本:BCD&lt;/p>
+&lt;p>工具書:EFG&lt;/p>
 &lt;p>一些心得供你參考~&lt;/p>
 &lt;p>Thu Mar 21 17:15:19 2013&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/always-felts-book-is-not-enough/</guid><pubDate>Wed, 25 Feb 2015 05:00:00 +0000</pubDate></item><item><title>關於做筆記的程式和技巧</title><link>https://sujingjhong.com/posts/on-procedures-for-taking-notes-and-tips/</link><description>&lt;blockquote>
 &lt;p>不知道大家有沒有推薦的電腦軟體用來做筆記？
