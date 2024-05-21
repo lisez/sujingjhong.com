@@ -1,26 +1,11 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Tue, 21 May 2024 01:33:00 +0000</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title/><link>https://sujingjhong.com/posts/debugday-1/</link><description>&lt;p>同事 slack python fastapi + pydantic 使用問題。&lt;/p>
-&lt;p>簡言之，就是他用 pydantic 做了一個 api response body model；但不知為何，測試時 fastapi 就是不給用，會跳出錯誤訊息：&lt;/p>
-&lt;pre>&lt;code class="language-bash">Object of type FileListResponse is not JSON serializable
-&lt;/code>&lt;/pre>
-&lt;p>因為名稱是有 File，就猜測是要處理檔案。就之前使用 fastapi 經驗，處理檔案時，要使用它框架物件。所以問了第一個問題：是否有使用框架物件。&lt;/p>
-&lt;p>發現是我誤解了，只是要處理檔案清單，並沒有要處理檔案。&lt;/p>
-&lt;p>接著想到 python 在處理序列化之類的 &lt;strong>metaprogramming&lt;/strong> 是藉由實作約定協定 (protocol)，例如 JSON 序列化可以採用繼承 JSONEncoder 方式。&lt;/p>
-&lt;p>就詢問有沒有實作或引用，沒注意到用 pydantic 這方案問題通常就是交給套件解決。&lt;/p>
-&lt;p>那看來可能是 fastapi，查了下文件，官方有提供相容性編碼器，就請他試試。&lt;/p>
-&lt;p>OK，解決！&lt;/p>
-&lt;p>參考資料：&lt;/p>
-&lt;ul>
-&lt;li>&lt;a href="https://docs.python.org/3/library/json.html">https://docs.python.org/3/library/json.html&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://fastapi.tiangolo.com/tutorial/request-files/">https://fastapi.tiangolo.com/tutorial/request-files/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://fastapi.tiangolo.com/tutorial/encoder/">https://fastapi.tiangolo.com/tutorial/encoder/&lt;/a>&lt;/li>
-&lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-1/</guid><pubDate>Tue, 21 May 2024 01:33:00 +0000</pubDate></item><item><title>除錯日記#1</title><link>https://sujingjhong.com/posts/debugday-1/</link><description>&lt;p>同事 slack python FastAPI + pydantic 使用問題。&lt;/p>
-&lt;p>簡言之，就是他用 pydantic 做了一個 api response body model；但不知為何，測試時 FastAPI 就是不給用，會跳出錯誤訊息：&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Tue, 21 May 2024 01:33:00 +0000</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>除錯日記#1</title><link>https://sujingjhong.com/posts/debugday-1/</link><description>&lt;p>同事 slack python &lt;code>FastAPI&lt;/code> + &lt;code>Pydantic&lt;/code> 使用問題。&lt;/p>
+&lt;p>簡言之，就是他用 &lt;code>Pydantic&lt;/code> 做了一個 api response body model；但不知為何，測試時 &lt;code>FastAPI&lt;/code> 就是不給用，會跳出錯誤訊息：&lt;/p>
 &lt;pre>&lt;code class="language-bash">Object of type FileListResponse is not JSON serializable
 &lt;/code>&lt;/pre>
 &lt;p>因為名稱是有 File，就猜測是要處理檔案。就之前使用 &lt;code>FastAPI&lt;/code> 經驗，處理檔案時，要使用它框架物件。所以問了第一個問題：是否有使用框架物件。&lt;/p>
 &lt;p>發現是我誤解了，只是要處理檔案清單，並沒有要處理檔案。&lt;/p>
 &lt;p>接著想到 python 在處理序列化之類的 &lt;strong>metaprogramming&lt;/strong> 是藉由實作約定協定 (protocol)，例如 &lt;code>JSON&lt;/code> 序列化可以採用繼承 &lt;code>JSONEncoder&lt;/code> 方式。&lt;/p>
-&lt;p>就詢問有沒有實作或引用，沒注意到用 pydantic 這方案問題通常就是交給套件解決。&lt;/p>
+&lt;p>就詢問有沒有實作或引用，沒注意到用 &lt;code>Pydantic&lt;/code> 這方案問題通常就是交給套件解決。&lt;/p>
 &lt;p>那看來可能是 &lt;code>FastAPI&lt;/code>，查了下文件，官方有提供相容性編碼器，就請他試試。&lt;/p>
 &lt;p>OK，解決！&lt;/p>
 &lt;h2 id="參考資料">參考資料 &lt;a href="#%e5%8f%83%e8%80%83%e8%b3%87%e6%96%99" class="hash g">#&lt;/a>&lt;/h2>
