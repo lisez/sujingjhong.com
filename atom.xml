@@ -1,4 +1,20 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Tue, 21 May 2024 01:33:00 +0000</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>除錯日記#1</title><link>https://sujingjhong.com/posts/debugday-1/</link><description>&lt;p>同事 slack python &lt;code>FastAPI&lt;/code> + &lt;code>Pydantic&lt;/code> 使用問題。&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Wed, 22 May 2024 17:25:10 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>除錯日記#2</title><link>https://sujingjhong.com/posts/debugday-2/</link><description>&lt;p>同事反應在服務上搜尋不到幾筆資料；但直接用文件識別碼 &lt;code>_id&lt;/code> ，是可以在搜尋引擎(&lt;code>elasticsearch&lt;/code>)上找到。&lt;/p>
+&lt;p>我們嘗試了幾種方式確認問題：&lt;/p>
+&lt;ul>
+&lt;li>以日期排序發現資料停留在 2023 年。&lt;/li>
+&lt;li>將關鍵字拆解丟進去，只能找到 2023 年前的資料。&lt;/li>
+&lt;/ul>
+&lt;p>檢查爬蟲資料是正確無誤，也有寫入 elasticsearch，檢查 &lt;code>mapping&lt;/code> 也看不出異常。&lt;/p>
+&lt;p>後來我人工比對不同資料集的索引資料，發現找不到資料的有 &lt;code>refresh_inverval: -1&lt;/code>&lt;/p>
+&lt;p>回想到之前在做 &lt;code>elasticsearch&lt;/code> 升級時，需要重新索引資料，因為資料量很大，所以把 ES 的索引間隔關閉，在手動觸發去做批次索引。&lt;/p>
+&lt;p>看來就是那次關閉後，忘記開啟，導致後續資料無法正確索引。&lt;/p>
+&lt;p>直接透過 API 開啟後，就解決問題：&lt;/p>
+&lt;pre>&lt;code class="language-bash">curl -X PUT /{es_index}/_settings -H 'content-type: application/json' -d '{&amp;quot;index&amp;quot; : {&amp;quot;refresh_interval&amp;quot; : null}}'
+&lt;/code>&lt;/pre>
+&lt;h2 id="參考資料">參考資料 &lt;a href="#%e5%8f%83%e8%80%83%e8%b3%87%e6%96%99" class="hash g">#&lt;/a>&lt;/h2>
+&lt;ul>
+&lt;li>&lt;a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules.html&lt;/a>&lt;/li>
+&lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-2/</guid><pubDate>Wed, 22 May 2024 17:25:10 +0800</pubDate></item><item><title>除錯日記#1</title><link>https://sujingjhong.com/posts/debugday-1/</link><description>&lt;p>同事 slack python &lt;code>FastAPI&lt;/code> + &lt;code>Pydantic&lt;/code> 使用問題。&lt;/p>
 &lt;p>簡言之，就是他用 &lt;code>Pydantic&lt;/code> 做了一個 api response body model；但不知為何，測試時 &lt;code>FastAPI&lt;/code> 就是不給用，會跳出錯誤訊息：&lt;/p>
 &lt;pre>&lt;code class="language-bash">Object of type FileListResponse is not JSON serializable
 &lt;/code>&lt;/pre>
