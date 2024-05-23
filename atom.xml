@@ -1,4 +1,73 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Wed, 22 May 2024 17:25:10 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>除錯日記#2 Elasticsearch refresh_inverval</title><link>https://sujingjhong.com/posts/debugday-2/</link><description>&lt;p>同事反應在服務上搜尋不到幾筆資料；但直接用文件識別碼 &lt;code>_id&lt;/code> ，是可以在搜尋引擎(&lt;code>elasticsearch&lt;/code>)上找到。&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Thu, 23 May 2024 23:38:36 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>將 Hugo Prism.js 改為使用 highlight.js</title><link>https://sujingjhong.com/posts/switch-prismjs-to-highlightjs-in-hugo/</link><description>&lt;h2 id="基本設定">基本設定 &lt;a href="#%e5%9f%ba%e6%9c%ac%e8%a8%ad%e5%ae%9a" class="hash g">#&lt;/a>&lt;/h2>
+&lt;p>&lt;a href="https://sujingjhong.com/posts/how-to-add-prismjs-into-hugo/">時隔多年，原先使用的 &lt;code>Prism.js&lt;/code> 已經沒有再更新了&lt;/a>，最近把它更換成 &lt;code>highlight.js&lt;/code>。&lt;/p>
+&lt;p>首先把 hugo header 中有用到 Prism.js 的地方通通移除，感謝它這幾年的付出。&lt;/p>
+&lt;p>接著我把 &lt;code>highlight.js&lt;/code> 設定寫在一個 &lt;code>partials/highlightjs.html&lt;/code>&lt;/p>
+&lt;pre>&lt;code class="language-xml">{{ $version := &amp;quot;11.9.0&amp;quot; }}
+{{ $base_url := printf &amp;quot;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@%s/build&amp;quot; $version }}
+{{ $langs := slice &amp;quot;bash&amp;quot; &amp;quot;css&amp;quot; &amp;quot;elixir&amp;quot; &amp;quot;excel&amp;quot; &amp;quot;ini&amp;quot; &amp;quot;javascript&amp;quot; &amp;quot;markdown&amp;quot; &amp;quot;php&amp;quot; &amp;quot;python&amp;quot; &amp;quot;shell&amp;quot; &amp;quot;plaintext&amp;quot; &amp;quot;http&amp;quot; &amp;quot;json&amp;quot; }}
+&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;{{ $base_url }}/styles/default.min.css&amp;quot;&amp;gt;
+&amp;lt;script defer src=&amp;quot;{{ $base_url }}/highlight.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+{{ range $langs }}
+&amp;lt;script defer src=&amp;quot;{{ $base_url }}/languages/{{ . }}.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+{{ end }}
+&amp;lt;script defer&amp;gt;
+document.addEventListener('DOMContentLoaded', (event) =&amp;gt; {
+document.querySelectorAll('pre code').forEach((el) =&amp;gt; {
+hljs.highlightElement(el);
+});
+});
+&amp;lt;/script&amp;gt;
+&lt;/code>&lt;/pre>
+&lt;p>由於 highlight.js 並沒有 auto loader，所以必須把需要的語法通通加載上去。&lt;/p>
+&lt;p>我這裡是搭配 &lt;a href="https://github.com/BurntSushi/ripgrep">ripgrep&lt;/a> 把有用到的語言都放進去&lt;/p>
+&lt;pre>&lt;code class="language-bash">rg '```\w+' -oNI | sort -u | rg '\w+' -o
+&lt;/code>&lt;/pre>
+&lt;p>全部支援的語言列表可以前往 &lt;a href="https://highlightjs.org/download">官方網站&lt;/a> 查詢，或者是到他們 &lt;a href="https://github.com/highlightjs/cdn-release">存放庫&lt;/a> 裡面的 &lt;code>build/languages&lt;/code>。&lt;/p>
+&lt;p>最後在自訂 header 裡面只需要&lt;/p>
+&lt;pre>&lt;code class="language-plaintext">{{ partial &amp;quot;highlightjs&amp;quot; . }}
+&lt;/code>&lt;/pre>
+&lt;h2 id="更換顏色">更換顏色 &lt;a href="#%e6%9b%b4%e6%8f%9b%e9%a1%8f%e8%89%b2" class="hash g">#&lt;/a>&lt;/h2>
+&lt;p>highlight.js 可以 &lt;a href="https://highlightjs.org/examples">線上瀏覽&lt;/a> 可用的語法色彩。&lt;/p>
+&lt;p>要更換就是把前面的 &lt;code>default.min.css&lt;/code> 其中的 &lt;code>default&lt;/code> 替換成想要的樣式名稱，例如我現在使用的 &lt;code>base16-gruvbox-dark-hard&lt;/code>&lt;/p>
+&lt;pre>&lt;code class="language-diff">- &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;{{ $base_url }}/styles/default.min.css&amp;quot;&amp;gt;
++ &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;{{ $base_url }}/styles/base16/gruvbox-dark-hard.min.css&amp;quot;&amp;gt;
+&lt;/code>&lt;/pre>
+&lt;p>另外注意，如果有用 &lt;code>base16-&lt;/code> 開頭，它是放在 &lt;code>base16&lt;/code> 資料夾底下。&lt;/p>
+&lt;p>詳細的資訊可以前往 &lt;a href="https://github.com/highlightjs/cdn-release">存放庫&lt;/a> 底下的 &lt;code>build/styles&lt;/code>&lt;/p>
+&lt;h2 id="程式碼複製功能">程式碼複製功能 &lt;a href="#%e7%a8%8b%e5%bc%8f%e7%a2%bc%e8%a4%87%e8%a3%bd%e5%8a%9f%e8%83%bd" class="hash g">#&lt;/a>&lt;/h2>
+&lt;p>highlight.js 有支援擴充套件，所以可以自行撰寫套件或用別人的。&lt;/p>
+&lt;p>我這裡另外有用到 &lt;a href="https://github.com/arronhunt/highlightjs-copy">highlightjs-copy&lt;/a>，在程式碼區塊會浮現一個複製按鈕，就是它立大功。&lt;/p>
+&lt;p>一樣用 CDN 安裝，把上面的程式碼新增兩行：&lt;/p>
+&lt;pre>&lt;code class="language-xml">&amp;lt;link
+rel=&amp;quot;stylesheet&amp;quot;
+href=&amp;quot;https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css&amp;quot;
+/&amp;gt;
+&amp;lt;script defer src=&amp;quot;https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js&amp;quot; onload=&amp;quot;hljs.addPlugin(new CopyButtonPlugin());&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code>&lt;/pre>
+&lt;p>最後就變成：&lt;/p>
+&lt;pre>&lt;code class="language-diff">{{ $version := &amp;quot;11.9.0&amp;quot; }}
+{{ $base_url := printf &amp;quot;https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@%s/build&amp;quot; $version }}
+{{ $langs := slice &amp;quot;bash&amp;quot; &amp;quot;css&amp;quot; &amp;quot;elixir&amp;quot; &amp;quot;excel&amp;quot; &amp;quot;ini&amp;quot; &amp;quot;javascript&amp;quot; &amp;quot;markdown&amp;quot; &amp;quot;php&amp;quot; &amp;quot;python&amp;quot; &amp;quot;shell&amp;quot; &amp;quot;plaintext&amp;quot; &amp;quot;http&amp;quot; &amp;quot;json&amp;quot; }}
+&amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;{{ $base_url }}/styles/default.min.css&amp;quot;&amp;gt;
++ &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.css&amp;quot; /&amp;gt;
+&amp;lt;script defer src=&amp;quot;{{ $base_url }}/highlight.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
++ &amp;lt;script defer src=&amp;quot;https://unpkg.com/highlightjs-copy/dist/highlightjs-copy.min.js&amp;quot; onload=&amp;quot;hljs.addPlugin(new CopyButtonPlugin());&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+{{ range $langs }}
+&amp;lt;script defer src=&amp;quot;{{ $base_url }}/languages/{{ . }}.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+{{ end }}
+&amp;lt;script defer&amp;gt;
+document.addEventListener('DOMContentLoaded', (event) =&amp;gt; {
+document.querySelectorAll('pre code').forEach((el) =&amp;gt; {
+hljs.highlightElement(el);
+});
+});
+&amp;lt;/script&amp;gt;
+&lt;/code>&lt;/pre>
+&lt;h2 id="參考資料">參考資料 &lt;a href="#%e5%8f%83%e8%80%83%e8%b3%87%e6%96%99" class="hash g">#&lt;/a>&lt;/h2>
+&lt;ul>
+&lt;li>官方網站 &lt;a href="https://highlightjs.org/">https://highlightjs.org/&lt;/a>&lt;/li>
+&lt;li>官方文件 &lt;a href="https://highlightjs.readthedocs.io/en/latest/index.html">https://highlightjs.readthedocs.io/en/latest/index.html&lt;/a>&lt;/li>
+&lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/switch-prismjs-to-highlightjs-in-hugo/</guid><pubDate>Thu, 23 May 2024 23:38:36 +0800</pubDate></item><item><title>除錯日記#2 Elasticsearch refresh_inverval</title><link>https://sujingjhong.com/posts/debugday-2/</link><description>&lt;p>同事反應在服務上搜尋不到幾筆資料；但直接用文件識別碼 &lt;code>_id&lt;/code> ，是可以在搜尋引擎(&lt;code>elasticsearch&lt;/code>)上找到。&lt;/p>
 &lt;p>我們嘗試了幾種方式確認問題：&lt;/p>
 &lt;ul>
 &lt;li>以日期排序發現資料停留在 2023 年。&lt;/li>
