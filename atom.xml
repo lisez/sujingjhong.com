@@ -1,4 +1,74 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Thu, 30 May 2024 01:43:52 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>將 Hugo Prism.js 改為使用 highlight.js</title><link>https://sujingjhong.com/posts/switch-prismjs-to-highlightjs-in-hugo/</link><description>&lt;h2 id="基本設定">基本設定 &lt;a href="#%e5%9f%ba%e6%9c%ac%e8%a8%ad%e5%ae%9a" class="hash g">#&lt;/a>&lt;/h2>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Thu, 30 May 2024 01:43:52 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>除錯日記#3 onlyoffice + nodejs</title><link>https://sujingjhong.com/posts/debugday-3/</link><description>&lt;p>這兩天都在和 &lt;a href="https://www.onlyoffice.com/">onlyoffice&lt;/a> 奮鬥，簡單介紹 onlyoffice 是一款開放原始碼版 Office，它提供 Word, Excel, PowerPoint 等替代版，並且是支援線上協作的。&lt;/p>
+&lt;p>所以更正一下，應該是開放原始碼版的 Office 365。&lt;/p>
+&lt;p>如果要安裝社群版的 onlyoffice 可以參考以下網址：&lt;/p>
+&lt;ul>
+&lt;li>&lt;a href="https://helpcenter.onlyoffice.com/installation/docs-community-index.aspx">https://helpcenter.onlyoffice.com/installation/docs-community-index.aspx&lt;/a>&lt;/li>
+&lt;/ul>
+&lt;p>它有提供 docker 版本，所以本篇介紹就是我怎麼把這個 docker 版拉起來的血淚。&lt;/p>
+&lt;p>&lt;a href="https://helpcenter.onlyoffice.com/installation/docs-community-docker-compose.aspx">一開始先用 docker compose 版&lt;/a>，他會需要 postgres+rabbitmq。&lt;/p>
+&lt;p>拉起來後輸入歡迎頁面的 Testing before integration 底下這行測試用，每個人應該都不太一樣。&lt;/p>
+&lt;pre>&lt;code class="language-bash">docker exec 5156f486155f sudo supervisorctl start ds:example
+&lt;/code>&lt;/pre>
+&lt;p>輸入完就可以點 &lt;code>GO TO TEST EXAMPLE&lt;/code>，會很興奮地看到下一頁：&lt;/p>
+&lt;p>
+&lt;img
+src="https://sujingjhong.com/images/2024/onlyoffice_page1.png"
+alt=""
+loading="lazy"
+decoding="async"
+width="1921"
+height="932"
+class="full-width"
+/>
+&lt;/p>
+&lt;p>再來點選左上方的，就會：&lt;/p>
+&lt;p>
+&lt;img
+src="https://sujingjhong.com/images/2024/onlyoffice_page2.png"
+alt=""
+loading="lazy"
+decoding="async"
+width="1921"
+height="929"
+class="full-width"
+/>
+&lt;/p>
+&lt;p>經典的 Download failed 出現了，關掉後就回到列表頁。&lt;/p>
+&lt;p>在網路上搜尋這個錯誤訊息，&lt;a href="https://www.google.com/search?q=onlyoffice+download+filaed&amp;amp;ie=UTF-8">會看到一堆提問&lt;/a>。官方文件也有提到，它只有輕描淡寫提到：&lt;/p>
+&lt;blockquote>
+&lt;p>The &amp;ldquo;Download failed&amp;rdquo; message is displayed at the editors loading process.
+The &lt;strong>Document editing service&lt;/strong> cannot upload the file for editing.
+Check if the link to the file specified in the &lt;a href="https://api.onlyoffice.com/editors/config/document#url">document.url&lt;/a> is correct. The link must be accessible from the &lt;strong>document editing service&lt;/strong>.&lt;/p>
+&lt;/blockquote>
+&lt;p>OK，我知道他不能上傳到伺服器，所以？另一個提問則是，我是用官方範例架起來，為何還有這錯誤訊息？為什麼？&lt;/p>
+&lt;p>探尋過程就不多著墨，這裡直接講結論。&lt;a href="https://helpcenter.onlyoffice.com/installation/docs-community-install-docker.aspx">我後來是用 docker 版架起來測試&lt;/a>：&lt;/p>
+&lt;pre>&lt;code class="language-bash">docker run -it -d -p 8888:80 --restart=always -e JWT_SECRET=my_jwt_secret onlyoffice/documentserver
+&lt;/code>&lt;/pre>
+&lt;p>再搭配他的 example server，另外這裡說一下，&lt;a href="https://api.onlyoffice.com/editors/example/nodejs">這連結裡面的範例是可行的&lt;/a>，&lt;a href="https://github.com/ONLYOFFICE/document-server-integration">但另一個完整 Github repo&lt;/a> 拉起來會和你說少檔案，為何範例檔案會少檔案？沒關係，我也不想探討了。&lt;/p>
+&lt;p>接著在 step 2 他會和你說要去 &lt;code>config/default.json&lt;/code> 設定編輯器伺服器(&lt;code>siteUrl&lt;/code>)位置，以及檔案儲存位置(&lt;code>storageFolder&lt;/code>/&lt;code>storagePath&lt;/code>)，但它文件和範例還漏說明了一個很重要參數： &lt;code>exampleUrl&lt;/code>。&lt;/p>
+&lt;p>設定錯誤的附帶症狀會是：&lt;/p>
+&lt;ul>
+&lt;li>File download failed&lt;/li>
+&lt;li>ECONNREFUSED&lt;/li>
+&lt;/ul>
+&lt;p>接著你翻遍文件和討論區依然找不到所以然，拉起來服務依然會給你跳上面的問題。&lt;/p>
+&lt;p>我最後是由他的 docker log 看出端倪，簡單而言他的架構和參數互動是這樣的：&lt;/p>
+&lt;pre>&lt;code class="language-mermaid">sequenceDiagram
+server-&amp;gt;&amp;gt;documentServer: siteUrl
+documentServer-&amp;gt;&amp;gt;server: exampleUrl
+&lt;/code>&lt;/pre>
+&lt;p>設定上：&lt;/p>
+&lt;ul>
+&lt;li>&lt;code>siteUrl&lt;/code> 要從剛剛那個 NodeJS 伺服器角度去看，他要怎麼連線到 &lt;code>documentServer&lt;/code>。這裡是「前端」要麼連線到 documentServer。&lt;/li>
+&lt;li>&lt;code>exampleUrl&lt;/code> 要從 documentServer，就是剛剛那台用 docker 拉起來的服務，要從他的角度看，要怎麼連線到 NodeJS 伺服器的「後端」。&lt;/li>
+&lt;/ul>
+&lt;p>這就取決於你的網路架構，所以像是我是用 WSL2 架設測試，可以在 server「前端」用 localhost 連線到 documentServer，我後來就是設定 &lt;code>localhost:8888&lt;/code>。&lt;/p>
+&lt;p>但 documentServer 因為在 wsl2 的 docker 內，所以要先找到他本地端的 docker ip 為何，再設定位置。比方說最後我的內網 NodeJS server 位置是 &lt;code>172.26.141.114:3000&lt;/code>，最後參考設定就是：&lt;/p>
+&lt;pre>&lt;code class="language-text">siteUrl: http://localhost:8888/
+exampleUrl: http://172.26.141.114:3000
+&lt;/code>&lt;/pre>
+&lt;p>順帶一提，在他的範例伺服器裡面，它組網址路徑相當簡單，就是兩個字串相加，所以 &lt;code>siteUrl&lt;/code> 會需要尾斜線(trailing slash)：但是呢，在 documentServer 看起來組網址方式又不一樣，如果送尾斜線進去，它會有雙斜線(double slash)問題。&lt;/p>
+&lt;p>最後為何那個明明是回呼函式網址要叫做 &lt;code>exampleUrl&lt;/code> 呢？我猜很單純是因為他是範例伺服器，所以很直覺地用 &lt;code>exampleUrl&lt;/code>&amp;hellip;&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-3/</guid><pubDate>Thu, 30 May 2024 01:43:52 +0800</pubDate></item><item><title>將 Hugo Prism.js 改為使用 highlight.js</title><link>https://sujingjhong.com/posts/switch-prismjs-to-highlightjs-in-hugo/</link><description>&lt;h2 id="基本設定">基本設定 &lt;a href="#%e5%9f%ba%e6%9c%ac%e8%a8%ad%e5%ae%9a" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>&lt;a href="https://sujingjhong.com/posts/how-to-add-prismjs-into-hugo/">時隔多年，原先使用的 &lt;code>Prism.js&lt;/code> 已經沒有再更新了&lt;/a>，最近把它更換成 &lt;code>highlight.js&lt;/code>。&lt;/p>
 &lt;p>首先把 hugo header 中有用到 Prism.js 的地方通通移除，感謝它這幾年的付出。&lt;/p>
 &lt;p>接著我把 &lt;code>highlight.js&lt;/code> 設定寫在一個 &lt;code>partials/highlightjs.html&lt;/code>&lt;/p>
