@@ -509,7 +509,7 @@ loadScript("vega")
 &lt;p>類似變成這樣：&lt;/p>
 &lt;p>
 &lt;img
-src="https://sujingjhong.com/images/2020/5/cutting_word_at_pagebreak.png"
+src="https://sujingjhong.com/images/2020/cutting_word_at_pagebreak.png"
 alt="在換頁處被截斷"
 loading="lazy"
 decoding="async"
@@ -874,7 +874,7 @@ done
 &lt;tr>
 &lt;th>
 &lt;img
-src="https://sujingjhong.com/images/2019/9/has-recently-posts.png"
+src="https://sujingjhong.com/images/2019/has-recently-posts.png"
 alt="正常顯示圖片"
 loading="lazy"
 decoding="async"
@@ -885,7 +885,7 @@ class="full-width"
 &lt;/th>
 &lt;th>
 &lt;img
-src="https://sujingjhong.com/images/2019/9/does-not-has-recently-posts.png.png"
+src="https://sujingjhong.com/images/2019/does-not-has-recently-posts.png.png"
 alt="不正常顯示圖片"
 loading="lazy"
 decoding="async"
@@ -1726,7 +1726,7 @@ Run &amp;quot;mix help&amp;quot; for more commands.
 &lt;p>看到最後那句 &lt;code>Run &amp;quot;mix help&amp;quot; for more commands.&lt;/code> 就知道完成了，接著我們就可以用慣用的編輯器，將這個專案打開。打開後可以發現長這樣的資料夾結構：&lt;/p>
 &lt;p>
 &lt;img
-src="https://sujingjhong.com/images/2018/8/elixir_mix_hello_world.png"
+src="https://sujingjhong.com/images/2018/elixir_mix_hello_world.png"
 alt="elixir_hello_world_project"
 loading="lazy"
 decoding="async"
@@ -2967,7 +2967,7 @@ console.log(`${num} =&amp;gt;`);
 &lt;p>接著把它拉到其他列，讓程式協助我們自動完成：&lt;/p>
 &lt;p>
 &lt;img
-src="https://sujingjhong.com/images/excel-tutorial-20170917-1.png"
+src="https://sujingjhong.com/images/2017/excel-tutorial-20170917-1.png"
 alt="圖二"
 loading="lazy"
 decoding="async"
@@ -3009,7 +3009,7 @@ class="full-width"
 &lt;p>讓我們再重新拉一次⋯⋯&lt;/p>
 &lt;p>
 &lt;img
-src="https://sujingjhong.com/images/excel-tutorial-20170917-2.png"
+src="https://sujingjhong.com/images/2017/excel-tutorial-20170917-2.png"
 alt="圖二"
 loading="lazy"
 decoding="async"
