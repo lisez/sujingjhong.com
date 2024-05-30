@@ -1,4 +1,52 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Thu, 30 May 2024 01:43:52 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>除錯日記#3 ONLYOFFICE+ NodeJS</title><link>https://sujingjhong.com/posts/debugday-3/</link><description>&lt;p>這兩天都在和 &lt;a href="https://www.onlyoffice.com/">onlyoffice&lt;/a> 奮鬥，簡單介紹 onlyoffice 是一款開放原始碼版 Office，它提供 Word, Excel, PowerPoint 等替代版，並且是支援線上協作的。&lt;/p>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Thu, 30 May 2024 21:49:58 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>除錯日記#4 ONLYOFFICE JWT Auth</title><link>https://sujingjhong.com/posts/debugday-4/</link><description>&lt;h2 id="because-it-is-private-ip-address">Because, It is private IP address &lt;a href="#because-it-is-private-ip-address" class="hash g">#&lt;/a>&lt;/h2>
+&lt;p>IP 設定問題，可以參考前一篇設定經過。&lt;/p>
+&lt;p>今天為了盡可能開發功能，所以在 document server 啟動時加入關閉 JWT 選項。&lt;/p>
+&lt;p>然後，就出事了。錯誤訊息認證可以找到 IP，但，不給找，因為是私有 IP 位置。我架在內網測試錯了嗎？&lt;/p>
+&lt;p>&lt;a href="https://github.com/ONLYOFFICE/DocumentServer/issues/2268">在 ONLYOFFICE 的 Github 有找到相關的議題，&lt;/a> 簡言之就是為了預防 SSRF 攻擊，官方在 JWT 開啟時，不會跳出任何有關 &lt;code>request-filtering-agent&lt;/code> 錯誤。&lt;/p>
+&lt;blockquote>
+&lt;p>This is to protect against SSRF attacks. We highly recommend enabling JWT in your integrations. When JWT is enabled links in the server are signed by it and you won&amp;rsquo;t get any &amp;ldquo;request-filtering-agent&amp;rdquo; errors.&lt;/p>
+&lt;/blockquote>
+&lt;p>發問者將 JWT 開啟後，就可以了。我自己嘗試也是，就是開啟 JWT 後，就可以正常存取。&lt;/p>
+&lt;p>所以，雖然文件上允許你關閉 JWT，系統可能會異常唷！以一種消極方式避免你關閉 JWT。&lt;/p>
+&lt;h2 id="onlyoffice-的-jwt-格式長什麼">ONLYOFFICE 的 JWT 格式長什麼 &lt;a href="#onlyoffice-%e7%9a%84-jwt-%e6%a0%bc%e5%bc%8f%e9%95%b7%e4%bb%80%e9%ba%bc" class="hash g">#&lt;/a>&lt;/h2>
+&lt;p>這是接下來遇到的問題。既然要簽 JWT，那格式長什麼樣子？&lt;/p>
+&lt;p>&lt;a href="https://api.onlyoffice.com/editors/security">首先先看文件&lt;/a>：&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;em>JSON Web Tokens&lt;/em> consist of three parts separated by dots (.), which are: &lt;em>header&lt;/em>, &lt;em>payload&lt;/em>, &lt;em>signature&lt;/em>. The &lt;em>header&lt;/em> consists of two parts: the type of the token (&lt;em>JWT&lt;/em>), and the hashing algorithm (&lt;em>HMAC SHA256&lt;/em>). The second part of the token is the &lt;em>payload&lt;/em>, which contains the claims in JSON format. To create the signature part you have to take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that.&lt;/p>
+&lt;/blockquote>
+&lt;p>所以這把 JWT 要用 HS256。那內容呢？&lt;/p>
+&lt;blockquote>
+&lt;p>&lt;strong>ONLYOFFICE Docs&lt;/strong> validates the &lt;strong>token&lt;/strong>. The data from the &lt;em>payload&lt;/em> is considered valid and is used instead of the corresponding data from the main parameters. If the &lt;strong>token&lt;/strong> is invalid, the command is not executed.&lt;/p>
+&lt;/blockquote>
+&lt;p>好喔，所以內容要包什麼&amp;hellip; 感謝 Google 大神，&lt;a href="https://forum.onlyoffice.com/t/jwt-token-configuration/7581">我找到一篇官方論壇在討論 JWT 格式&lt;/a>。&lt;/p>
+&lt;p>接著在看文件時，終於找到 &lt;a href="https://api.onlyoffice.com/editors/signature/browser">指標性文件&lt;/a> 中提到：&lt;/p>
+&lt;blockquote>
+&lt;p>The &lt;em>payload&lt;/em> for the JWT token in the JSON format must have the same structure as the &lt;a href="https://api.onlyoffice.com/editors/advanced">config&lt;/a>.&lt;/p>
+&lt;/blockquote>
+&lt;p>以 &lt;a href="https://api.onlyoffice.com/editors/open">官方文件的 Opening file&lt;/a> 為例子。&lt;/p>
+&lt;p>使用到的程式碼會長這樣：&lt;/p>
+&lt;pre>&lt;code class="language-javascript">new DocsAPI.DocEditor(&amp;quot;placeholder&amp;quot;, {
+&amp;quot;document&amp;quot;: {
+&amp;quot;fileType&amp;quot;: &amp;quot;docx&amp;quot;,
+&amp;quot;key&amp;quot;: &amp;quot;Khirz6zTPdfd7&amp;quot;,
+&amp;quot;title&amp;quot;: &amp;quot;Example Document Title.docx&amp;quot;,
+&amp;quot;url&amp;quot;: &amp;quot;https://example.com/url-to-example-document.docx&amp;quot;
+},
+&amp;quot;documentType&amp;quot;: &amp;quot;word&amp;quot;,
+&amp;quot;token&amp;quot;: &amp;quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkb2N1bWVudCI6eyJmaWxlVHlwZSI6ImRvY3giLCJrZXkiOiJLaGlyejZ6VFBkZmQ3IiwidGl0bGUiOiJFeGFtcGxlIERvY3VtZW50IFRpdGxlLmRvY3giLCJ1cmwiOiJodHRwczovL2V4YW1wbGUuY29tL3VybC10by1leGFtcGxlLWRvY3VtZW50LmRvY3gifSwiZG9jdW1lbnRUeXBlIjoid29yZCJ9.7IpEJxdOvBQ0kJ8l6ZegIV4tX5vsPbZZCDDVmcFROXc&amp;quot;
+});
+&lt;/code>&lt;/pre>
+&lt;p>所以你的 JWT Payload 就是這段：&lt;/p>
+&lt;pre>&lt;code class="language-json">{
+&amp;quot;document&amp;quot;: {
+&amp;quot;fileType&amp;quot;: &amp;quot;docx&amp;quot;,
+&amp;quot;key&amp;quot;: &amp;quot;Khirz6zTPdfd7&amp;quot;,
+&amp;quot;title&amp;quot;: &amp;quot;Example Document Title.docx&amp;quot;,
+&amp;quot;url&amp;quot;: &amp;quot;https://example.com/url-to-example-document.docx&amp;quot;
+},
+&amp;quot;documentType&amp;quot;: &amp;quot;word&amp;quot;
+}
+&lt;/code>&lt;/pre></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-4/</guid><pubDate>Thu, 30 May 2024 21:49:58 +0800</pubDate></item><item><title>除錯日記#3 ONLYOFFICE+ NodeJS</title><link>https://sujingjhong.com/posts/debugday-3/</link><description>&lt;p>這兩天都在和 &lt;a href="https://www.onlyoffice.com/">onlyoffice&lt;/a> 奮鬥，簡單介紹 onlyoffice 是一款開放原始碼版 Office，它提供 Word, Excel, PowerPoint 等替代版，並且是支援線上協作的。&lt;/p>
 &lt;p>所以更正一下，應該是開放原始碼版的 Office 365。&lt;/p>
 &lt;p>如果要安裝社群版的 onlyoffice 可以參考以下網址：&lt;/p>
 &lt;ul>
