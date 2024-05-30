@@ -1,8 +1,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Thu, 30 May 2024 21:49:58 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>除錯日記#4 ONLYOFFICE JWT Auth</title><link>https://sujingjhong.com/posts/debugday-4/</link><description>&lt;h2 id="because-it-is-private-ip-address">Because, It is private IP address &lt;a href="#because-it-is-private-ip-address" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>IP 設定問題，可以 &lt;a href="https://sujingjhong.com/posts/debugday-3/">參考前一篇&lt;/a> 設定經過。&lt;/p>
+&lt;p>IP 設定問題，可以 &lt;a href="https://sujingjhong.com/posts/debugday-3/" target="_blank" >參考前一篇&lt;/a>
+設定經過。&lt;/p>
 &lt;p>今天為了盡可能開發功能，所以在 document server 啟動時加入關閉 JWT 選項。&lt;/p>
 &lt;p>然後，就出事了。錯誤訊息認證可以找到 IP，但，不給找，因為是私有 IP 位置。我架在內網測試錯了嗎？&lt;/p>
-&lt;p>&lt;a href="https://github.com/ONLYOFFICE/DocumentServer/issues/2268">在 ONLYOFFICE 的 Github 有找到相關的議題&lt;/a> ，簡言之就是為了預防 SSRF 攻擊，官方在 JWT 開啟時，不會跳出任何有關 &lt;code>request-filtering-agent&lt;/code> 錯誤。&lt;/p>
+&lt;p>&lt;a href="https://github.com/ONLYOFFICE/DocumentServer/issues/2268" target="_blank" >在 ONLYOFFICE 的 Github 有找到相關的議題&lt;/a>
+，簡言之就是為了預防 SSRF 攻擊，官方在 JWT 開啟時，不會跳出任何有關 &lt;code>request-filtering-agent&lt;/code> 錯誤。&lt;/p>
 &lt;blockquote>
 &lt;p>This is to protect against SSRF attacks. We highly recommend enabling JWT in your integrations. When JWT is enabled links in the server are signed by it and you won&amp;rsquo;t get any &amp;ldquo;request-filtering-agent&amp;rdquo; errors.&lt;/p>
 &lt;/blockquote>
@@ -10,7 +12,8 @@
 &lt;p>所以，雖然文件上允許你關閉 JWT，系統可能會異常唷！以一種消極方式避免你關閉 JWT。&lt;/p>
 &lt;h2 id="onlyoffice-的-jwt-格式長什麼">ONLYOFFICE 的 JWT 格式長什麼 &lt;a href="#onlyoffice-%e7%9a%84-jwt-%e6%a0%bc%e5%bc%8f%e9%95%b7%e4%bb%80%e9%ba%bc" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>這是接下來遇到的問題。既然要簽 JWT，那格式長什麼樣子？&lt;/p>
-&lt;p>&lt;a href="https://api.onlyoffice.com/editors/security">首先先看文件&lt;/a>：&lt;/p>
+&lt;p>&lt;a href="https://api.onlyoffice.com/editors/security" target="_blank" >首先先看文件&lt;/a>
+：&lt;/p>
 &lt;blockquote>
 &lt;p>&lt;em>JSON Web Tokens&lt;/em> consist of three parts separated by dots (.), which are: &lt;em>header&lt;/em>, &lt;em>payload&lt;/em>, &lt;em>signature&lt;/em>. The &lt;em>header&lt;/em> consists of two parts: the type of the token (&lt;em>JWT&lt;/em>), and the hashing algorithm (&lt;em>HMAC SHA256&lt;/em>). The second part of the token is the &lt;em>payload&lt;/em>, which contains the claims in JSON format. To create the signature part you have to take the encoded header, the encoded payload, a secret, the algorithm specified in the header, and sign that.&lt;/p>
 &lt;/blockquote>
@@ -18,11 +21,15 @@
 &lt;blockquote>
 &lt;p>&lt;strong>ONLYOFFICE Docs&lt;/strong> validates the &lt;strong>token&lt;/strong>. The data from the &lt;em>payload&lt;/em> is considered valid and is used instead of the corresponding data from the main parameters. If the &lt;strong>token&lt;/strong> is invalid, the command is not executed.&lt;/p>
 &lt;/blockquote>
-&lt;p>好喔，所以內容要包什麼&amp;hellip; 感謝 Google 大神，&lt;a href="https://forum.onlyoffice.com/t/jwt-token-configuration/7581">我找到一篇官方論壇在討論 JWT 格式&lt;/a>。接著在看文件時，終於找到 &lt;a href="https://api.onlyoffice.com/editors/signature/browser">指標性文件&lt;/a> 中提到：&lt;/p>
+&lt;p>好喔，所以內容要包什麼&amp;hellip; 感謝 Google 大神，&lt;a href="https://forum.onlyoffice.com/t/jwt-token-configuration/7581" target="_blank" >我找到一篇官方論壇在討論 JWT 格式&lt;/a>
+。接著在看文件時，終於找到 &lt;a href="https://api.onlyoffice.com/editors/signature/browser" target="_blank" >指標性文件&lt;/a>
+中提到：&lt;/p>
 &lt;blockquote>
-&lt;p>The &lt;em>payload&lt;/em> for the JWT token in the JSON format must have the same structure as the &lt;a href="https://api.onlyoffice.com/editors/advanced">config&lt;/a>.&lt;/p>
+&lt;p>The &lt;em>payload&lt;/em> for the JWT token in the JSON format must have the same structure as the &lt;a href="https://api.onlyoffice.com/editors/advanced" target="_blank" >config&lt;/a>
+.&lt;/p>
 &lt;/blockquote>
-&lt;p>以 &lt;a href="https://api.onlyoffice.com/editors/open">官方文件的 Opening file&lt;/a> 為例子，使用到的程式碼會長這樣：&lt;/p>
+&lt;p>以 &lt;a href="https://api.onlyoffice.com/editors/open" target="_blank" >官方文件的 Opening file&lt;/a>
+為例子，使用到的程式碼會長這樣：&lt;/p>
 &lt;pre>&lt;code class="language-javascript">new DocsAPI.DocEditor(&amp;quot;placeholder&amp;quot;, {
 &amp;quot;document&amp;quot;: {
 &amp;quot;fileType&amp;quot;: &amp;quot;docx&amp;quot;,
@@ -44,14 +51,17 @@
 },
 &amp;quot;documentType&amp;quot;: &amp;quot;word&amp;quot;
 }
-&lt;/code>&lt;/pre></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-4/</guid><pubDate>Thu, 30 May 2024 21:49:58 +0800</pubDate></item><item><title>除錯日記#3 ONLYOFFICE + NodeJS</title><link>https://sujingjhong.com/posts/debugday-3/</link><description>&lt;p>這兩天都在和 &lt;a href="https://www.onlyoffice.com/">onlyoffice&lt;/a> 奮鬥，簡單介紹 onlyoffice 是一款開放原始碼版 Office，它提供 Word, Excel, PowerPoint 等替代版，並且是支援線上協作的。&lt;/p>
+&lt;/code>&lt;/pre></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-4/</guid><pubDate>Thu, 30 May 2024 21:49:58 +0800</pubDate></item><item><title>除錯日記#3 ONLYOFFICE + NodeJS</title><link>https://sujingjhong.com/posts/debugday-3/</link><description>&lt;p>這兩天都在和 &lt;a href="https://www.onlyoffice.com/" target="_blank" >onlyoffice&lt;/a>
+奮鬥，簡單介紹 onlyoffice 是一款開放原始碼版 Office，它提供 Word, Excel, PowerPoint 等替代版，並且是支援線上協作的。&lt;/p>
 &lt;p>所以更正一下，應該是開放原始碼版的 Office 365。&lt;/p>
 &lt;p>如果要安裝社群版的 onlyoffice 可以參考以下網址：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://helpcenter.onlyoffice.com/installation/docs-community-index.aspx">https://helpcenter.onlyoffice.com/installation/docs-community-index.aspx&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://helpcenter.onlyoffice.com/installation/docs-community-index.aspx" target="_blank" >https://helpcenter.onlyoffice.com/installation/docs-community-index.aspx&lt;/a>
+&lt;/li>
 &lt;/ul>
 &lt;p>它有提供 docker 版本，所以本篇介紹就是我怎麼把這個 docker 版拉起來的血淚。&lt;/p>
-&lt;p>&lt;a href="https://helpcenter.onlyoffice.com/installation/docs-community-docker-compose.aspx">一開始先用 docker compose 版&lt;/a>，他會需要 postgres+rabbitmq。&lt;/p>
+&lt;p>&lt;a href="https://helpcenter.onlyoffice.com/installation/docs-community-docker-compose.aspx" target="_blank" >一開始先用 docker compose 版&lt;/a>
+，他會需要 postgres+rabbitmq。&lt;/p>
 &lt;p>拉起來後輸入歡迎頁面的 Testing before integration 底下這行測試用，每個人應該都不太一樣。&lt;/p>
 &lt;pre>&lt;code class="language-bash">docker exec 5156f486155f sudo supervisorctl start ds:example
 &lt;/code>&lt;/pre>
@@ -80,17 +90,22 @@ class="full-width"
 />
 &lt;/p>
 &lt;p>經典的 Download failed 出現了，關掉後就回到列表頁。&lt;/p>
-&lt;p>在網路上搜尋這個錯誤訊息，&lt;a href="https://www.google.com/search?q=onlyoffice+download+filaed&amp;amp;ie=UTF-8">會看到一堆提問&lt;/a>。官方文件也有提到，它只有輕描淡寫提到：&lt;/p>
+&lt;p>在網路上搜尋這個錯誤訊息，&lt;a href="https://www.google.com/search?q=onlyoffice&amp;#43;download&amp;#43;filaed&amp;amp;ie=UTF-8" target="_blank" >會看到一堆提問&lt;/a>
+。官方文件也有提到，它只有輕描淡寫提到：&lt;/p>
 &lt;blockquote>
 &lt;p>The &amp;ldquo;Download failed&amp;rdquo; message is displayed at the editors loading process.
 The &lt;strong>Document editing service&lt;/strong> cannot upload the file for editing.
-Check if the link to the file specified in the &lt;a href="https://api.onlyoffice.com/editors/config/document#url">document.url&lt;/a> is correct. The link must be accessible from the &lt;strong>document editing service&lt;/strong>.&lt;/p>
+Check if the link to the file specified in the &lt;a href="https://api.onlyoffice.com/editors/config/document#url" target="_blank" >document.url&lt;/a>
+ is correct. The link must be accessible from the &lt;strong>document editing service&lt;/strong>.&lt;/p>
 &lt;/blockquote>
 &lt;p>OK，我知道他不能上傳到伺服器，所以？另一個提問則是，我是用官方範例架起來，為何還有這錯誤訊息？為什麼？&lt;/p>
-&lt;p>探尋過程就不多著墨，這裡直接講結論。&lt;a href="https://helpcenter.onlyoffice.com/installation/docs-community-install-docker.aspx">我後來是用 docker 版架起來測試&lt;/a>：&lt;/p>
+&lt;p>探尋過程就不多著墨，這裡直接講結論。&lt;a href="https://helpcenter.onlyoffice.com/installation/docs-community-install-docker.aspx" target="_blank" >我後來是用 docker 版架起來測試&lt;/a>
+：&lt;/p>
 &lt;pre>&lt;code class="language-bash">docker run -it -d -p 8888:80 --restart=always -e JWT_SECRET=my_jwt_secret onlyoffice/documentserver
 &lt;/code>&lt;/pre>
-&lt;p>再搭配他的 example server，另外這裡說一下，&lt;a href="https://api.onlyoffice.com/editors/example/nodejs">這連結裡面的範例是可行的&lt;/a>，&lt;a href="https://github.com/ONLYOFFICE/document-server-integration">但另一個完整 Github repo&lt;/a> 拉起來會和你說少檔案，為何範例檔案會少檔案？沒關係，我也不想探討了。&lt;/p>
+&lt;p>再搭配他的 example server，另外這裡說一下，&lt;a href="https://api.onlyoffice.com/editors/example/nodejs" target="_blank" >這連結裡面的範例是可行的&lt;/a>
+，&lt;a href="https://github.com/ONLYOFFICE/document-server-integration" target="_blank" >但另一個完整 Github repo&lt;/a>
+拉起來會和你說少檔案，為何範例檔案會少檔案？沒關係，我也不想探討了。&lt;/p>
 &lt;p>接著在 step 2 他會和你說要去 &lt;code>config/default.json&lt;/code> 設定編輯器伺服器(&lt;code>siteUrl&lt;/code>)位置，以及檔案儲存位置(&lt;code>storageFolder&lt;/code>/&lt;code>storagePath&lt;/code>)，但它文件和範例還漏說明了一個很重要參數： &lt;code>exampleUrl&lt;/code>。&lt;/p>
 &lt;p>設定錯誤的附帶症狀會是：&lt;/p>
 &lt;ul>
@@ -115,7 +130,8 @@ exampleUrl: http://172.26.141.114:3000
 &lt;/code>&lt;/pre>
 &lt;p>順帶一提，在他的範例伺服器裡面，它組網址路徑相當簡單，就是兩個字串相加，所以 &lt;code>siteUrl&lt;/code> 會需要尾斜線(trailing slash)：但是呢，在 documentServer 看起來組網址方式又不一樣，如果送尾斜線進去，它會有雙斜線(double slash)問題。&lt;/p>
 &lt;p>最後為何那個明明是回呼函式網址要叫做 &lt;code>exampleUrl&lt;/code> 呢？我猜很單純是因為他是範例伺服器，所以很直覺地用 &lt;code>exampleUrl&lt;/code>&amp;hellip;&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-3/</guid><pubDate>Thu, 30 May 2024 01:43:52 +0800</pubDate></item><item><title>將 Hugo Prism.js 改為使用 highlight.js</title><link>https://sujingjhong.com/posts/switch-prismjs-to-highlightjs-in-hugo/</link><description>&lt;h2 id="基本設定">基本設定 &lt;a href="#%e5%9f%ba%e6%9c%ac%e8%a8%ad%e5%ae%9a" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>&lt;a href="https://sujingjhong.com/posts/how-to-add-prismjs-into-hugo/">時隔多年，原先使用的 &lt;code>Prism.js&lt;/code> 已經沒有再更新了&lt;/a>，最近把它更換成 &lt;code>highlight.js&lt;/code>。&lt;/p>
+&lt;p>&lt;a href="https://sujingjhong.com/posts/how-to-add-prismjs-into-hugo/" target="_blank" >時隔多年，原先使用的 &lt;code>Prism.js&lt;/code> 已經沒有再更新了&lt;/a>
+，最近把它更換成 &lt;code>highlight.js&lt;/code>。&lt;/p>
 &lt;p>首先把 hugo header 中有用到 Prism.js 的地方通通移除，感謝它這幾年的付出。&lt;/p>
 &lt;p>接著我把 &lt;code>highlight.js&lt;/code> 設定寫在一個 &lt;code>partials/highlightjs.html&lt;/code>&lt;/p>
 &lt;pre>&lt;code class="language-xml">{{ $version := &amp;quot;11.9.0&amp;quot; }}
@@ -135,24 +151,30 @@ hljs.highlightElement(el);
 &amp;lt;/script&amp;gt;
 &lt;/code>&lt;/pre>
 &lt;p>由於 highlight.js 並沒有 auto loader，所以必須把需要的語法通通加載上去。&lt;/p>
-&lt;p>我這裡是搭配 &lt;a href="https://github.com/BurntSushi/ripgrep">ripgrep&lt;/a> 把有用到的語言都放進去&lt;/p>
+&lt;p>我這裡是搭配 &lt;a href="https://github.com/BurntSushi/ripgrep" target="_blank" >ripgrep&lt;/a>
+把有用到的語言都放進去&lt;/p>
 &lt;pre>&lt;code class="language-bash">rg '```\w+' -oNI | sort -u | rg '\w+' -o
 &lt;/code>&lt;/pre>
-&lt;p>全部支援的語言列表可以前往 &lt;a href="https://highlightjs.org/download">官方網站&lt;/a> 查詢，或者是到他們 &lt;a href="https://github.com/highlightjs/cdn-release">存放庫&lt;/a> 裡面的 &lt;code>build/languages&lt;/code>。&lt;/p>
+&lt;p>全部支援的語言列表可以前往 &lt;a href="https://highlightjs.org/download" target="_blank" >官方網站&lt;/a>
+查詢，或者是到他們 &lt;a href="https://github.com/highlightjs/cdn-release" target="_blank" >存放庫&lt;/a>
+裡面的 &lt;code>build/languages&lt;/code>。&lt;/p>
 &lt;p>最後在自訂 header 裡面只需要&lt;/p>
 &lt;pre>&lt;code class="language-plaintext">{{ partial &amp;quot;highlightjs&amp;quot; . }}
 &lt;/code>&lt;/pre>
 &lt;h2 id="更換顏色">更換顏色 &lt;a href="#%e6%9b%b4%e6%8f%9b%e9%a1%8f%e8%89%b2" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>highlight.js 可以 &lt;a href="https://highlightjs.org/examples">線上瀏覽&lt;/a> 可用的語法色彩。&lt;/p>
+&lt;p>highlight.js 可以 &lt;a href="https://highlightjs.org/examples" target="_blank" >線上瀏覽&lt;/a>
+可用的語法色彩。&lt;/p>
 &lt;p>要更換就是把前面的 &lt;code>default.min.css&lt;/code> 其中的 &lt;code>default&lt;/code> 替換成想要的樣式名稱，例如我現在使用的 &lt;code>base16-gruvbox-dark-hard&lt;/code>&lt;/p>
 &lt;pre>&lt;code class="language-diff">- &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;{{ $base_url }}/styles/default.min.css&amp;quot;&amp;gt;
 + &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;{{ $base_url }}/styles/base16/gruvbox-dark-hard.min.css&amp;quot;&amp;gt;
 &lt;/code>&lt;/pre>
 &lt;p>另外注意，如果有用 &lt;code>base16-&lt;/code> 開頭，它是放在 &lt;code>base16&lt;/code> 資料夾底下。&lt;/p>
-&lt;p>詳細的資訊可以前往 &lt;a href="https://github.com/highlightjs/cdn-release">存放庫&lt;/a> 底下的 &lt;code>build/styles&lt;/code>&lt;/p>
+&lt;p>詳細的資訊可以前往 &lt;a href="https://github.com/highlightjs/cdn-release" target="_blank" >存放庫&lt;/a>
+底下的 &lt;code>build/styles&lt;/code>&lt;/p>
 &lt;h2 id="程式碼複製功能">程式碼複製功能 &lt;a href="#%e7%a8%8b%e5%bc%8f%e7%a2%bc%e8%a4%87%e8%a3%bd%e5%8a%9f%e8%83%bd" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>highlight.js 有支援擴充套件，所以可以自行撰寫套件或用別人的。&lt;/p>
-&lt;p>我這裡另外有用到 &lt;a href="https://github.com/arronhunt/highlightjs-copy">highlightjs-copy&lt;/a>，在程式碼區塊會浮現一個複製按鈕，就是它立大功。&lt;/p>
+&lt;p>我這裡另外有用到 &lt;a href="https://github.com/arronhunt/highlightjs-copy" target="_blank" >highlightjs-copy&lt;/a>
+，在程式碼區塊會浮現一個複製按鈕，就是它立大功。&lt;/p>
 &lt;p>一樣用 CDN 安裝，把上面的程式碼新增兩行：&lt;/p>
 &lt;pre>&lt;code class="language-xml">&amp;lt;link
 rel=&amp;quot;stylesheet&amp;quot;
@@ -181,8 +203,10 @@ hljs.highlightElement(el);
 &lt;/code>&lt;/pre>
 &lt;h2 id="參考資料">參考資料 &lt;a href="#%e5%8f%83%e8%80%83%e8%b3%87%e6%96%99" class="hash g">#&lt;/a>&lt;/h2>
 &lt;ul>
-&lt;li>官方網站 &lt;a href="https://highlightjs.org/">https://highlightjs.org/&lt;/a>&lt;/li>
-&lt;li>官方文件 &lt;a href="https://highlightjs.readthedocs.io/en/latest/index.html">https://highlightjs.readthedocs.io/en/latest/index.html&lt;/a>&lt;/li>
+&lt;li>官方網站 &lt;a href="https://highlightjs.org/" target="_blank" >https://highlightjs.org/&lt;/a>
+&lt;/li>
+&lt;li>官方文件 &lt;a href="https://highlightjs.readthedocs.io/en/latest/index.html" target="_blank" >https://highlightjs.readthedocs.io/en/latest/index.html&lt;/a>
+&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/switch-prismjs-to-highlightjs-in-hugo/</guid><pubDate>Thu, 23 May 2024 23:38:36 +0800</pubDate></item><item><title>除錯日記#2 Elasticsearch refresh_inverval</title><link>https://sujingjhong.com/posts/debugday-2/</link><description>&lt;p>同事反應在服務上搜尋不到幾筆資料；但直接用文件識別碼 &lt;code>_id&lt;/code> ，是可以在搜尋引擎(&lt;code>elasticsearch&lt;/code>)上找到。&lt;/p>
 &lt;p>我們嘗試了幾種方式確認問題：&lt;/p>
 &lt;ul>
@@ -198,7 +222,8 @@ hljs.highlightElement(el);
 &lt;/code>&lt;/pre>
 &lt;h2 id="參考資料">參考資料 &lt;a href="#%e5%8f%83%e8%80%83%e8%b3%87%e6%96%99" class="hash g">#&lt;/a>&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules.html" target="_blank" >https://www.elastic.co/guide/en/elasticsearch/reference/current/index-modules.html&lt;/a>
+&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-2/</guid><pubDate>Wed, 22 May 2024 17:25:10 +0800</pubDate></item><item><title>除錯日記#1 FastAPI JSON Compatible Encoder</title><link>https://sujingjhong.com/posts/debugday-1/</link><description>&lt;p>同事 slack python &lt;code>FastAPI&lt;/code> + &lt;code>Pydantic&lt;/code> 使用問題。&lt;/p>
 &lt;p>簡言之，就是他用 &lt;code>Pydantic&lt;/code> 做了一個 api response body model；但不知為何，測試時 &lt;code>FastAPI&lt;/code> 就是不給用，會跳出錯誤訊息：&lt;/p>
 &lt;pre>&lt;code class="language-bash">Object of type FileListResponse is not JSON serializable
@@ -211,9 +236,12 @@ hljs.highlightElement(el);
 &lt;p>OK，解決！&lt;/p>
 &lt;h2 id="參考資料">參考資料 &lt;a href="#%e5%8f%83%e8%80%83%e8%b3%87%e6%96%99" class="hash g">#&lt;/a>&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://docs.python.org/3/library/json.html">https://docs.python.org/3/library/json.html&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://fastapi.tiangolo.com/tutorial/request-files/">https://fastapi.tiangolo.com/tutorial/request-files/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://fastapi.tiangolo.com/tutorial/encoder/">https://fastapi.tiangolo.com/tutorial/encoder/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://docs.python.org/3/library/json.html" target="_blank" >https://docs.python.org/3/library/json.html&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://fastapi.tiangolo.com/tutorial/request-files/" target="_blank" >https://fastapi.tiangolo.com/tutorial/request-files/&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://fastapi.tiangolo.com/tutorial/encoder/" target="_blank" >https://fastapi.tiangolo.com/tutorial/encoder/&lt;/a>
+&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-1/</guid><pubDate>Tue, 21 May 2024 01:33:00 +0000</pubDate></item><item><title>後資深工程師的四種職涯角色</title><link>https://sujingjhong.com/posts/four-types-of-post-senior-engineer/</link><description>&lt;h2 id="資深工程師的下一步">資深工程師的下一步 &lt;a href="#%e8%b3%87%e6%b7%b1%e5%b7%a5%e7%a8%8b%e5%b8%ab%e7%9a%84%e4%b8%8b%e4%b8%80%e6%ad%a5" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>當晉級到資深工程師後，後面的職涯就開始模糊了，你是否也有一樣的感受呢？&lt;/p>
 &lt;p>軟體工程師約莫 5-8 年後會晉級到職涯中的「資深工程師」（Senior Software Engineer）階段，不過現階段技術更迭以及累積速度加速下，可能會更加快速。在下一階段職涯中，大多數公司都是用「主任工程師」（Staff Engineer）這職稱描述。&lt;/p>
@@ -307,17 +335,20 @@ wg-quick[9098]: Unable to access interface: Protocol not supported
 &lt;/code>&lt;/pre></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/wireguard-note-on-linux-debian-10-in-2021/</guid><pubDate>Fri, 28 May 2021 02:02:00 +0800</pubDate></item><item><title>法律 / 函釋的量詞是什麼</title><link>https://sujingjhong.com/posts/what-is-the-correct-quantifier-for-interpretive-rules/</link><description>&lt;p>最近朋友問了一個問題：「函釋的量詞是什麼」？&lt;/p>
 &lt;p>一則函釋？一篇函釋？一個函釋？一份函釋？&lt;/p>
 &lt;p>有趣的問題，只好借用自家的搜尋引擎來查查，公文中通常是用什麼詞彙來計量函釋。&lt;/p>
-&lt;p>&lt;a href="https://lawsnote.com/itp-rule/5fbee2781e788e9be721fbb5">法務部法矯字第10904008750號&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://lawsnote.com/itp-rule/5fbee2781e788e9be721fbb5" target="_blank" >法務部法矯字第10904008750號&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>要旨：
 法務部83年 1月 1日法83監字第 01423號函等 3則行政函釋，自即日起全部或部分停止適用&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;a href="https://lawsnote.com/itp-rule/5dc846155ae6bb95561eeb4b">金融監督管理委員會金管銀合字第10330003740號&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://lawsnote.com/itp-rule/5dc846155ae6bb95561eeb4b" target="_blank" >金融監督管理委員會金管銀合字第10330003740號&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>要旨：
 財政部67年 1月26日台財錢字第 10938號函等27則行政函釋自 104年 1月1 日停止適用&lt;/p>
 &lt;/blockquote>
-&lt;p>&lt;a href="https://lawsnote.com/itp-rule/5dc827eb5ae6bb95560af3a4">內政部台內地字第10613045301號函&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://lawsnote.com/itp-rule/5dc827eb5ae6bb95560af3a4" target="_blank" >內政部台內地字第10613045301號函&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>要旨：
 為配合地目等則制度自 106年 1月 1日廢除，停止適用涉及地目等則之26則函釋&lt;/p>
@@ -510,19 +541,22 @@ loadScript("vega")
 &lt;script src="https://gist.github.com/lisez/4374189f1e605010d1d3245485a803a9.js">&lt;/script></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/how-to-show-matplotlib-visual-packages-in-chinese-on-colab/</guid><pubDate>Mon, 02 Nov 2020 17:57:00 +0000</pubDate></item><item><title>其他 / 2020 線上保險資訊平臺</title><link>https://sujingjhong.com/posts/2020-online-insurance-platforms/</link><description>&lt;p>稍微整理一下目前台灣的線上保險資訊平臺。&lt;/p>
 &lt;p>目前個人是用 My83 大概的篩出自己想要的保險額度還有保單或落在哪，然後再用 Finfo 去做細部的修正。&lt;/p>
 &lt;h2 id="finfo-保險資訊站">Finfo 保險資訊站 &lt;a href="#finfo-%e4%bf%9d%e9%9a%aa%e8%b3%87%e8%a8%8a%e7%ab%99" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>&lt;a href="https://finfo.tw/">https://finfo.tw/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://finfo.tw/" target="_blank" >https://finfo.tw/&lt;/a>
+&lt;/p>
 &lt;ul>
 &lt;li>優：使用起來最平易近人，不會把所有資訊都塞給你，但是又可以在網站其他地方找到該保險的重要資訊，並且提供適當的試算工具，可以輕易了解保額對保障內容影響多大。並且提供客製化保單組合工具，可以在網站上做各家保單組合，可以說是保險資訊界的原價屋。&lt;/li>
 &lt;li>缺：沒辦法針對保險項目去做推薦分析，例如說想要意外失能一次性給付 500 萬然後每月給付 5 萬，這樣去做保險組合，目前此網站沒辦法。&lt;/li>
 &lt;/ul>
 &lt;h2 id="my83-保險網">My83 保險網 &lt;a href="#my83-%e4%bf%9d%e9%9a%aa%e7%b6%b2" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>&lt;a href="https://my83.com.tw/">https://my83.com.tw/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://my83.com.tw/" target="_blank" >https://my83.com.tw/&lt;/a>
+&lt;/p>
 &lt;ul>
 &lt;li>優：使用上起來和 Finfo 差不多。不過有提供 QA 式風險分析提供保險組合推薦系統，可以針對各種保險項目的額度組合想要的保險，例如上面說的想要意外失能一次性給付 500 萬，加上每月給付 5 萬，他的系統就可以操作。&lt;/li>
 &lt;li>缺：推薦系統是優點，也就成為缺點，沒辦法針對各家保單去做客製化調整，只能用他的推薦工具篩選。保險項目是直接連到各家 DM/條款，沒有針對重點項目說明。&lt;/li>
 &lt;/ul>
 &lt;h2 id="買保險-smartbeb">買保險 SmartBeb &lt;a href="#%e8%b2%b7%e4%bf%9d%e9%9a%aa-smartbeb" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>&lt;a href="https://www.smartbeb.com.tw/">https://www.smartbeb.com.tw/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://www.smartbeb.com.tw/" target="_blank" >https://www.smartbeb.com.tw/&lt;/a>
+&lt;/p>
 &lt;p>簡易的推薦系統，然後就要填表單洽業務。&lt;/p>
 &lt;p>感覺比較只是線上導線下的平台，沒辦法提供進一步線上客製化規劃。&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/2020-online-insurance-platforms/</guid><pubDate>Sat, 13 Jun 2020 21:52:47 +0800</pubDate></item><item><title>JS / IE11 中的 React is not defined</title><link>https://sujingjhong.com/posts/ie11-react-is-not-undefined/</link><description>&lt;p>之前一如往常地升級公司產品中使用的相依套件，接著也部署到開發環境上，然後因為我們公司產品，至少需要支援到 IE 11，所以也有對程式碼進行 ES5 語法做檢查。&lt;/p>
 &lt;p>結果就是這個 moment，主管開啟 windows 7，進行 IE 11 相容性測試，沒想到就直接白畫面！&lt;/p>
@@ -566,8 +600,10 @@ class="full-width"
 &lt;/p>
 &lt;p>一開始是找到這些：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://stackoverflow.com/questions/907680/css-printing-avoiding-cut-in-half-divs-between-pages">CSS Printing: Avoiding cut-in-half DIVs between pages?&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://stackoverflow.com/questions/36950165/text-cut-at-page-break-when-print">Text cut at page break when print&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/907680/css-printing-avoiding-cut-in-half-divs-between-pages" target="_blank" >CSS Printing: Avoiding cut-in-half DIVs between pages?&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/36950165/text-cut-at-page-break-when-print" target="_blank" >Text cut at page break when print&lt;/a>
+&lt;/li>
 &lt;/ul>
 &lt;p>就是在列印模式時，將 &lt;code>div&lt;/code> 或者要列印的區域，將 &lt;code>page-break-inside&lt;/code> 設定為 &lt;code>avoid&lt;/code>：&lt;/p>
 &lt;pre>&lt;code class="language-CSS">@media print
@@ -582,10 +618,13 @@ page-break-inside: avoid;
 &lt;p>原來銳眼如他，發現在列印時，上下高度的間距竟然些微不同，經過一陣尋覓後，發現是外層 &lt;code>container&lt;/code> 的 &lt;code>flex&lt;/code> 屬性惹禍，於是就在列印模式中，將那些元素設定成 &lt;code>display: block&lt;/code> 或是 &lt;code>display: inline-block&lt;/code>，不再使用 &lt;code>flex&lt;/code> 彈性調整。&lt;/p>
 &lt;p>接下來再使用適當的關鍵字果然就查到類似的問題了：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://stackoverflow.com/questions/45414152/css-flex-box-not-printing-all-pages-on-firefox">CSS: Flex Box not printing all pages on Firefox&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://stackoverflow.com/questions/20408033/how-to-get-page-break-inside-avoid-to-work-nicely-with-flex-wrap-wrap">How to get &lt;code>page-break-inside: avoid&lt;/code> to work nicely with &lt;code>flex-wrap: wrap&lt;/code>&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/45414152/css-flex-box-not-printing-all-pages-on-firefox" target="_blank" >CSS: Flex Box not printing all pages on Firefox&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/20408033/how-to-get-page-break-inside-avoid-to-work-nicely-with-flex-wrap-wrap" target="_blank" >How to get &lt;code>page-break-inside: avoid&lt;/code> to work nicely with &lt;code>flex-wrap: wrap&lt;/code>&lt;/a>
+&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/flexbox-print-issue/</guid><pubDate>Mon, 25 May 2020 22:26:46 +0800</pubDate></item><item><title>Hugo / 如何使用 Github Actions 自動部署 Hugo</title><link>https://sujingjhong.com/posts/how-to-deploy-hugo-automatically-with-github-actions/</link><description>&lt;h1 id="如何使用-github-actions-自動部署-hugo">如何使用 Github Actions 自動部署 Hugo &lt;a href="#%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8-github-actions-%e8%87%aa%e5%8b%95%e9%83%a8%e7%bd%b2-hugo" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>目前網站是部署在 &lt;a href="https://github.com/lisez/sujingjhong.com">GitHub 的 repo&lt;/a>。&lt;/p>
+&lt;p>目前網站是部署在 &lt;a href="https://github.com/lisez/sujingjhong.com" target="_blank" >GitHub 的 repo&lt;/a>
+。&lt;/p>
 &lt;p>然後每次發表新文章時都要做以下動作：&lt;/p>
 &lt;ul>
 &lt;li>使用 Hugo 重新產生網站&lt;/li>
@@ -627,7 +666,8 @@ break;
 const server = http.createServer(serverHandler);
 server.listen(3001);
 &lt;/code>&lt;/pre>
-&lt;p>但通常我們在 NodeJS 裡面不會這樣直接呼叫 &lt;code>http.createServer&lt;/code> 來建立伺服器，我們會利用一些 Web 框架來幫助我們，讓開發上更加便利，&lt;a href="https://github.com/expressjs/express">例如 &lt;code>express&lt;/code>&lt;/a>，例如上述程式碼可以改成：&lt;/p>
+&lt;p>但通常我們在 NodeJS 裡面不會這樣直接呼叫 &lt;code>http.createServer&lt;/code> 來建立伺服器，我們會利用一些 Web 框架來幫助我們，讓開發上更加便利，&lt;a href="https://github.com/expressjs/express" target="_blank" >例如 &lt;code>express&lt;/code>&lt;/a>
+，例如上述程式碼可以改成：&lt;/p>
 &lt;pre>&lt;code class="language-javascript">const server = require('express')();
 server.get('/', function (req, res) {
 res.send('Hello World')
@@ -635,7 +675,8 @@ res.send('Hello World')
 server.listen(3000);
 &lt;/code>&lt;/pre>
 &lt;h2 id="在-elixir-中架設伺服器">在 Elixir 中架設伺服器 &lt;a href="#%e5%9c%a8-elixir-%e4%b8%ad%e6%9e%b6%e8%a8%ad%e4%bc%ba%e6%9c%8d%e5%99%a8" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>所以一樣的，在 Elixir 中，&lt;a href="https://github.com/elixir-plug/plug">我們透過一套名為 &lt;code>plug&lt;/code> 的中間層套件&lt;/a>，協助我們架設伺服器。&lt;/p>
+&lt;p>所以一樣的，在 Elixir 中，&lt;a href="https://github.com/elixir-plug/plug" target="_blank" >我們透過一套名為 &lt;code>plug&lt;/code> 的中間層套件&lt;/a>
+，協助我們架設伺服器。&lt;/p>
 &lt;p>首先我們先建立一個乾淨的專案，並且啟用 &lt;code>supervision&lt;/code> 模式：&lt;/p>
 &lt;pre>&lt;code class="language-shell">$ mix new http_server --sup
 &lt;/code>&lt;/pre>
@@ -760,8 +801,10 @@ class="full-width"
 &lt;/p>
 &lt;h2 id="參考文獻">參考文獻 &lt;a href="#%e5%8f%83%e8%80%83%e6%96%87%e7%8d%bb" class="hash g">#&lt;/a>&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://github.com/elixir-plug/plug">https://github.com/elixir-plug/plug&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://elixirschool.com/zh-hant/lessons/specifics/plug/">https://elixirschool.com/zh-hant/lessons/specifics/plug/&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/elixir-plug/plug" target="_blank" >https://github.com/elixir-plug/plug&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://elixirschool.com/zh-hant/lessons/specifics/plug/" target="_blank" >https://elixirschool.com/zh-hant/lessons/specifics/plug/&lt;/a>
+&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/elixir101/elixir-101-make-a-http-server-quickly/</guid><pubDate>Thu, 31 Oct 2019 00:26:22 +0800</pubDate></item><item><title>Elixir 101 / 函式與回傳值</title><link>https://sujingjhong.com/posts/elixir101/elixir-101-function-and-return/</link><description>&lt;p>最近又重新開始學 Elixir，這時遇到一個問題：&lt;/p>
 &lt;p>&lt;strong>在 Elixir 裡面要怎麼建立函式，還有函數要怎麼回傳值？&lt;/strong>&lt;/p>
 &lt;p>首先這要從 Elixir 有兩種函數類型說起：&lt;/p>
@@ -886,22 +929,31 @@ iex(4)&amp;gt;
 &lt;/code>&lt;/pre>
 &lt;h2 id="參考文獻">參考文獻 &lt;a href="#%e5%8f%83%e8%80%83%e6%96%87%e7%8d%bb" class="hash g">#&lt;/a>&lt;/h2>
 &lt;ul>
-&lt;li>&lt;a href="https://elixir-lang.org/crash-course.html#anonymous-functions">https://elixir-lang.org/crash-course.html#anonymous-functions&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://elixir-lang.org/getting-started/modules-and-functions.html#named-functions">https://elixir-lang.org/getting-started/modules-and-functions.html#named-functions&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://hexdocs.pm/elixir/syntax-reference.html#operators-1">https://hexdocs.pm/elixir/syntax-reference.html#operators-1&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://www.tutorialspoint.com/elixir/elixir_functions.htm">https://www.tutorialspoint.com/elixir/elixir_functions.htm&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://elixirschool.com/en/lessons/basics/functions/">https://elixirschool.com/en/lessons/basics/functions/&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://stackoverflow.com/questions/37445838/returning-values-in-elixir">https://stackoverflow.com/questions/37445838/returning-values-in-elixir&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://elixir-lang.org/crash-course.html#anonymous-functions" target="_blank" >https://elixir-lang.org/crash-course.html#anonymous-functions&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://elixir-lang.org/getting-started/modules-and-functions.html#named-functions" target="_blank" >https://elixir-lang.org/getting-started/modules-and-functions.html#named-functions&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://hexdocs.pm/elixir/syntax-reference.html#operators-1" target="_blank" >https://hexdocs.pm/elixir/syntax-reference.html#operators-1&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://www.tutorialspoint.com/elixir/elixir_functions.htm" target="_blank" >https://www.tutorialspoint.com/elixir/elixir_functions.htm&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://elixirschool.com/en/lessons/basics/functions/" target="_blank" >https://elixirschool.com/en/lessons/basics/functions/&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/37445838/returning-values-in-elixir" target="_blank" >https://stackoverflow.com/questions/37445838/returning-values-in-elixir&lt;/a>
+&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/elixir101/elixir-101-function-and-return/</guid><pubDate>Sun, 27 Oct 2019 22:13:23 +0800</pubDate></item><item><title>Shell / 在 macOS 上手作 watch</title><link>https://sujingjhong.com/posts/homemade-watch-in-macos/</link><description>&lt;p>最近在解一個效能問題。剛好有一項需求是要定時存取伺服器，看伺服器有無實際作用。所以需要用一個 &lt;code>curl&lt;/code> 輪詢特定路徑。看伺服器是不是在中途崩潰，或是怎麼了。&lt;/p>
-&lt;p>主管就說可以用 &lt;code>watch&lt;/code>，&lt;a href="https://linux.die.net/man/1/watch">一個可以週期性執行任務的 &lt;code>linux&lt;/code> 指令&lt;/a>。&lt;/p>
+&lt;p>主管就說可以用 &lt;code>watch&lt;/code>，&lt;a href="https://linux.die.net/man/1/watch" target="_blank" >一個可以週期性執行任務的 &lt;code>linux&lt;/code> 指令&lt;/a>
+。&lt;/p>
 &lt;p>不過就在我向終端機輸入：&lt;/p>
 &lt;pre>&lt;code class="language-shell">$ watch
 zsh: command not found: watch
 &lt;/code>&lt;/pre>
-&lt;p>ＧＧ囉，看來 &lt;code>macOS&lt;/code> 並沒有此指令，&lt;a href="https://formulae.brew.sh/formula/watch#default">這時可以考慮用 &lt;code>brew&lt;/code> 安裝&lt;/a>。直接輸入：&lt;/p>
+&lt;p>ＧＧ囉，看來 &lt;code>macOS&lt;/code> 並沒有此指令，&lt;a href="https://formulae.brew.sh/formula/watch#default" target="_blank" >這時可以考慮用 &lt;code>brew&lt;/code> 安裝&lt;/a>
+。直接輸入：&lt;/p>
 &lt;pre>&lt;code class="language-shell">$ brew install watch
 &lt;/code>&lt;/pre>
-&lt;p>但這時候就想說，目前就是一個簡單輪詢的任務，不太想裝東西。&lt;a href="https://stackoverflow.com/questions/9574089/osx-bash-watch-command">那就只好手刻一個&lt;/a>。例如每 N 秒去拉一次 &lt;code>google.com&lt;/code> 的首頁回來：&lt;/p>
+&lt;p>但這時候就想說，目前就是一個簡單輪詢的任務，不太想裝東西。&lt;a href="https://stackoverflow.com/questions/9574089/osx-bash-watch-command" target="_blank" >那就只好手刻一個&lt;/a>
+。例如每 N 秒去拉一次 &lt;code>google.com&lt;/code> 的首頁回來：&lt;/p>
 &lt;pre>&lt;code class="language-shell">#!/bin/bash
 # usage: watch.sh &amp;lt;your_command&amp;gt; &amp;lt;sleep_duration&amp;gt;
 while :; do
@@ -951,7 +1003,8 @@ class="full-width"
 &lt;/table>
 &lt;p>查了一下後，應該是 Hugo 改版後導致顯示變數的問題，就找了一下解決方式：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://discourse.gohugo.io/t/how-to-list-all-pages-in-a-section-but-not-the-index-page/8441">https://discourse.gohugo.io/t/how-to-list-all-pages-in-a-section-but-not-the-index-page/8441&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://discourse.gohugo.io/t/how-to-list-all-pages-in-a-section-but-not-the-index-page/8441" target="_blank" >https://discourse.gohugo.io/t/how-to-list-all-pages-in-a-section-but-not-the-index-page/8441&lt;/a>
+&lt;/li>
 &lt;/ul>
 &lt;p>就把原本的變數改掉，就又回復啦：&lt;/p>
 &lt;pre>&lt;code class="language-git"> &amp;lt;h2&amp;gt;最新文章&amp;lt;/h2&amp;gt;
@@ -997,15 +1050,19 @@ payload: todo
 &lt;p>看起來好像很棒？&lt;/p>
 &lt;p>但如果這方法那麼棒，怎 Redux 一開始沒用這個呢？但他還真的有用過：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://github.com/reduxjs/redux/issues/4">https://github.com/reduxjs/redux/issues/4&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://github.com/reduxjs/redux/issues/4" target="_blank" >https://github.com/reduxjs/redux/issues/4&lt;/a>
+&lt;/li>
 &lt;/ul>
-&lt;p>在 &lt;code>Redux#4&lt;/code> 裡面，作者 &lt;code>gaearon&lt;/code> 還曾經那麼使用過，&lt;a href="https://github.com/reduxjs/redux/issues/4#issuecomment-108058484">不過他說他後來發現一個問題&lt;/a>：&lt;/p>
+&lt;p>在 &lt;code>Redux#4&lt;/code> 裡面，作者 &lt;code>gaearon&lt;/code> 還曾經那麼使用過，&lt;a href="https://github.com/reduxjs/redux/issues/4#issuecomment-108058484" target="_blank" >不過他說他後來發現一個問題&lt;/a>
+：&lt;/p>
 &lt;pre>&lt;code>I thought of that, but this kind of screws the replay thing. (AFAIK you can't serialize and then deserialize symbols.) I want to pass them around for devtools, localStorage persistence, etc.
 &lt;/code>&lt;/pre>
-&lt;p>&lt;a href="https://github.com/reduxjs/redux/issues/4#issuecomment-165209819">接著他更進一步說明&lt;/a>：&lt;/p>
+&lt;p>&lt;a href="https://github.com/reduxjs/redux/issues/4#issuecomment-165209819" target="_blank" >接著他更進一步說明&lt;/a>
+：&lt;/p>
 &lt;pre>&lt;code>You can't take an array of actions that use symbols, serialise them to JSON, save to localStorage, and later deserialise and replay them in a different browser session.
 &lt;/code>&lt;/pre>
-&lt;p>簡單來說就是不能做 &lt;a href="https://en.wikipedia.org/wiki/SerDes">SerDes&lt;/a>。複雜一點就是你不能把一大堆動作轉存成陣列，轉為 JSON 存起來，丟到另一個瀏覽器環境，再把它轉換回來。&lt;/p>
+&lt;p>簡單來說就是不能做 &lt;a href="https://en.wikipedia.org/wiki/SerDes" target="_blank" >SerDes&lt;/a>
+。複雜一點就是你不能把一大堆動作轉存成陣列，轉為 JSON 存起來，丟到另一個瀏覽器環境，再把它轉換回來。&lt;/p>
 &lt;p>雖然說技術上應該是可行的，準備一個 &lt;code>Object&lt;/code> 將 &lt;code>type&lt;/code> 還有 &lt;code>Symbol&lt;/code> 互相映射。或者一開始就將 ActionTypes 改寫成：&lt;/p>
 &lt;pre>&lt;code class="language-javascript">export default {
 ACTION_A: Symbol(''),
@@ -1029,21 +1086,25 @@ export const ACTION_B = Symbol('ACTION_B');
 &lt;p>最近碰到一個問題，就是該怎麼在 &lt;code>Mac&lt;/code> 版中的 &lt;code>Word&lt;/code>，為日文標註假名？&lt;/p>
 &lt;p>當然可以直接開 &lt;code>Pages&lt;/code> 用他的音標文字功能：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://support.apple.com/kb/PH23633?locale=zh_TW&amp;amp;viewlocale=zh_TW">Mac 版 Pages: 在 Pages 文件中修改中文、日文或韓文文字的格式&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://support.apple.com/kb/PH23633?locale=zh_TW&amp;amp;viewlocale=zh_TW" target="_blank" >Mac 版 Pages: 在 Pages 文件中修改中文、日文或韓文文字的格式&lt;/a>
+&lt;/li>
 &lt;/ul>
 &lt;p>不過如果要用 Word 操作還是會遇到這問題。所以一開始當然是先百事問 &lt;code>Google&lt;/code>，找到很多&lt;strong>不可行&lt;/strong>的方法：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://answers.microsoft.com/zh-hant/msoffice/forum/all/office-for-mac-2016-word/8dd5f249-4cee-458b-a506-89396013a4e9">Office for Mac 2016 - Word - 日文注音標示&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://answers.microsoft.com/zh-hant/msoffice/forum/all/mac-office-365/5f081679-2709-4233-a28d-52ac869ba665">MAC Office 365 word，日文假名標注問題&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://answers.microsoft.com/zh-hant/msoffice/forum/all/office-for-mac-2016-word/8dd5f249-4cee-458b-a506-89396013a4e9" target="_blank" >Office for Mac 2016 - Word - 日文注音標示&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://answers.microsoft.com/zh-hant/msoffice/forum/all/mac-office-365/5f081679-2709-4233-a28d-52ac869ba665" target="_blank" >MAC Office 365 word，日文假名標注問題&lt;/a>
+&lt;/li>
 &lt;/ul>
 &lt;h2 id="東亞語言介面不支援東亞語言設定選項">東亞語言介面不支援東亞語言設定選項 &lt;a href="#%e6%9d%b1%e4%ba%9e%e8%aa%9e%e8%a8%80%e4%bb%8b%e9%9d%a2%e4%b8%8d%e6%94%af%e6%8f%b4%e6%9d%b1%e4%ba%9e%e8%aa%9e%e8%a8%80%e8%a8%ad%e5%ae%9a%e9%81%b8%e9%a0%85" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>大致上都是要啟用東亞語言功能，然後將語言改成支援日文。可是會發現，怎麼在中文版介面都找不到？&lt;/p>
 &lt;p>在微軟的教學支援裡面，他只會告訴你要去開起來：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://support.office.com/zh-tw/article/%E9%96%8B%E5%95%9F-mac-%E7%89%88-office-%E4%B8%AD%E7%9A%84%E6%9D%B1%E4%BA%9E%E8%AA%9E%E8%A8%80%E5%8A%9F%E8%83%BD-40db0d4f-4bad-47d3-9eeb-bf80f9c3b5b1">開啟 Mac 版 Office 中的東亞語言功能&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://support.office.com/zh-tw/article/%e9%96%8b%e5%95%9f-mac-%e7%89%88-office-%e4%b8%ad%e7%9a%84%e6%9d%b1%e4%ba%9e%e8%aa%9e%e8%a8%80%e5%8a%9f%e8%83%bd-40db0d4f-4bad-47d3-9eeb-bf80f9c3b5b1" target="_blank" >開啟 Mac 版 Office 中的東亞語言功能&lt;/a>
+&lt;/li>
 &lt;/ul>
 &lt;p>但是很顯然的，在中文介面底下的並不支援，通常我們開起來會是長這個樣子：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/no-option-in-preference.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/no-option-in-preference.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/no-option-in-preference.jpg"
 alt="通常在設定裡沒有東西"
@@ -1053,11 +1114,13 @@ width="1200"
 height="918"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>後來實際試了一下，不是找不到，而是「&lt;strong>偏好語言&lt;/strong>」的問題。通常我們會將 &lt;code>macOS&lt;/code> 語系設定成慣用語系，例如通常在台灣的大家，就是設定成**「繁體中文 ( 臺灣 ) 」&lt;strong>。但是，這個&lt;/strong>「East Asian Languages」&lt;strong>是不會出現在我們的偏好語言中，他只會出現英語語系當中。所以才會所有相關文章，都是&lt;/strong>英文介面**說明。&lt;/p>
 &lt;p>為什麼呢？因為他們假設在偏好語言為東亞語言的，例如日文、繁簡中文，他們會認定東亞語言功能已經支援啦：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://answers.microsoft.com/en-us/msoffice/forum/all/east-asian-languages-preference-not-appearing-in/c8d88cf5-c715-45ac-8b50-fcd950455491">East Asian Languages preference not appearing in Microsoft Word for Mac 2016&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://answers.microsoft.com/en-us/msoffice/forum/all/east-asian-languages-preference-not-appearing-in/c8d88cf5-c715-45ac-8b50-fcd950455491" target="_blank" >East Asian Languages preference not appearing in Microsoft Word for Mac 2016&lt;/a>
+&lt;/li>
 &lt;/ul>
 &lt;p>裡面的一位應該是官方人員 &lt;strong>James Yan MSFT&lt;/strong> 的回覆，摘錄如下：&lt;/p>
 &lt;blockquote>
@@ -1069,7 +1132,7 @@ class="full-width"
 &lt;h3 id="第一步先將-macos-偏好語言調整成英文">第一步：先將 &lt;code>macOS&lt;/code> 偏好語言調整成英文 &lt;a href="#%e7%ac%ac%e4%b8%80%e6%ad%a5%e5%85%88%e5%b0%87-macos-%e5%81%8f%e5%a5%bd%e8%aa%9e%e8%a8%80%e8%aa%bf%e6%95%b4%e6%88%90%e8%8b%b1%e6%96%87" class="hash g">#&lt;/a>&lt;/h3>
 &lt;p>&lt;strong>＜下列步驟以 macOS Mojave 10.14.5 進行操作＞&lt;/strong>&lt;/p>
 &lt;p>先開啟&lt;strong>系統偏好設定&lt;/strong>，這可在 &lt;code>Dock&lt;/code> 或者啟動台找到：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/find-system-preference.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/find-system-preference.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/find-system-preference.jpg"
 alt="先找到系統偏好設定"
@@ -1079,9 +1142,10 @@ width="2880"
 height="1800"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>點選&lt;strong>語言與地區&lt;/strong>：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/click-region-and-lang.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/click-region-and-lang.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/click-region-and-lang.jpg"
 alt="點選語言與地區"
@@ -1091,9 +1155,10 @@ width="1336"
 height="1196"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>點選**「+」**新增偏好的語言：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/click-plus-add-prefer-lang.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/click-plus-add-prefer-lang.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/click-plus-add-prefer-lang.jpg"
 alt="點選新增偏好的語言"
@@ -1103,9 +1168,10 @@ width="1336"
 height="942"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>選擇**「English」**後點選加入：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/click-english-then-add.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/click-english-then-add.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/click-english-then-add.jpg"
 alt="選擇English後點選加入"
@@ -1115,9 +1181,10 @@ width="1336"
 height="942"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>接著他會問你是不是要將「英文」作為主要語言，點選是「使用「英文」」：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/use-english-as-prime.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/use-english-as-prime.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/use-english-as-prime.jpg"
 alt="將英文作為主要語言"
@@ -1127,9 +1194,10 @@ width="1336"
 height="942"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>離開時，他就會你要不要重啟電腦，當然不用立即重新開機，只是要重新開機才會生效。&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/ask-for-restart.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/ask-for-restart.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/ask-for-restart.jpg"
 alt="是否要重新開機"
@@ -1139,10 +1207,11 @@ width="1336"
 height="942"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;h3 id="第二步在英文版中的-ms-word-中設定-east-asian-languages">第二步：在英文版中的 &lt;code>MS Word&lt;/code> 中設定 &lt;code>East Asian Languages&lt;/code> &lt;a href="#%e7%ac%ac%e4%ba%8c%e6%ad%a5%e5%9c%a8%e8%8b%b1%e6%96%87%e7%89%88%e4%b8%ad%e7%9a%84-ms-word-%e4%b8%ad%e8%a8%ad%e5%ae%9a-east-asian-languages" class="hash g">#&lt;/a>&lt;/h3>
 &lt;p>重新開啟後，再次開啟 &lt;code>Word&lt;/code>，他會告訴你編輯語言已經變更，可以直接點掉就好：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/default-editing-language-changed.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/default-editing-language-changed.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/default-editing-language-changed.jpg"
 alt="提示編輯語言已變更"
@@ -1152,9 +1221,10 @@ width="523"
 height="235"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>接著點選右上角的 &lt;code>Word&lt;/code> -&amp;gt; &lt;code>Preferences&lt;/code>：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/click-on-word-preferences.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/click-on-word-preferences.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/click-on-word-preferences.jpg"
 alt="點選右上角的Preferences"
@@ -1164,9 +1234,10 @@ width="713"
 height="712"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>就會看到在 &lt;code>Word Preferences&lt;/code> 裡面出現 &lt;code>East Asian Languages&lt;/code>：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/eal-in-preferences.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/eal-in-preferences.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/eal-in-preferences.jpg"
 alt="East Asian Languages 出現了"
@@ -1176,9 +1247,10 @@ width="1200"
 height="918"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>點擊它後會跳出一個小視窗，點選 &lt;code>Select a language&lt;/code> 這行字下方的下拉選單：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/eal-options-window.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/eal-options-window.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/eal-options-window.jpg"
 alt="點選下拉選單"
@@ -1188,9 +1260,10 @@ width="1200"
 height="738"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>在選單中選擇 &lt;code>Japanese&lt;/code>：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/select-japanese-option.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/select-japanese-option.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/select-japanese-option.jpg"
 alt="選擇Japanese"
@@ -1200,9 +1273,10 @@ width="354"
 height="160"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>選完後，他會提示你需要重新啟動 &lt;code>Word&lt;/code> 來變更設定：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/hint-for-restart-word.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/hint-for-restart-word.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/hint-for-restart-word.jpg"
 alt="提示重新啟動Word"
@@ -1212,10 +1286,11 @@ width="1200"
 height="738"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;h3 id="第三部就像那些教學一樣開始注音標示文字">第三部：就像那些教學一樣開始注音標示文字 &lt;a href="#%e7%ac%ac%e4%b8%89%e9%83%a8%e5%b0%b1%e5%83%8f%e9%82%a3%e4%ba%9b%e6%95%99%e5%ad%b8%e4%b8%80%e6%a8%a3%e9%96%8b%e5%a7%8b%e6%b3%a8%e9%9f%b3%e6%a8%99%e7%a4%ba%e6%96%87%e5%ad%97" class="hash g">#&lt;/a>&lt;/h3>
 &lt;p>接著重新啟動 &lt;code>Word&lt;/code>，就可以像那些教學一樣打一些中文或日文漢字，來試試看標記功能：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/type-some-words.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/type-some-words.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/type-some-words.jpg"
 alt="隨便打一些字"
@@ -1225,9 +1300,10 @@ width="950"
 height="540"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>把要標記的文字選起來，點選上方有一個 &lt;code>abc A&lt;/code> 的圖示，就是注音標示功能的圖示：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/select-and-click-mark.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/select-and-click-mark.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/select-and-click-mark.jpg"
 alt="選起來後點注音標示"
@@ -1237,9 +1313,10 @@ width="950"
 height="540"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>出現了！他會提示要標記的文字，可以做一些調整，這裡就不做介紹了。沒問題就點選 「OK」&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/ruby-text-options.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/ruby-text-options.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/ruby-text-options.jpg"
 alt="標記文字選項"
@@ -1249,9 +1326,10 @@ width="898"
 height="1162"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>回到 &lt;code>Word&lt;/code> 編輯，會發現它就一如往常的標記上去啦。&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/ruby-text-result.jpg">
+&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/ruby-text-result.jpg" >
 &lt;img
 src="https://sujingjhong.com/images/2019/6/ruby-text-result.jpg"
 alt="標記文字結果"
@@ -1261,7 +1339,8 @@ width="950"
 height="540"
 class="full-width"
 />
-&lt;/a>&lt;/p>
+&lt;/a>
+&lt;/p>
 &lt;p>還有很可惜的是，這一定要在這狀態底下做，切換回原來的中文語系，他一樣給你不支援。&lt;/p>
 &lt;h2 id="我覺得這一定有-bug">我覺得這一定有 Bug &lt;a href="#%e6%88%91%e8%a6%ba%e5%be%97%e9%80%99%e4%b8%80%e5%ae%9a%e6%9c%89-bug" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>然後根據那位人員的說法，&lt;strong>「東亞語言介面預期已經支援這些功能」&lt;/strong>，但為何明明都已經把語言改成日文了，但就是弄不出標示呀？這真是太奇怪了。&lt;/p>
@@ -1310,7 +1389,8 @@ delete your own text from the attached returned message.&lt;/p>
 &lt;p>看一下被 google 退信的理由：&lt;/p>
 &lt;blockquote>
 &lt;p>The email account that you tried to reach is disabled.
-Learn more at 550 5.2.1 &lt;a href="https://support.google.com/mail/?p=DisabledUser">https://support.google.com/mail/?p=DisabledUser&lt;/a>&lt;/p>
+Learn more at 550 5.2.1 &lt;a href="https://support.google.com/mail/?p=DisabledUser" target="_blank" >https://support.google.com/mail/?p=DisabledUser&lt;/a>
+&lt;/p>
 &lt;/blockquote>
 &lt;p>看來他是很快就被封鎖了呢。&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/ms-yee-mann-from-linkedin/</guid><pubDate>Tue, 04 Jun 2019 23:48:05 +0800</pubDate></item><item><title>Shell / 如何將檔名中的空白替換掉</title><link>https://sujingjhong.com/posts/how-to-replace-spaces-in-file-name/</link><description>&lt;p>最近開始在整理先前的文章，發現有些文章檔名那時有用空格，但老實說這在以檔名作為網址的情況下，非常不適合。&lt;/p>
 &lt;p>所以開始在網路上找沒有類似的問題，整理一下我的需求是：&lt;/p>
@@ -1328,7 +1408,8 @@ Learn more at 550 5.2.1 &lt;a href="https://support.google.com/mail/?p=DisabledU
 &lt;/ol>
 &lt;p>所以一開始先下一組關鍵字 &lt;code>mac terminal filename space replace&lt;/code>，就找到這篇：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://stackoverflow.com/questions/16445082/remove-spaces-from-filenames-in-folder">Remove spaces from filenames in folder&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://stackoverflow.com/questions/16445082/remove-spaces-from-filenames-in-folder" target="_blank" >Remove spaces from filenames in folder&lt;/a>
+&lt;/li>
 &lt;/ul>
 &lt;p>很好，問題解決了，然後我是要將空白置換成連字號(-)，所以就將解答更改一個字元變成：&lt;/p>
 &lt;pre>&lt;code class="language-shell">for oldname in *
@@ -1340,7 +1421,10 @@ done
 &lt;p>接著就切換到目標資料夾，直接把這串指令丟下去跑。結案！&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/how-to-replace-spaces-in-file-name/</guid><pubDate>Tue, 04 Jun 2019 22:08:43 +0800</pubDate></item><item><title>Hugo / 如何在 Hugo 中用 Prism.js 提供程式碼色彩標註</title><link>https://sujingjhong.com/posts/how-to-add-prismjs-into-hugo/</link><description>&lt;h1 id="如何在-hugo-中用-prismjs-提供程式碼色彩標註">如何在 Hugo 中用 Prism.js 提供程式碼色彩標註 &lt;a href="#%e5%a6%82%e4%bd%95%e5%9c%a8-hugo-%e4%b8%ad%e7%94%a8-prismjs-%e6%8f%90%e4%be%9b%e7%a8%8b%e5%bc%8f%e7%a2%bc%e8%89%b2%e5%bd%a9%e6%a8%99%e8%a8%bb" class="hash g">#&lt;/a>&lt;/h1>
 &lt;h2 id="為什麼不用-hugo-內建的程式碼標註">為什麼不用 Hugo 內建的程式碼標註？ &lt;a href="#%e7%82%ba%e4%bb%80%e9%ba%bc%e4%b8%8d%e7%94%a8-hugo-%e5%85%a7%e5%bb%ba%e7%9a%84%e7%a8%8b%e5%bc%8f%e7%a2%bc%e6%a8%99%e8%a8%bb" class="hash g">#&lt;/a>&lt;/h2>
 &lt;h3 id="理由一不方便">理由一：不方便 &lt;a href="#%e7%90%86%e7%94%b1%e4%b8%80%e4%b8%8d%e6%96%b9%e4%be%bf" class="hash g">#&lt;/a>&lt;/h3>
-&lt;p>&lt;a href="https://gohugo.io/content-management/syntax-highlighting/">Hugo 本身有提供語法標註功能沒錯&lt;/a>，他是用 &lt;code>golang&lt;/code> 的&lt;a href="https://github.com/alecthomas/chroma">通用性程式碼標註套件 Chroma &lt;/a>產生，並且提供&lt;a href="https://gohugo.io/content-management/syntax-highlighting/#list-of-chroma-highlighting-languages">許多語法支援&lt;/a>以及行標註，只是它還需要使用 Hugo 本身提供的短碼(&lt;code>short code&lt;/code>)。所以就功能面而言是相當完善的，但缺點就是不方便。&lt;/p>
+&lt;p>&lt;a href="https://gohugo.io/content-management/syntax-highlighting/" target="_blank" >Hugo 本身有提供語法標註功能沒錯&lt;/a>
+，他是用 &lt;code>golang&lt;/code> 的&lt;a href="https://github.com/alecthomas/chroma" target="_blank" >通用性程式碼標註套件 Chroma &lt;/a>
+產生，並且提供&lt;a href="https://gohugo.io/content-management/syntax-highlighting/#list-of-chroma-highlighting-languages" target="_blank" >許多語法支援&lt;/a>
+以及行標註，只是它還需要使用 Hugo 本身提供的短碼(&lt;code>short code&lt;/code>)。所以就功能面而言是相當完善的，但缺點就是不方便。&lt;/p>
 &lt;p>例如說，當我需要標注一段 &lt;code>JavaScript&lt;/code> 程式碼時，我必須在文件內打：&lt;/p>
 &lt;pre>&lt;code class="language-markdown">{{&amp;lt; highlight javascript &amp;gt;}}
 console.log('hello world');
@@ -1373,11 +1457,16 @@ console.log('hello world');
 &lt;h3 id="其他替代品">其他替代品 &lt;a href="#%e5%85%b6%e4%bb%96%e6%9b%bf%e4%bb%a3%e5%93%81" class="hash g">#&lt;/a>&lt;/h3>
 &lt;p>接著在 &lt;code>google&lt;/code> 或者 &lt;code>github&lt;/code> 上搜尋 &lt;code>syntax highlight&lt;/code> 可以找到蠻多的：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://prismjs.com/">Prism.js&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://highlightjs.org/">highlight.js&lt;/a>&lt;/li>
-&lt;li>&lt;a href="http://shjs.sourceforge.net/">SHJS&lt;/a>&lt;/li>
-&lt;li>&lt;a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter&lt;/a>&lt;/li>
-&lt;li>&lt;a href="https://craig.is/making/rainbows">Rainbow&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://prismjs.com/" target="_blank" >Prism.js&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://highlightjs.org/" target="_blank" >highlight.js&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="http://shjs.sourceforge.net/" target="_blank" >SHJS&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="http://alexgorbatchev.com/SyntaxHighlighter/" target="_blank" >SyntaxHighlighter&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="https://craig.is/making/rainbows" target="_blank" >Rainbow&lt;/a>
+&lt;/li>
 &lt;/ul>
 &lt;h3 id="選擇-prismjs-的理由">選擇 &lt;code>Prism.js&lt;/code> 的理由 &lt;a href="#%e9%81%b8%e6%93%87-prismjs-%e7%9a%84%e7%90%86%e7%94%b1" class="hash g">#&lt;/a>&lt;/h3>
 &lt;h4 id="理由一現在仍持續更新中">理由一：現在仍持續更新中 &lt;a href="#%e7%90%86%e7%94%b1%e4%b8%80%e7%8f%be%e5%9c%a8%e4%bb%8d%e6%8c%81%e7%ba%8c%e6%9b%b4%e6%96%b0%e4%b8%ad" class="hash g">#&lt;/a>&lt;/h4>
@@ -1392,27 +1481,32 @@ console.log('hello world');
 &lt;/thead>
 &lt;tbody>
 &lt;tr>
-&lt;td>&lt;a href="https://prismjs.com/">Prism.js&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://prismjs.com/" target="_blank" >Prism.js&lt;/a>
+&lt;/td>
 &lt;td>v1.16.0&lt;/td>
 &lt;td>2019-3-25&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://highlightjs.org/">highlight.js&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://highlightjs.org/" target="_blank" >highlight.js&lt;/a>
+&lt;/td>
 &lt;td>v9.15.8&lt;/td>
 &lt;td>2019-5-29&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="http://shjs.sourceforge.net/">SHJS&lt;/a>&lt;/td>
+&lt;td>&lt;a href="http://shjs.sourceforge.net/" target="_blank" >SHJS&lt;/a>
+&lt;/td>
 &lt;td>v0.6&lt;/td>
 &lt;td>2008-12-15&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="http://alexgorbatchev.com/SyntaxHighlighter/">SyntaxHighlighter&lt;/a>&lt;/td>
+&lt;td>&lt;a href="http://alexgorbatchev.com/SyntaxHighlighter/" target="_blank" >SyntaxHighlighter&lt;/a>
+&lt;/td>
 &lt;td>v3.0.90&lt;/td>
 &lt;td>2016-2-13&lt;/td>
 &lt;/tr>
 &lt;tr>
-&lt;td>&lt;a href="https://craig.is/making/rainbows">Rainbow&lt;/a>&lt;/td>
+&lt;td>&lt;a href="https://craig.is/making/rainbows" target="_blank" >Rainbow&lt;/a>
+&lt;/td>
 &lt;td>v2.1.4&lt;/td>
 &lt;td>2018-6-2&lt;/td>
 &lt;/tr>
@@ -1421,9 +1515,11 @@ console.log('hello world');
 &lt;h4 id="理由二支援語言廣泛樣式選擇多">理由二：支援語言廣泛、樣式選擇多 &lt;a href="#%e7%90%86%e7%94%b1%e4%ba%8c%e6%94%af%e6%8f%b4%e8%aa%9e%e8%a8%80%e5%bb%a3%e6%b3%9b%e6%a8%a3%e5%bc%8f%e9%81%b8%e6%93%87%e5%a4%9a" class="hash g">#&lt;/a>&lt;/h4>
 &lt;p>大部分的套件不像 &lt;code>Prism.js&lt;/code> 以及 &lt;code>highlight.js&lt;/code> 提供非常廣泛的支援。像是 &lt;code>Prism.js&lt;/code> 就目前為止，提供 176 種語言支援，8 種樣式風格。&lt;code>highlight.js&lt;/code> 則提供 185 種語言支援、89 種風格。反之，像是 &lt;code>Rainbow&lt;/code> 目前僅提供 21 種語言支援而已。而這些都是倚賴社群的力量呀！&lt;/p>
 &lt;h4 id="理由三預設將會自動執行程式碼標註">理由三：預設將會自動執行程式碼標註 &lt;a href="#%e7%90%86%e7%94%b1%e4%b8%89%e9%a0%90%e8%a8%ad%e5%b0%87%e6%9c%83%e8%87%aa%e5%8b%95%e5%9f%b7%e8%a1%8c%e7%a8%8b%e5%bc%8f%e7%a2%bc%e6%a8%99%e8%a8%bb" class="hash g">#&lt;/a>&lt;/h4>
-&lt;p>所以就上述兩點理由看來，&lt;code>Prism.js&lt;/code> 與 &lt;code>highlight.js&lt;/code> 根本是分庭抗禮、不分上下，但最後讓我選擇 &lt;code>Prism.js&lt;/code> 的原因在於， &lt;code>highlight.js&lt;/code> 需要再另外呼叫。&lt;a href="https://github.com/highlightjs/highlight.js#getting-started">在 &lt;code>highlight.js&lt;/code> 的教學使用中&lt;/a>：&lt;/p>
+&lt;p>所以就上述兩點理由看來，&lt;code>Prism.js&lt;/code> 與 &lt;code>highlight.js&lt;/code> 根本是分庭抗禮、不分上下，但最後讓我選擇 &lt;code>Prism.js&lt;/code> 的原因在於， &lt;code>highlight.js&lt;/code> 需要再另外呼叫。&lt;a href="https://github.com/highlightjs/highlight.js#getting-started" target="_blank" >在 &lt;code>highlight.js&lt;/code> 的教學使用中&lt;/a>
+：&lt;/p>
 &lt;blockquote>
-&lt;p>The bare minimum for using highlight.js on a web page is linking to the library along with one of the styles and calling&lt;a href="http://highlightjs.readthedocs.io/en/latest/api.html#inithighlightingonload">&lt;code>initHighlightingOnLoad&lt;/code>&lt;/a>:&lt;/p>
+&lt;p>The bare minimum for using highlight.js on a web page is linking to the library along with one of the styles and calling&lt;a href="http://highlightjs.readthedocs.io/en/latest/api.html#inithighlightingonload" target="_blank" >&lt;code>initHighlightingOnLoad&lt;/code>&lt;/a>
+:&lt;/p>
 &lt;/blockquote>
 &lt;p>也就是除了載入 &lt;code>js&lt;/code> 檔案後，還需要加入一行程式碼來執行，這實在有點不方便呀。&lt;/p>
 &lt;p>反之，&lt;code>Prism.js&lt;/code> 則會自動對所有 &lt;code>&amp;lt;code&amp;gt;&lt;/code> 屬性進行標註，除非你想要手動標註，才需要在匯入時，增加一個屬性標籤 &lt;code>data-manual&lt;/code> 來告訴 &lt;code>Prism.js&lt;/code> 要手動標註：&lt;/p>
@@ -1431,8 +1527,11 @@ console.log('hello world');
 &lt;/code>&lt;/pre>
 &lt;h2 id="該如何使用-prismjs">該如何使用 &lt;code>Prism.js&lt;/code> &lt;a href="#%e8%a9%b2%e5%a6%82%e4%bd%95%e4%bd%bf%e7%94%a8-prismjs" class="hash g">#&lt;/a>&lt;/h2>
 &lt;h3 id="選擇一使用本地端檔案">選擇一：使用本地端檔案 &lt;a href="#%e9%81%b8%e6%93%87%e4%b8%80%e4%bd%bf%e7%94%a8%e6%9c%ac%e5%9c%b0%e7%ab%af%e6%aa%94%e6%a1%88" class="hash g">#&lt;/a>&lt;/h3>
-&lt;p>先到 &lt;code>Prism.js&lt;/code> 網站去&lt;a href="https://prismjs.com/download.html">依照自己的需求以及選擇樣式，生成 JS 以及 CSS 檔案&lt;/a>。目前官網提供的內建樣式有 8 種。如果覺得這些樣式都不喜歡的話，官方還有另外提供一些額外的選擇，&lt;a href="https://github.com/PrismJS/prism-themes">可以到 &lt;code>PrismJS/prism-themes&lt;/code> 看看&lt;/a>有沒有喜歡的。&lt;/p>
-&lt;p>接著把下載的檔案，放到 &lt;code>&amp;lt;你的hugo部落格資料夾位置&amp;gt;/static&lt;/code> 底下。然後更改 &lt;code>parital&lt;/code> 檔案，&lt;strong>但是更改的檔案以及位置，則要看用的主題而不同&lt;/strong>。例如，目前本部落格使用的是 &lt;a href="https://github.com/alex-shpak/hugo-book">&lt;code>hugo-book&lt;/code>&lt;/a> ，那就是在 &lt;code>&amp;lt;你的hugo部落格資料夾位置&amp;gt;/layouts/partials/docs/inject/&lt;/code> 底下新增兩個檔案，一個 &lt;code>head.html&lt;/code> 另一個則是 &lt;code>body.html&lt;/code> 。接著分別在該兩個檔案新增 &lt;code>HTML&lt;/code> 碼：&lt;/p>
+&lt;p>先到 &lt;code>Prism.js&lt;/code> 網站去&lt;a href="https://prismjs.com/download.html" target="_blank" >依照自己的需求以及選擇樣式，生成 JS 以及 CSS 檔案&lt;/a>
+。目前官網提供的內建樣式有 8 種。如果覺得這些樣式都不喜歡的話，官方還有另外提供一些額外的選擇，&lt;a href="https://github.com/PrismJS/prism-themes" target="_blank" >可以到 &lt;code>PrismJS/prism-themes&lt;/code> 看看&lt;/a>
+有沒有喜歡的。&lt;/p>
+&lt;p>接著把下載的檔案，放到 &lt;code>&amp;lt;你的hugo部落格資料夾位置&amp;gt;/static&lt;/code> 底下。然後更改 &lt;code>parital&lt;/code> 檔案，&lt;strong>但是更改的檔案以及位置，則要看用的主題而不同&lt;/strong>。例如，目前本部落格使用的是 &lt;a href="https://github.com/alex-shpak/hugo-book" target="_blank" >&lt;code>hugo-book&lt;/code>&lt;/a>
+，那就是在 &lt;code>&amp;lt;你的hugo部落格資料夾位置&amp;gt;/layouts/partials/docs/inject/&lt;/code> 底下新增兩個檔案，一個 &lt;code>head.html&lt;/code> 另一個則是 &lt;code>body.html&lt;/code> 。接著分別在該兩個檔案新增 &lt;code>HTML&lt;/code> 碼：&lt;/p>
 &lt;pre>&lt;code class="language-html">// 在 head.html
 &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;/&amp;lt;剛下載的CSS檔案名稱&amp;gt;.css&amp;quot;/&amp;gt;
 // 在 body.html
@@ -1452,8 +1551,11 @@ console.log('hello world');
 &lt;/code>&lt;/pre>
 &lt;p>這樣就大功告成了。&lt;/p>
 &lt;h3 id="選擇二使用cdn載入">選擇二：使用CDN載入 &lt;a href="#%e9%81%b8%e6%93%87%e4%ba%8c%e4%bd%bf%e7%94%a8cdn%e8%bc%89%e5%85%a5" class="hash g">#&lt;/a>&lt;/h3>
-&lt;p>另外，&lt;code>Prism.js&lt;/code> 目前也有提供 &lt;code>CDN&lt;/code> 載入，現在 &lt;a href="https://cdnjs.com/libraries/prism">cdnjs.com&lt;/a> 以及 &lt;a href="https://www.jsdelivr.com/package/npm/prismjs">jsDelivr&lt;/a> 皆可以找到 &lt;code>Prism.js&lt;/code>。&lt;/p>
-&lt;p>不過相較於把檔案下載下來，目前 &lt;code>CDN &lt;/code> 也支援用 &lt;code>prism-autoloader&lt;/code> 方式自動幫你載入需要的語言設定檔。不過這方面的設定呢，就目前文件上是找不到，而是藏在 github 中的議題裡面：&lt;a href="https://github.com/PrismJS/prism/pull/1924">Website: Added basic usage for CDNs&lt;/a>&lt;/p>
+&lt;p>另外，&lt;code>Prism.js&lt;/code> 目前也有提供 &lt;code>CDN&lt;/code> 載入，現在 &lt;a href="https://cdnjs.com/libraries/prism" target="_blank" >cdnjs.com&lt;/a>
+以及 &lt;a href="https://www.jsdelivr.com/package/npm/prismjs" target="_blank" >jsDelivr&lt;/a>
+皆可以找到 &lt;code>Prism.js&lt;/code>。&lt;/p>
+&lt;p>不過相較於把檔案下載下來，目前 &lt;code>CDN &lt;/code> 也支援用 &lt;code>prism-autoloader&lt;/code> 方式自動幫你載入需要的語言設定檔。不過這方面的設定呢，就目前文件上是找不到，而是藏在 github 中的議題裡面：&lt;a href="https://github.com/PrismJS/prism/pull/1924" target="_blank" >Website: Added basic usage for CDNs&lt;/a>
+&lt;/p>
 &lt;p>簡單而言呢，就是除了 &lt;code>CSS&lt;/code> 樣式檔載入方法是一樣的，載入 &lt;code>Prism.js&lt;/code> 核心庫則有點不一樣。在 &lt;code>Prism.js&lt;/code> 改成要載入 &lt;code>components/prism-core&lt;/code> 以及 &lt;code>plugins/autoloader/prism-autoloader&lt;/code> 兩支程式，然後有先後順序，
 此外在載入完 &lt;code>prism-autoloader&lt;/code> 這隻程式檔案後，需要加一行自動載入的語言設定檔路徑在哪裡。&lt;/p>
 &lt;p>以下以 &lt;code>jsDelivr &lt;/code> 提供的 &lt;code>prismjs@1.16.0&lt;/code> 版為例：&lt;/p>
@@ -1464,10 +1566,12 @@ console.log('hello world');
 &lt;p>不過有時候載入 CDN 如果遇到延遲，整個網站可能就會卡住，使用者體驗會非常不好。這時候就可以用 &lt;code>HTML5&lt;/code> 提供的 &lt;code>async/defer&lt;/code> 來幫助我們。現在網路上對於 &lt;code>async/defer&lt;/code> 資料應該蠻多的，在這裡就不再贅述，有興趣者可以參考：&lt;/p>
 &lt;ul>
 &lt;li>
-&lt;p>&lt;a href="https://flaviocopes.com/javascript-async-defer/">Efficiently load JavaScript with defer and async&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://flaviocopes.com/javascript-async-defer/" target="_blank" >Efficiently load JavaScript with defer and async&lt;/a>
+&lt;/p>
 &lt;/li>
 &lt;li>
-&lt;p>&lt;a href="https://blog.xuite.net/vexed/tech/61308318-script+tag+%E5%B1%AC%E6%80%A7+async+defer+%E5%B7%AE%E5%88%A5">script tag 屬性 async defer 差別&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://blog.xuite.net/vexed/tech/61308318-script&amp;#43;tag&amp;#43;%e5%b1%ac%e6%80%a7&amp;#43;async&amp;#43;defer&amp;#43;%e5%b7%ae%e5%88%a5" target="_blank" >script tag 屬性 async defer 差別&lt;/a>
+&lt;/p>
 &lt;/li>
 &lt;/ul>
 &lt;p>不過相較於 &lt;code>async&lt;/code> 會在載入後執行，還是會阻塞網頁，&lt;code>defer&lt;/code> 則是留到最後才執行，相較於前者體驗更佳，所以我們可以選擇全部加入 &lt;code>defer&lt;/code> 屬性：&lt;/p>
@@ -1477,7 +1581,8 @@ console.log('hello world');
 &lt;p>不過這樣會有個問題，最後那個設定怎辦？畢竟它必須等到前面兩個都載入後才能執行，不然就會跳出錯誤：&lt;/p>
 &lt;p>&lt;span style="color:red;white-space:pre">Uncaught ReferenceError: Prism is not defined
 at HTMLScriptElement.onload ((index):45)&lt;/span>&lt;/p>
-&lt;p>這時候就可以善用 &lt;code>onload&lt;/code> 事件，&lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event">他會等到所有資源載入後才會觸發&lt;/a>，相當適用我們的情境，所以我們就可以在 &lt;code>&amp;lt;script&amp;gt;&lt;/code> 裡面新增 &lt;code>onload&lt;/code> 事件處理。將原本的：&lt;/p>
+&lt;p>這時候就可以善用 &lt;code>onload&lt;/code> 事件，&lt;a href="https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event" target="_blank" >他會等到所有資源載入後才會觸發&lt;/a>
+，相當適用我們的情境，所以我們就可以在 &lt;code>&amp;lt;script&amp;gt;&lt;/code> 裡面新增 &lt;code>onload&lt;/code> 事件處理。將原本的：&lt;/p>
 &lt;pre>&lt;code class="language-html">&amp;lt;script defer src=&amp;quot;https://cdn.jsdelivr.net/npm/prismjs@1.16.0/plugins/autoloader/prism-autoloader.min.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
 &lt;/code>&lt;/pre>
 &lt;p>改成：&lt;/p>
@@ -1613,30 +1718,45 @@ class="full-width"
 &lt;p>後續幾年內，印度人民黨佔據國會多數以及面對分歧的反對派，他們可能會試著制度化他們對印度民族主義的觀點。但無論印度民眾是否接受該黨意識形態，這都將影響他們國家民主的命運，直到有一位或許能提出一條讓印度得以回到多元主義路線的新領袖出現。&lt;/p>
 &lt;pre>&lt;code>練習翻譯，歡迎指正
 &lt;/code>&lt;/pre></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/foreignpolicy/the-modi-mystery/</guid><pubDate>Sun, 26 May 2019 23:30:26 +0800</pubDate></item><item><title>Mall 是什麼？和百貨公司(department store)怎麼區別？</title><link>https://sujingjhong.com/posts/what-is-mall-and-how-to-distinguish-it-and-department-store/</link><description>&lt;h1 id="mall-是什麼和百貨公司department-store怎麼區別">Mall 是什麼？和百貨公司(department store)怎麼區別？ &lt;a href="#mall-%e6%98%af%e4%bb%80%e9%ba%bc%e5%92%8c%e7%99%be%e8%b2%a8%e5%85%ac%e5%8f%b8department-store%e6%80%8e%e9%ba%bc%e5%8d%80%e5%88%a5" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>有鑒於自身英文能力的不足，開始想要找外師加強英文能力。在多方比較下，在&lt;a href="https://tw.amazingtalker.com/">AmazingTalker&lt;/a>上找到一位英文老師，他是來自南非的Fleur，目前和他丈夫居住在柬埔寨。&lt;/p>
+&lt;p>有鑒於自身英文能力的不足，開始想要找外師加強英文能力。在多方比較下，在&lt;a href="https://tw.amazingtalker.com/" target="_blank" >AmazingTalker&lt;/a>
+上找到一位英文老師，他是來自南非的Fleur，目前和他丈夫居住在柬埔寨。&lt;/p>
 &lt;p>不過上了幾個禮拜後，開始覺得學了很多東西，但其實也忘了很多東西。剛好自己又開始架設了一個blog，就開始嘗試將自己今天學到的東西記起來吧！&lt;/p>
 &lt;h2 id="英文的mall">英文的「Mall」 &lt;a href="#%e8%8b%b1%e6%96%87%e7%9a%84mall" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>而今天和Fleur討論的主題呢，&lt;a href="http://www.elllo.org/english/1501/1501-KatieTodd-MallShops-Places.htm">是elllo上的一篇文章&lt;/a>。他的大意就是有兩個人在討論一間新開的Mall裡面有什麼，有賣電腦的、有賣書的也有賣吃的之類的。於是就藉著這個主題開始聊有關mall的事情。&lt;/p>
-&lt;p>但要討論Mall之前，台灣通常翻成&lt;strong>購物中心&lt;/strong>，要先確定我們講的是同一個東西。因為對話一開始就出了差錯，Fleur問了我喜歡哪間mall，我回答了「&lt;a href="https://www.costco.com.tw/">Costco&lt;/a>」，接著他就狐疑的告訴我，Costco不是Mall，接著在一連串對話下來，Costco不是Mall，&lt;a href="https://www.ikea.com/tw/zh/">IKEA&lt;/a>那種也不是，百貨公司也不是，那什麼才是Mall呢？&lt;/p>
-&lt;p>台灣的地下街就很像Mall。他第一個給我看的例子是&lt;a href="https://zh.wikipedia.org/wiki/%E6%9D%B1%E5%8D%80%E5%9C%B0%E4%B8%8B%E8%A1%97">東區地下街&lt;/a>還有&lt;a href="https://zh.wikipedia.org/wiki/%E4%BA%AC%E8%8F%AF%E5%9F%8E%E8%B3%BC%E7%89%A9%E4%B8%AD%E5%BF%83">京華城&lt;/a>，這時候才理解到，&lt;strong>所謂的mall通常描述的一個大地方有很多獨立的店鋪(store)&lt;/strong>。所以說Costco本身就是一個大的商店，他只是裡面賣很多東西，並沒有其他商店存在，同理，IKEA也只是一個獨立的商店，他也不是mall。&lt;/p>
+&lt;p>而今天和Fleur討論的主題呢，&lt;a href="http://www.elllo.org/english/1501/1501-KatieTodd-MallShops-Places.htm" target="_blank" >是elllo上的一篇文章&lt;/a>
+。他的大意就是有兩個人在討論一間新開的Mall裡面有什麼，有賣電腦的、有賣書的也有賣吃的之類的。於是就藉著這個主題開始聊有關mall的事情。&lt;/p>
+&lt;p>但要討論Mall之前，台灣通常翻成&lt;strong>購物中心&lt;/strong>，要先確定我們講的是同一個東西。因為對話一開始就出了差錯，Fleur問了我喜歡哪間mall，我回答了「&lt;a href="https://www.costco.com.tw/" target="_blank" >Costco&lt;/a>
+」，接著他就狐疑的告訴我，Costco不是Mall，接著在一連串對話下來，Costco不是Mall，&lt;a href="https://www.ikea.com/tw/zh/" target="_blank" >IKEA&lt;/a>
+那種也不是，百貨公司也不是，那什麼才是Mall呢？&lt;/p>
+&lt;p>台灣的地下街就很像Mall。他第一個給我看的例子是&lt;a href="https://zh.wikipedia.org/wiki/%E6%9D%B1%E5%8D%80%E5%9C%B0%E4%B8%8B%E8%A1%97" target="_blank" >東區地下街&lt;/a>
+還有&lt;a href="https://zh.wikipedia.org/wiki/%E4%BA%AC%E8%8F%AF%E5%9F%8E%E8%B3%BC%E7%89%A9%E4%B8%AD%E5%BF%83" target="_blank" >京華城&lt;/a>
+，這時候才理解到，&lt;strong>所謂的mall通常描述的一個大地方有很多獨立的店鋪(store)&lt;/strong>。所以說Costco本身就是一個大的商店，他只是裡面賣很多東西，並沒有其他商店存在，同理，IKEA也只是一個獨立的商店，他也不是mall。&lt;/p>
 &lt;h2 id="字典裡的mall">字典裡的Mall &lt;a href="#%e5%ad%97%e5%85%b8%e8%a3%a1%e7%9a%84mall" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>在劍橋字典裡面的Mall描述得比較簡單，&lt;a href="https://dictionary.cambridge.org/dictionary/english-chinese-traditional/mall">是指一個大型通常有屋頂、車輛禁止入內的購物區域&lt;/a>。而在牛津字典裡面，他的解釋也和劍橋字典差不多，&lt;a href="https://www.oxfordlearnersdictionaries.com/definition/english/mall_1?q=mall">不過他也舉例強調裡面有很多店鋪、餐廳在裡面&lt;/a>，另外牛津字典也指出這是美式英語的用法。&lt;/p>
+&lt;p>在劍橋字典裡面的Mall描述得比較簡單，&lt;a href="https://dictionary.cambridge.org/dictionary/english-chinese-traditional/mall" target="_blank" >是指一個大型通常有屋頂、車輛禁止入內的購物區域&lt;/a>
+。而在牛津字典裡面，他的解釋也和劍橋字典差不多，&lt;a href="https://www.oxfordlearnersdictionaries.com/definition/english/mall_1?q=mall" target="_blank" >不過他也舉例強調裡面有很多店鋪、餐廳在裡面&lt;/a>
+，另外牛津字典也指出這是美式英語的用法。&lt;/p>
 &lt;h2 id="和百貨公司department-store的差異">和百貨公司(department store)的差異 &lt;a href="#%e5%92%8c%e7%99%be%e8%b2%a8%e5%85%ac%e5%8f%b8department-store%e7%9a%84%e5%b7%ae%e7%95%b0" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>後來我想到一個問題，要怎麼區別Mall和department sotre，後者在台灣指的就是百貨公司。&lt;/p>
-&lt;p>根據劍橋字典的定義，百貨公司指的就是&lt;a href="https://dictionary.cambridge.org/dictionary/english-chinese-traditional/department-store">一個巨大店鋪裡不同部分販售不同的東西&lt;/a>。要注意的是**「一個店鋪」&lt;strong>。所以在百貨公司裡，我們才會稱那些叫做&lt;/strong>「櫃位」「專櫃」&lt;strong>，他就像一個商店裡面的&lt;/strong>一個小部門**一樣。&lt;/p>
-&lt;p>再來現在有Google真好，&lt;a href="https://hinative.com/zh-TW/questions/2771709">剛好有人對英文母語使用者提問，這兩者差異在哪&lt;/a>，裡面最佳的答案也指出，差異在於「百貨公司是一個單一店鋪(a single store)裡面有很多東西，購物中心則是一個建築裡面有很多不同的店鋪(one big building filled with many different stores)」&lt;/p>
+&lt;p>根據劍橋字典的定義，百貨公司指的就是&lt;a href="https://dictionary.cambridge.org/dictionary/english-chinese-traditional/department-store" target="_blank" >一個巨大店鋪裡不同部分販售不同的東西&lt;/a>
+。要注意的是**「一個店鋪」&lt;strong>。所以在百貨公司裡，我們才會稱那些叫做&lt;/strong>「櫃位」「專櫃」&lt;strong>，他就像一個商店裡面的&lt;/strong>一個小部門**一樣。&lt;/p>
+&lt;p>再來現在有Google真好，&lt;a href="https://hinative.com/zh-TW/questions/2771709" target="_blank" >剛好有人對英文母語使用者提問，這兩者差異在哪&lt;/a>
+，裡面最佳的答案也指出，差異在於「百貨公司是一個單一店鋪(a single store)裡面有很多東西，購物中心則是一個建築裡面有很多不同的店鋪(one big building filled with many different stores)」&lt;/p>
 &lt;p>再來網路上還有很多討論兩者差異的文章，就只列舉我覺得蠻有幫助的：&lt;/p>
 &lt;ul>
-&lt;li>&lt;a href="https://www.ptt.cc/man/Eng-Class/D389/M.1166623195.A.AD6.html">https://www.ptt.cc/man/Eng-Class/D389/M.1166623195.A.AD6.html&lt;/a>&lt;/li>
-&lt;li>&lt;a href="http://huangwenjiun.blogspot.com/2009/07/blog-post_88.html">http://huangwenjiun.blogspot.com/2009/07/blog-post_88.html&lt;/a>&lt;/li>
+&lt;li>&lt;a href="https://www.ptt.cc/man/Eng-Class/D389/M.1166623195.A.AD6.html" target="_blank" >https://www.ptt.cc/man/Eng-Class/D389/M.1166623195.A.AD6.html&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="http://huangwenjiun.blogspot.com/2009/07/blog-post_88.html" target="_blank" >http://huangwenjiun.blogspot.com/2009/07/blog-post_88.html&lt;/a>
+&lt;/li>
 &lt;/ul>
 &lt;p>第二篇那篇還列舉很多相近詞，蠻受用的。&lt;/p>
 &lt;h2 id="在台灣可以用內部格局區分">在台灣可以用內部格局區分 &lt;a href="#%e5%9c%a8%e5%8f%b0%e7%81%a3%e5%8f%af%e4%bb%a5%e7%94%a8%e5%85%a7%e9%83%a8%e6%a0%bc%e5%b1%80%e5%8d%80%e5%88%86" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>總結而言，&lt;a href="https://en.wikipedia.org/wiki/Shopping_mall#Twentieth-century_developments">近代購物中心的概念主要是在美國發展起來的&lt;/a>，他主要是在遠離市中心的地方，創造一個大型地方，讓人們可以將車停在外面，然後進去購物的大型腹地。&lt;/p>
+&lt;p>總結而言，&lt;a href="https://en.wikipedia.org/wiki/Shopping_mall#Twentieth-century_developments" target="_blank" >近代購物中心的概念主要是在美國發展起來的&lt;/a>
+，他主要是在遠離市中心的地方，創造一個大型地方，讓人們可以將車停在外面，然後進去購物的大型腹地。&lt;/p>
 &lt;p>不過呢，台灣地狹人稠，導致所謂的**「郊區」「市區」**，在主要都會帶是很難區分的，也導致這兩者容易混淆。尤其在大台北，捷運網路完善，郊區已不再是郊區，所以如果要從座落在郊區這點區分，可能會比較難理解。&lt;/p>
 &lt;p>所以要怎麼區別呢？&lt;/p>
 &lt;p>我覺得可從&lt;strong>內部格局&lt;/strong>來區分。如果是百貨公司的話，其實櫃位和櫃位之間，是很難區分的，可能用&lt;strong>走道&lt;/strong>或者用&lt;strong>層板&lt;/strong>就把它區隔出來，還是可以感受到是同屬一個空間。但如果是商店街、大型購物中心，會很明顯看到每個店鋪之間，是有明顯的空間區隔，大多就是用&lt;strong>牆壁&lt;/strong>隔開，會很明顯感受到店舖之間的分離。&lt;/p>
-&lt;p>例如在台北中山地下街、東區地下街，會明顯感受到很多間店舖，&lt;a href="http://web.metro.taipei/c/metromall.asp">地圖上也會指出有哪些店鋪&lt;/a>。如果是百貨公司呢，&lt;a href="http://www.att4fun.com.tw/?d=brick&amp;amp;k=floor">以ATT4Fun，明顯感受到一個接連一個&lt;/a>，店鋪之間比較少明顯的區隔。&lt;/p>
+&lt;p>例如在台北中山地下街、東區地下街，會明顯感受到很多間店舖，&lt;a href="http://web.metro.taipei/c/metromall.asp" target="_blank" >地圖上也會指出有哪些店鋪&lt;/a>
+。如果是百貨公司呢，&lt;a href="http://www.att4fun.com.tw/?d=brick&amp;amp;k=floor" target="_blank" >以ATT4Fun，明顯感受到一個接連一個&lt;/a>
+，店鋪之間比較少明顯的區隔。&lt;/p>
 &lt;p>以上就是我對英文單字Mall的認識，分享給大家，當然有錯誤也希望大家不吝於指教呢。&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/what-is-mall-and-how-to-distinguish-it-and-department-store/</guid><pubDate>Tue, 14 May 2019 00:24:04 +0800</pubDate></item><item><title>Golang / GVM for Go</title><link>https://sujingjhong.com/posts/golang-gvm-for-go/</link><description>&lt;h1 id="gvm-for-go">GVM for Go &lt;a href="#gvm-for-go" class="hash g">#&lt;/a>&lt;/h1>
 &lt;p>&lt;code>gvm&lt;/code> 是 &lt;code>golang&lt;/code> 語言的版本管理系統，類似 &lt;code>nodejs&lt;/code> 的 &lt;code>nvm&lt;/code>，以及 &lt;code>ruby&lt;/code> 的 &lt;code>rvm&lt;/code> 等等。&lt;/p>
 &lt;p>對這軟體的功用就不再贅述了。&lt;/p>
@@ -1693,10 +1813,12 @@ gvm install go1.5
 &lt;/code>&lt;/pre>
 &lt;p>例如設定為 &lt;code>go1.9.7&lt;/code> 為預設版本：&lt;/p>
 &lt;pre>&lt;code class="language-shell">gmv use go1.9.7 --default
-&lt;/code>&lt;/pre></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/golang-gvm-for-go/</guid><pubDate>Thu, 23 Aug 2018 02:06:04 +0800</pubDate></item><item><title>Elixir101 / Hello World</title><link>https://sujingjhong.com/posts/elixir101/elixir-101-hello-world/</link><description>&lt;p>&lt;a href="https://medium.com/@sujj/elixir-hello-world-767e33726eb1">本文原刊載於個人 Medium&lt;/a>&lt;/p>
+&lt;/code>&lt;/pre></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/golang-gvm-for-go/</guid><pubDate>Thu, 23 Aug 2018 02:06:04 +0800</pubDate></item><item><title>Elixir101 / Hello World</title><link>https://sujingjhong.com/posts/elixir101/elixir-101-hello-world/</link><description>&lt;p>&lt;a href="https://medium.com/@sujj/elixir-hello-world-767e33726eb1" target="_blank" >本文原刊載於個人 Medium&lt;/a>
+&lt;/p>
 &lt;p>最近開始接觸 Elixir 這門語言，語法風格接近 Ruby。而他有一種動靜皆備的特性，老實說還蠻吸引我的。&lt;/p>
 &lt;p>因為 Elixir 可以用副檔名來區別是要直譯還是編譯，而它的 Elixir 的檔名主要有三種：&lt;code>.ex&lt;/code> &lt;code>.exs&lt;/code> &lt;code>.beam&lt;/code>&lt;/p>
-&lt;p>這三種檔名差異，可以直接看 &lt;a href="https://elixir-lang.org/getting-started/modules-and-functions.html#scripted-mode">官方說明&lt;/a>：&lt;/p>
+&lt;p>這三種檔名差異，可以直接看 &lt;a href="https://elixir-lang.org/getting-started/modules-and-functions.html#scripted-mode" target="_blank" >官方說明&lt;/a>
+：&lt;/p>
 &lt;blockquote>
 &lt;p>In addition to the Elixir file extension &lt;code>.ex&lt;/code>, Elixir also supports &lt;code>.exs&lt;/code> files for scripting. Elixir treats both files exactly the same way, the only difference is in intention. &lt;code>.ex&lt;/code> files are meant to be compiled while &lt;code>.exs&lt;/code> files are used for scripting. When executed, both extensions compile and load their modules into memory, although only &lt;code>.ex&lt;/code> files write their bytecode to disk in the format of &lt;code>.beam&lt;/code> files.&lt;/p>
 &lt;/blockquote>
@@ -1818,7 +1940,8 @@ iex(2)&amp;gt;
 &lt;/code>&lt;/pre>
 &lt;p>&lt;code>:ok&lt;/code>! hello world&lt;/p>
 &lt;p>本篇就到此結束了～&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/elixir101/elixir-101-hello-world/</guid><pubDate>Wed, 15 Aug 2018 21:33:51 +0800</pubDate></item><item><title>VoiceTube / Why We Go Off People Who Like Us</title><link>https://sujingjhong.com/posts/eng-class/why-we-go-off-people-who-like-us/</link><description>&lt;h1 id="why-we-go-off-people-who-like-us">Why We Go Off People Who Like Us &lt;a href="#why-we-go-off-people-who-like-us" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://tw.voicetube.com/videos/44764">https://tw.voicetube.com/videos/44764&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://tw.voicetube.com/videos/44764" target="_blank" >https://tw.voicetube.com/videos/44764&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>Ostensibly, we all want love, but oddly, one of the hardest things to do is not hold it against people when they do actually turn around and reciprocate our feelings.&lt;/p>
 &lt;/blockquote>
@@ -1920,7 +2043,8 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>invariably (adv.) - &lt;strong>always&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/why-we-go-off-people-who-like-us/</guid><pubDate>Sat, 13 Jan 2018 06:16:15 +0000</pubDate></item><item><title>StoryCorps / Anna Freeman and Brianna Freeman</title><link>https://sujingjhong.com/posts/eng-class/anna-freeman-and-brianna-freeman/</link><description>&lt;h1 id="anna-freeman-and-brianna-freeman">Anna Freeman and Brianna Freeman &lt;a href="#anna-freeman-and-brianna-freeman" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/anna-freeman-and-brianna-freeman-171229/">https://storycorps.org/listen/anna-freeman-and-brianna-freeman-171229/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/anna-freeman-and-brianna-freeman-171229/" target="_blank" >https://storycorps.org/listen/anna-freeman-and-brianna-freeman-171229/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>What is your obsession with unicorns?&lt;/p>
 &lt;/blockquote>
@@ -1940,7 +2064,8 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>tough (adj.) - &lt;strong>likely to be violent or to contain violence; not kindor pleasant&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/anna-freeman-and-brianna-freeman/</guid><pubDate>Sun, 31 Dec 2017 09:39:16 +0000</pubDate></item><item><title>StoryCorps / Thompson Williams and Kiamichi-tet Williams</title><link>https://sujingjhong.com/posts/eng-class/thompson-williams-and-kiamichi-tet-williams/</link><description>&lt;h1 id="thompson-williams-and-kiamichi-tet-williams">Thompson Williams and Kiamichi-tet Williams &lt;a href="#thompson-williams-and-kiamichi-tet-williams" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/thompson-williams-and-kiamichi-tet-williams-171222/">https://storycorps.org/listen/thompson-williams-and-kiamichi-tet-williams-171222/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/thompson-williams-and-kiamichi-tet-williams-171222/" target="_blank" >https://storycorps.org/listen/thompson-williams-and-kiamichi-tet-williams-171222/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>That year we used all our money just before Christmas so that we could pay the bills and buy groceries — at least we’d have something to eat.&lt;/p>
 &lt;/blockquote>
@@ -1963,7 +2088,8 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>ornament (noun. C) - &lt;strong>an object that is beautiful rather than useful&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/thompson-williams-and-kiamichi-tet-williams/</guid><pubDate>Sat, 30 Dec 2017 07:02:36 +0000</pubDate></item><item><title>StoryCorps / William Lynn Weaver</title><link>https://sujingjhong.com/posts/eng-class/william-lynn-weaver-2/</link><description>&lt;h1 id="william-lynn-weaver">William Lynn Weaver &lt;a href="#william-lynn-weaver" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/william-lynn-weaver-171215/">https://storycorps.org/listen/william-lynn-weaver-171215/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/william-lynn-weaver-171215/" target="_blank" >https://storycorps.org/listen/william-lynn-weaver-171215/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>It’s a small neighborhood so we find out where the kid lives who has the bike and it’s a shack in an alley. Now, my brother and I, we’re going to beat this boy but my father was there and he said, ’Just shut up and let me talk.’&lt;/p>
 &lt;/blockquote>
@@ -1990,7 +2116,8 @@ iex(2)&amp;gt;
 &lt;li>chauffeur (nonu. C) - &lt;strong>someone whose job is to drive a car for a rich or important person&lt;/strong>&lt;/li>
 &lt;li>domestic (noun. C &lt;em>old-fashioned&lt;/em>) - domestic help &lt;strong>someonepaid to do work, such as cleaning andcooking, in someone else&amp;rsquo;s house&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/william-lynn-weaver-2/</guid><pubDate>Thu, 28 Dec 2017 12:50:24 +0000</pubDate></item><item><title>StoryCorps / Jennifer Hensel and Jeremy Richman</title><link>https://sujingjhong.com/posts/eng-class/jennifer-hensel-and-jeremy-richman/</link><description>&lt;h1 id="jennifer-hensel-and-jeremy-richman">Jennifer Hensel and Jeremy Richman &lt;a href="#jennifer-hensel-and-jeremy-richman" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/jennifer-hensel-and-jeremy-richman-171213/">https://storycorps.org/listen/jennifer-hensel-and-jeremy-richman-171213/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/jennifer-hensel-and-jeremy-richman-171213/" target="_blank" >https://storycorps.org/listen/jennifer-hensel-and-jeremy-richman-171213/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>The weight of her arms on my body when she’s hugging me. And her cheeks.&lt;/p>
 &lt;/blockquote>
@@ -2019,7 +2146,8 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>probable (adj.) - &lt;strong>likely to be true or likely to happen&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/jennifer-hensel-and-jeremy-richman/</guid><pubDate>Wed, 27 Dec 2017 13:23:53 +0000</pubDate></item><item><title>VoiceTube / Why Does Everyone Hate Eye Contact</title><link>https://sujingjhong.com/posts/eng-class/why-does-everyone-hate-eye-contact/</link><description>&lt;h1 id="why-does-everyone-hate-eye-contact">Why Does Everyone Hate Eye Contact &lt;a href="#why-does-everyone-hate-eye-contact" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://tw.voicetube.com/videos/57678?ref=hot-week">https://tw.voicetube.com/videos/57678?ref=hot-week&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://tw.voicetube.com/videos/57678?ref=hot-week" target="_blank" >https://tw.voicetube.com/videos/57678?ref=hot-week&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>When we lock eyes with a stranger, it can make us feel a little bit squeamish.&lt;/p>
 &lt;/blockquote>
@@ -2143,7 +2271,8 @@ iex(2)&amp;gt;
 &lt;/ul>
 &lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/why-does-everyone-hate-eye-contact/</guid><pubDate>Mon, 18 Dec 2017 13:23:36 +0000</pubDate></item><item><title>StoryCorps / Carla Saunders and Kyle Cook</title><link>https://sujingjhong.com/posts/eng-class/carla-saunders-and-kyle-cook/</link><description>&lt;h1 id="carla-saunders-and-kyle-cook">Carla Saunders and Kyle Cook &lt;a href="#carla-saunders-and-kyle-cook" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/carla-saunders-and-kyle-cook-170915/">https://storycorps.org/listen/carla-saunders-and-kyle-cook-170915/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/carla-saunders-and-kyle-cook-170915/" target="_blank" >https://storycorps.org/listen/carla-saunders-and-kyle-cook-170915/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>Summer 2010, we had six babies in the nursery who were in withdrawal.&lt;/p>
 &lt;/blockquote>
@@ -2188,7 +2317,8 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>gosh (&lt;em>informal, old-fashioned&lt;/em>) - &lt;strong>used to express surprise or strength of feeling&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/carla-saunders-and-kyle-cook/</guid><pubDate>Mon, 04 Dec 2017 15:59:11 +0000</pubDate></item><item><title>StoryCorps / Russell Lehmann and David Apkarian</title><link>https://sujingjhong.com/posts/eng-class/russell-lehmann-and-david-apkarian/</link><description>&lt;h1 id="russell-lehmann-and-david-apkarian">Russell Lehmann and David Apkarian &lt;a href="#russell-lehmann-and-david-apkarian" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/russell-lehmann-and-david-apkarian-170922/">https://storycorps.org/listen/russell-lehmann-and-david-apkarian-170922/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/russell-lehmann-and-david-apkarian-170922/" target="_blank" >https://storycorps.org/listen/russell-lehmann-and-david-apkarian-170922/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>I remember sitting in the same exact spot for seven hours crying, and, uh, not one person approached me.&lt;/p>
 &lt;/blockquote>
@@ -2262,7 +2392,8 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>autism (noun. U) - &lt;strong>a condition that starts in young children and typically causes behaviour that is unusually centred on the self while limiting the development of social and communication skills&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/russell-lehmann-and-david-apkarian/</guid><pubDate>Sun, 03 Dec 2017 07:47:01 +0000</pubDate></item><item><title>StoryCorps / Christopher Harris</title><link>https://sujingjhong.com/posts/eng-class/christopher-harris/</link><description>&lt;h1 id="christopher-harris">Christopher Harris &lt;a href="#christopher-harris" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/christopher-harris-171201/">https://storycorps.org/listen/christopher-harris-171201/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/christopher-harris-171201/" target="_blank" >https://storycorps.org/listen/christopher-harris-171201/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>So we settled into the rigors of treatment.&lt;/p>
 &lt;/blockquote>
@@ -2282,7 +2413,8 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>tough (adj.) - &lt;strong>unlucky&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/christopher-harris/</guid><pubDate>Fri, 01 Dec 2017 14:03:04 +0000</pubDate></item><item><title>StoryCorps / William Lynn Weaver</title><link>https://sujingjhong.com/posts/eng-class/william-lynn-weaver/</link><description>&lt;h1 id="william-lynn-weaver">William Lynn Weaver &lt;a href="#william-lynn-weaver" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/william-lynn-weaver-170929/">https://storycorps.org/listen/william-lynn-weaver-170929/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/william-lynn-weaver-170929/" target="_blank" >https://storycorps.org/listen/william-lynn-weaver-170929/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>The school’s mascot was a Confederate colonel and at football games, when you came out on the field, the crowd would be hollering and the Dixie would be playing and they’d hold the paper flag up and the team would burst out through the Confederate flag. The black players made a decision to run around the flag.&lt;/p>
 &lt;/blockquote>
@@ -2339,7 +2471,8 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>selfish (adj.) - &lt;strong>Someone who is selfish only thinksof their own advantage&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/william-lynn-weaver/</guid><pubDate>Thu, 30 Nov 2017 14:33:50 +0000</pubDate></item><item><title>StoryCorps / Johnny Holmes and Christian Picciolini</title><link>https://sujingjhong.com/posts/eng-class/johnny-holmes-and-christian-picciolini/</link><description>&lt;h1 id="johnny-holmes-and-christian-picciolini">Johnny Holmes and Christian Picciolini &lt;a href="#johnny-holmes-and-christian-picciolini" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/johnny-holmes-and-christian-picciolini-171006/">https://storycorps.org/listen/johnny-holmes-and-christian-picciolini-171006/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/johnny-holmes-and-christian-picciolini-171006/" target="_blank" >https://storycorps.org/listen/johnny-holmes-and-christian-picciolini-171006/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>You were rough.&lt;/p>
 &lt;/blockquote>
@@ -2394,7 +2527,8 @@ iex(2)&amp;gt;
 &lt;li>incident (noun. C) - &lt;strong>an event that is either unpleasant orunusual&lt;/strong>&lt;/li>
 &lt;li>multiply (verb.) - &lt;strong>to increase very much in number, or (inmathematics) to add a number to itself a particularnumber of times&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/johnny-holmes-and-christian-picciolini/</guid><pubDate>Wed, 29 Nov 2017 16:04:40 +0000</pubDate></item><item><title>StoryCorps / Jessi Silva and Maggie Marquez</title><link>https://sujingjhong.com/posts/eng-class/jessi-silva-and-maggie-marquez/</link><description>&lt;h1 id="jessi-silva-and-maggie-marquez">Jessi Silva and Maggie Marquez &lt;a href="#jessi-silva-and-maggie-marquez" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/jessi-silva-and-maggie-marquez-171020/">https://storycorps.org/listen/jessi-silva-and-maggie-marquez-171020/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/jessi-silva-and-maggie-marquez-171020/" target="_blank" >https://storycorps.org/listen/jessi-silva-and-maggie-marquez-171020/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>All the teachers, they had a little cigar box, and put the kids’ little papers in there. And we all marched out to where the flagpole was.&lt;/p>
 &lt;/blockquote>
@@ -2449,7 +2583,8 @@ iex(2)&amp;gt;
 &lt;li>loss (noun. C/U) - &lt;strong>the fact that you no longer have something or have less of something&lt;/strong>&lt;/li>
 &lt;li>rip sth away from sth - &lt;strong>to tear or strip something away.&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/jessi-silva-and-maggie-marquez/</guid><pubDate>Wed, 29 Nov 2017 14:58:12 +0000</pubDate></item><item><title>StoryCorps / Ronald Clark and Jamilah Clark</title><link>https://sujingjhong.com/posts/eng-class/ronald-clark-and-jamilah-clark/</link><description>&lt;h1 id="ronald-clark-and-jamilah-clark">Ronald Clark and Jamilah Clark &lt;a href="#ronald-clark-and-jamilah-clark" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/ronald-clark-and-jamilah-clark-171013/">https://storycorps.org/listen/ronald-clark-and-jamilah-clark-171013/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/ronald-clark-and-jamilah-clark-171013/" target="_blank" >https://storycorps.org/listen/ronald-clark-and-jamilah-clark-171013/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>As a child, I always thought I was rich, and one day at the dinner table, I said something like, ’I’m so glad we’re rich.’ And my father almost choked.&lt;/p>
 &lt;/blockquote>
@@ -2477,12 +2612,15 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>ashamed (adj. after verb.) - &lt;strong>feeling guilty or embarrassed about something you have done or about a quality inyour character&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/ronald-clark-and-jamilah-clark/</guid><pubDate>Tue, 28 Nov 2017 12:53:57 +0000</pubDate></item><item><title>StoryCorps / Greg Houston and Lynne Houston</title><link>https://sujingjhong.com/posts/eng-class/greg-houston-and-lynne-houston/</link><description>&lt;h1 id="greg-houston-and-lynne-houston">Greg Houston and Lynne Houston &lt;a href="#greg-houston-and-lynne-houston" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/greg-houston-and-lynn-houston-171027/">https://storycorps.org/listen/greg-houston-and-lynn-houston-171027/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/greg-houston-and-lynn-houston-171027/" target="_blank" >https://storycorps.org/listen/greg-houston-and-lynn-houston-171027/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>The door was unlocked, so I came in with meatballs marinara, and you were doing some kind of autopsy or something. And I remember I just stood there staring at you in your white gown with blood all over it.&lt;/p>
 &lt;/blockquote>
 &lt;ul>
-&lt;li>marinara - &lt;strong>an Italian &lt;a href="https://en.wikipedia.org/wiki/Tomato_sauce">tomato sauce&lt;/a> that originated in &lt;a href="https://en.wikipedia.org/wiki/Naples">Naples&lt;/a>, usually made with tomatoes, garlic, herbs, and onions.&lt;/strong>&lt;/li>
+&lt;li>marinara - &lt;strong>an Italian &lt;a href="https://en.wikipedia.org/wiki/Tomato_sauce" target="_blank" >tomato sauce&lt;/a>
+that originated in &lt;a href="https://en.wikipedia.org/wiki/Naples" target="_blank" >Naples&lt;/a>
+, usually made with tomatoes, garlic, herbs, and onions.&lt;/strong>&lt;/li>
 &lt;li>autopsy (noun. C/U) - &lt;strong>the cutting open and examination of a dead bodyin order to discover the cause of death&lt;/strong>&lt;/li>
 &lt;li>gown (noun. C) - &lt;strong>a woman&amp;rsquo;s dress, especially a long one worn onformal occasions&lt;/strong>&lt;/li>
 &lt;/ul>
@@ -2512,7 +2650,10 @@ iex(2)&amp;gt;
 &lt;p>At that time a lot of women would have run for the hills.&lt;/p>
 &lt;/blockquote>
 &lt;ul>
-&lt;li>run for the hills (slang) - &lt;strong>When someone really wants to get away from a situation or &lt;a href="https://www.urbandictionary.com/define.php?term=relationship">relationship&lt;/a> as fast as they can, they &amp;ldquo;run for the hills&amp;rdquo;, assuming higher ground is safer. &lt;a href="https://www.urbandictionary.com/define.php?term=Usually">Usually&lt;/a> it is when you are scared of &lt;a href="https://www.urbandictionary.com/define.php?term=something">something&lt;/a> or scared of commitment.&lt;/strong>&lt;/li>
+&lt;li>run for the hills (slang) - &lt;strong>When someone really wants to get away from a situation or &lt;a href="https://www.urbandictionary.com/define.php?term=relationship" target="_blank" >relationship&lt;/a>
+as fast as they can, they &amp;ldquo;run for the hills&amp;rdquo;, assuming higher ground is safer. &lt;a href="https://www.urbandictionary.com/define.php?term=Usually" target="_blank" >Usually&lt;/a>
+it is when you are scared of &lt;a href="https://www.urbandictionary.com/define.php?term=something" target="_blank" >something&lt;/a>
+or scared of commitment.&lt;/strong>&lt;/li>
 &lt;/ul>
 &lt;blockquote>
 &lt;p>You came to pick me up in a hearse and you said, ’We just got to go drop off the colonel, then we’ll have the whole weekend.’&lt;/p>
@@ -2535,7 +2676,8 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>proportion&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/greg-houston-and-lynne-houston/</guid><pubDate>Sat, 25 Nov 2017 07:12:11 +0000</pubDate></item><item><title>StroyCorps / David Wynn and Carolyn Lyon</title><link>https://sujingjhong.com/posts/eng-class/david-wynn-and-carolyn-lyon/</link><description>&lt;h1 id="david-wynn-and-carolyn-lyon">David Wynn and Carolyn Lyon &lt;a href="#david-wynn-and-carolyn-lyon" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/david-wynn-and-carolyn-lyon-171124/">https://storycorps.org/listen/david-wynn-and-carolyn-lyon-171124/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/david-wynn-and-carolyn-lyon-171124/" target="_blank" >https://storycorps.org/listen/david-wynn-and-carolyn-lyon-171124/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>The scene could be a bleak one — a hospital room, a patient near death, and no family or loved ones present during their final moments.&lt;/p>
 &lt;/blockquote>
@@ -2572,7 +2714,8 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>reconciliation (noun. C/U) - &lt;strong>a situation in which two people or groupsof people become friendly again after they haveargued&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/david-wynn-and-carolyn-lyon/</guid><pubDate>Sat, 25 Nov 2017 06:35:25 +0000</pubDate></item><item><title>StoryCorps / Brian Peterson and Matt Faris</title><link>https://sujingjhong.com/posts/eng-class/brian-peterson-and-matt-faris/</link><description>&lt;h1 id="brian-peterson-and-matt-faris">Brian Peterson and Matt Faris &lt;a href="#brian-peterson-and-matt-faris" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/brian-peterson-and-matt-faris-171103/">https://storycorps.org/listen/brian-peterson-and-matt-faris-171103/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/brian-peterson-and-matt-faris-171103/" target="_blank" >https://storycorps.org/listen/brian-peterson-and-matt-faris-171103/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>And then out of nowhere, I just asked you, ’Can I paint your portrait?’&lt;/p>
 &lt;/blockquote>
@@ -2605,7 +2748,8 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>settle for sth. - &lt;strong>to accept or agree to something, or to decide to have something, although it is not exactly what you want or it is not the best&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/brian-peterson-and-matt-faris/</guid><pubDate>Mon, 20 Nov 2017 13:04:35 +0000</pubDate></item><item><title>StoryCorps / Alan Stepakoff and Josh Stepakoff</title><link>https://sujingjhong.com/posts/eng-class/alan-stepakoff-and-josh-stepakoff/</link><description>&lt;h1 id="alan-stepakoff-and-josh-stepakoff">Alan Stepakoff and Josh Stepakoff &lt;a href="#alan-stepakoff-and-josh-stepakoff" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/alan-stepakoff-and-joshua-stepakoff-171110/">https://storycorps.org/listen/alan-stepakoff-and-joshua-stepakoff-171110/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/alan-stepakoff-and-joshua-stepakoff-171110/" target="_blank" >https://storycorps.org/listen/alan-stepakoff-and-joshua-stepakoff-171110/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>I remember playing capture the flag and I looked up and I saw somebody who was holding something at his hip. I thought it was a power drill.&lt;/p>
 &lt;/blockquote>
@@ -2658,7 +2802,8 @@ iex(2)&amp;gt;
 &lt;ul>
 &lt;li>differentiate (verb.) - &lt;strong>to make someone or something different&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/alan-stepakoff-and-josh-stepakoff/</guid><pubDate>Mon, 20 Nov 2017 12:43:41 +0000</pubDate></item><item><title>StoryCorps / Karen Goodwin and Marlene Shay</title><link>https://sujingjhong.com/posts/eng-class/karen-goodwin-and-marlene-shay/</link><description>&lt;h1 id="karen-goodwin-and-marlene-shay">Karen Goodwin and Marlene Shay &lt;a href="#karen-goodwin-and-marlene-shay" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/marlene-shay-and-karen-goodman-171117/">https://storycorps.org/listen/marlene-shay-and-karen-goodman-171117/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/marlene-shay-and-karen-goodman-171117/" target="_blank" >https://storycorps.org/listen/marlene-shay-and-karen-goodman-171117/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>He had been in and out of rehab over the last three years, but he had been sober for a year and seemingly had it all together. But, as a mother, you always dread that call. And that day, we got a call from his fiancée that he overdosed and was slipping away.&lt;/p>
 &lt;/blockquote>
@@ -2689,7 +2834,8 @@ iex(2)&amp;gt;
 &lt;li>addiction (n. C/U @US) &lt;strong>the need or strong desire to do or to have something, or a very strong liking for something&lt;/strong>&lt;/li>
 &lt;li>reassurance (n. C/U) &lt;strong>words of advice and comfort intended to make someone feel less worried&lt;/strong>&lt;/li>
 &lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/karen-goodwin-and-marlene-shay/</guid><pubDate>Sun, 19 Nov 2017 09:13:55 +0000</pubDate></item><item><title>StoryCorps / Kristin Glasgow and Karen Offutt</title><link>https://sujingjhong.com/posts/eng-class/kristin-glasgow-and-karen-offutt/</link><description>&lt;h1 id="kristin-glasgow-and-karen-offutt">Kristin Glasgow and Karen Offutt &lt;a href="#kristin-glasgow-and-karen-offutt" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/kristin-glasgow-and-karen-offutt-171111/">https://storycorps.org/listen/kristin-glasgow-and-karen-offutt-171111/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/kristin-glasgow-and-karen-offutt-171111/" target="_blank" >https://storycorps.org/listen/kristin-glasgow-and-karen-offutt-171111/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>I was an executive stenographer.&lt;/p>
 &lt;/blockquote>
@@ -2963,9 +3109,11 @@ suffix-->circumlocutory
 &lt;li>當一個元素屬於檢查陣列元素時，顯示&lt;code>Ｖ&lt;/code>&lt;/li>
 &lt;li>當一個元素不屬於檢查陣列元素時，不做任何事。&lt;/li>
 &lt;/ol>
-&lt;p>那2, 3就是邏輯控制：&lt;code>if ... is true then ..., else ...&lt;/code>。可以用 Excel中的 &lt;a href="https://support.office.com/zh-tw/article/IF-%E5%87%BD%E6%95%B8-69aed7c9-4e8a-4755-a9bc-aa8bbff73be2">IF函數&lt;/a> 來處理。&lt;/p>
+&lt;p>那2, 3就是邏輯控制：&lt;code>if ... is true then ..., else ...&lt;/code>。可以用 Excel中的 &lt;a href="https://support.office.com/zh-tw/article/IF-%E5%87%BD%E6%95%B8-69aed7c9-4e8a-4755-a9bc-aa8bbff73be2" target="_blank" >IF函數&lt;/a>
+來處理。&lt;/p>
 &lt;p>所以這時候問題就聚焦在「&lt;strong>在Excel中如何判斷一個元素是否屬於特定陣列&lt;/strong>」&lt;/p>
-&lt;p>如果是在JavaScript裡，就會很直覺的使用 &lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes">Array.prototype.includes()&lt;/a>。例如就可以解成：&lt;/p>
+&lt;p>如果是在JavaScript裡，就會很直覺的使用 &lt;a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes" target="_blank" >Array.prototype.includes()&lt;/a>
+。例如就可以解成：&lt;/p>
 &lt;pre>&lt;code class="language-javascript">const validNums=[2, 5, 8, 7];
 const nums=[2, 5, 8, 6, 8, 7, 3, 7, 4, 3];
 nums.forEach(num=&amp;gt;{
@@ -2992,7 +3140,8 @@ console.log(`${num} =&amp;gt;`);
 &lt;li>&lt;code>INDEX&lt;/code>主要是以索引值返回元素(search by index)，但我們這裡則反過來，是要用元素來查詢其是否在特定陣列裡面(search by value)。&lt;/li>
 &lt;li>&lt;code>VLOOKUP&lt;/code>、&lt;code>HLOOKUP&lt;/code>主要是查詢到後，返回指定欄（列）的值，那還需要在Ｃ欄後增設一欄用來賦值，會再多費工。&lt;/li>
 &lt;/ul>
-&lt;p>那我們參照&lt;a href="https://support.office.com/zh-tw/article/MATCH-%E5%87%BD%E6%95%B8-e8dffd45-c762-47d6-bf89-533f4a37673a">官方文件&lt;/a>後，剖析一下match函數式：&lt;/p>
+&lt;p>那我們參照&lt;a href="https://support.office.com/zh-tw/article/MATCH-%E5%87%BD%E6%95%B8-e8dffd45-c762-47d6-bf89-533f4a37673a" target="_blank" >官方文件&lt;/a>
+後，剖析一下match函數式：&lt;/p>
 &lt;pre>&lt;code class="language-EXCEL">=MATCH(lookup_value, lookup_array, [match_type])
 &lt;/code>&lt;/pre>
 &lt;p>代表我們需要⋯⋯&lt;/p>
@@ -3048,7 +3197,8 @@ class="full-width"
 &lt;li>沒找到，會回傳&lt;code>#N/A&lt;/code>。&lt;/li>
 &lt;/ul>
 &lt;p>那我們要做的就是，判斷他回傳是不是&lt;code>#N/A&lt;/code>，如果是&lt;code>#N/A&lt;/code>就顯示空白值，不是的話，就顯示&lt;code>V&lt;/code>。&lt;/p>
-&lt;p>那在EXCEL中，判斷是否為&lt;code>#N/A&lt;/code>的話，&lt;a href="https://support.office.com/zh-tw/article/IS-%E5%87%BD%E6%95%B8-0f2d7971-6019-40a0-a171-f2d869135665">可以用ISERROR()或者ISNA()&lt;/a>。&lt;/p>
+&lt;p>那在EXCEL中，判斷是否為&lt;code>#N/A&lt;/code>的話，&lt;a href="https://support.office.com/zh-tw/article/IS-%E5%87%BD%E6%95%B8-0f2d7971-6019-40a0-a171-f2d869135665" target="_blank" >可以用ISERROR()或者ISNA()&lt;/a>
+。&lt;/p>
 &lt;p>所以我們就可以改成：&lt;/p>
 &lt;pre>&lt;code class="language-EXCEL">=IF(ISNA(MATCH(A1, $C$1:$C$4, 0)), &amp;quot;&amp;quot;, &amp;quot;V&amp;quot;)
 &lt;/code>&lt;/pre>
@@ -3067,7 +3217,8 @@ class="full-width"
 &lt;p>成功！&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/how-to-know-whether-an-element-in-an-array-by-excel/</guid><pubDate>Sun, 17 Sep 2017 00:11:00 +0800</pubDate></item><item><title>[node.js] #1 node-gyp: xcode-select error</title><link>https://sujingjhong.com/posts/node-js-1-node-gyp-xcode-select-error/</link><description>&lt;p>今天在練習編譯&lt;code>node-gyp&lt;/code>，結果編譯時產生問題&lt;/p>
 &lt;pre>&lt;code class="language-bash">xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance
 &lt;/code>&lt;/pre>
-&lt;p>解決方法可以參考&lt;a href="https://github.com/nodejs/node-gyp/issues/569#issuecomment-255589932">node-gyp #539&lt;/a>。&lt;/p>
+&lt;p>解決方法可以參考&lt;a href="https://github.com/nodejs/node-gyp/issues/569#issuecomment-255589932" target="_blank" >node-gyp #539&lt;/a>
+。&lt;/p>
 &lt;p>基本解決方法就是：&lt;/p>
 &lt;ol>
 &lt;li>安裝xcode/xcode-beta&lt;/li>
@@ -3226,7 +3377,8 @@ return mysqli_num_rows($this-&amp;gt;_qryRes);
 }
 ?&amp;gt;
 &lt;/code>&lt;/pre></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/php_with_mysqli_oop/</guid><pubDate>Thu, 01 Sep 2016 01:00:00 +0000</pubDate></item><item><title>StoryCorps / Danny Cortez (DC) and Drew Cortez (DrC)</title><link>https://sujingjhong.com/posts/eng-class/drew-cortez-and-danny-cortez/</link><description>&lt;h1 id="danny-cortez-dc-and-drew-cortez-drc">Danny Cortez (DC) and Drew Cortez (DrC) &lt;a href="#danny-cortez-dc-and-drew-cortez-drc" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>&lt;a href="https://storycorps.org/listen/drew-and-danny-cortez-160821/">https://storycorps.org/listen/drew-and-danny-cortez-160821/&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://storycorps.org/listen/drew-and-danny-cortez-160821/" target="_blank" >https://storycorps.org/listen/drew-and-danny-cortez-160821/&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>DC: That morning I came to church, my blood pressure was super high. I felt so much stress, and everyone was wondering what’s going on.&lt;/p>
 &lt;/blockquote>
@@ -3287,7 +3439,8 @@ return mysqli_num_rows($this-&amp;gt;_qryRes);
 &lt;p>I know that whatever happens, compassion is giving me clarity. It’s giving me clarity in my purpose. And I pray that our church will survive this.&lt;/p>
 &lt;/blockquote>
 &lt;p>我知道不管發生什麼，憐憫使我更加洞悉。使我的決心更加清晰。我祈求我們的教堂將繼續永存。&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/drew-cortez-and-danny-cortez/</guid><pubDate>Sat, 27 Aug 2016 08:05:03 +0000</pubDate></item><item><title>StoryCorps / Frank Mutz (FM) and Phil Mutz (PM)</title><link>https://sujingjhong.com/posts/eng-class/frank-mutz-fm-and-phil-mutz-pm/</link><description>&lt;h1 id="frank-mutz-fm-and-phil-mutz-pm">Frank Mutz (FM) and Phil Mutz (PM) &lt;a href="#frank-mutz-fm-and-phil-mutz-pm" class="hash g">#&lt;/a>&lt;/h1>
-&lt;p>URL: &lt;a href="https://storycorps.org/listen/frank-mutz-and-phil-mutz-160826/#">https://storycorps.org/listen/frank-mutz-and-phil-mutz-160826/#&lt;/a>&lt;/p>
+&lt;p>URL: &lt;a href="https://storycorps.org/listen/frank-mutz-and-phil-mutz-160826/#" target="_blank" >https://storycorps.org/listen/frank-mutz-and-phil-mutz-160826/#&lt;/a>
+&lt;/p>
 &lt;blockquote>
 &lt;p>PM: Well no one really dreams of air conditioning at night. You know, no one thinks, like, “Oh, I cannot wait to work on that air conditioner.” But I’m the guy that goes in there and crawls through your rat-infested crawl space in the 130 degree attic. I’m sort of like a doctor for machines.&lt;/p>
 &lt;/blockquote>
@@ -3341,7 +3494,8 @@ return mysqli_num_rows($this-&amp;gt;_qryRes);
 &lt;/blockquote>
 &lt;p>這個差異就是驚人地欠缺常識和變成一位書呆子的不同地方。雖然確實你也在學校裡有著不錯的成績，而且也從大學畢業。但同時你也有著不錯的常識，而這個就是在我們產業裡最重要的東西。&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/eng-class/frank-mutz-fm-and-phil-mutz-pm/</guid><pubDate>Fri, 26 Aug 2016 10:18:54 +0000</pubDate></item><item><title>取得URL參數值、上傳伺服器沒有反應問題</title><link>https://sujingjhong.com/posts/get-url-arguments-and-upload-to-server-but-not-working/</link><description>&lt;h1 id="取得-url-參數值上傳伺服器沒有反應問題">取得 URL 參數值、上傳伺服器沒有反應問題 &lt;a href="#%e5%8f%96%e5%be%97-url-%e5%8f%83%e6%95%b8%e5%80%bc%e4%b8%8a%e5%82%b3%e4%bc%ba%e6%9c%8d%e5%99%a8%e6%b2%92%e6%9c%89%e5%8f%8d%e6%87%89%e5%95%8f%e9%a1%8c" class="hash g">#&lt;/a>&lt;/h1>
 &lt;h2 id="取得-url-參數值">取得 URL 參數值 &lt;a href="#%e5%8f%96%e5%be%97-url-%e5%8f%83%e6%95%b8%e5%80%bc" class="hash g">#&lt;/a>&lt;/h2>
-&lt;p>安裝 JQuery 外掛：&lt;a href="https://plugins.jquery.com/url/">url jQuery Plugin&lt;/a>，即可直接用$url() 取得網址參數值。&lt;/p>
+&lt;p>安裝 JQuery 外掛：&lt;a href="https://plugins.jquery.com/url/" target="_blank" >url jQuery Plugin&lt;/a>
+，即可直接用$url() 取得網址參數值。&lt;/p>
 &lt;h2 id="上傳伺服器沒有反應問題">上傳伺服器沒有反應問題 &lt;a href="#%e4%b8%8a%e5%82%b3%e4%bc%ba%e6%9c%8d%e5%99%a8%e6%b2%92%e6%9c%89%e5%8f%8d%e6%87%89%e5%95%8f%e9%a1%8c" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>今天遇到一個很奇怪的問題，在本地端都可以執行 JS ，結果上傳到伺服器都無法作用。後來查一下原始碼，原來是 Cloudflare 啟用 Rocket Loader ，導致所有 JS 都無法正常啟用。&lt;/p>
 &lt;p>之後在 JS 段落全部增加 &lt;code>data-cfasync=&amp;quot;false&amp;quot;&lt;/code> ，讓 Cloudflare 在這檔案關閉 Rocket Loader，程式碼就可以正常運作了！&lt;/p>
@@ -3607,10 +3761,10 @@ B C
 目前想的到的也只有word&amp;hellip;.做條列式的樣子
 參考了坊間書籍一些做筆記的方法，說筆記一定要留白，但是光寫都寫不完哪裡有空位留白啊～後來回頭複習時發現有很多新的東西塞不下就要重做筆記很崩潰！！
 目前我的心智圖（也不知道是不是標準的心智圖）就大概是寫整個章節的大標題而已
-&lt;a href="http://i.imgur.com/Mb4xR3A.jpg">http://i.imgur.com/Mb4xR3A.jpg&lt;/a>
+&lt;a href="http://i.imgur.com/Mb4xR3A.jpg" target="_blank" >http://i.imgur.com/Mb4xR3A.jpg&lt;/a>
 例如 情緒產生理論有哪幾種&amp;hellip;（寫標題）
 後面筆記會有一整頁寫比較細部的內容（通常是往申論題要怎麼寫的概念去整理每個理論的架構）
-&lt;a href="http://i.imgur.com/vC68eDx.jpg">http://i.imgur.com/vC68eDx.jpg&lt;/a>
+&lt;a href="http://i.imgur.com/vC68eDx.jpg" target="_blank" >http://i.imgur.com/vC68eDx.jpg&lt;/a>
 大蓋是這樣
 不過不知道這方法好不好～這常常還是會漏東漏西
 但全部寫上去又太浪費時間，同學也有相同困擾～&lt;/p>
@@ -3775,11 +3929,18 @@ B C
 &lt;/ul>
 &lt;h2 id="v-主要參考文章">V. 主要參考文章 &lt;a href="#v-%e4%b8%bb%e8%a6%81%e5%8f%83%e8%80%83%e6%96%87%e7%ab%a0" class="hash g">#&lt;/a>&lt;/h2>
 &lt;ol>
-&lt;li>&lt;a href="http://mooc.guokr.com/note/9077/">WEEK1《基本概念和思維模式》&lt;/a>&lt;/li>
-&lt;li>&lt;a href="http://mooc.guokr.com/note/9153/">WEEK2《組塊》__1—組塊&lt;/a>&lt;/li>
-&lt;li>&lt;a href="http://mooc.guokr.com/note/9362/">WEEK2《組塊》__2—回憶與能力錯覺&lt;/a>&lt;/li>
-&lt;li>&lt;a href="http://mooc.guokr.com/note/9506/">WEEK3《拖延症》_1—習慣的養成和改變&lt;/a>&lt;/li>
-&lt;li>&lt;a href="http://mooc.guokr.com/note/9601/">WEEK4_考試指南&lt;/a>&lt;/li>
-&lt;li>&lt;a href="http://memobank.pixnet.net/blog/post/25045886-%E8%90%8A%E7%89%B9%E7%B4%8D%E7%9A%84%E5%AD%B8%E7%BF%92%E5%8D%A1%E7%89%87%E7%AE%B1">萊特納的學習卡片箱&lt;/a>&lt;/li>
-&lt;li>&lt;a href="http://memobank.pixnet.net/blog/post/24950161-%E8%89%BE%E8%B3%93%E8%B1%AA%E6%96%AF%E7%9A%84%E9%81%BA%E5%BF%98%E6%9B%B2%E7%B7%9A">艾賓豪斯的遺忘曲線&lt;/a>&lt;/li>
+&lt;li>&lt;a href="http://mooc.guokr.com/note/9077/" target="_blank" >WEEK1《基本概念和思維模式》&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="http://mooc.guokr.com/note/9153/" target="_blank" >WEEK2《組塊》__1—組塊&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="http://mooc.guokr.com/note/9362/" target="_blank" >WEEK2《組塊》__2—回憶與能力錯覺&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="http://mooc.guokr.com/note/9506/" target="_blank" >WEEK3《拖延症》_1—習慣的養成和改變&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="http://mooc.guokr.com/note/9601/" target="_blank" >WEEK4_考試指南&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="http://memobank.pixnet.net/blog/post/25045886-%e8%90%8a%e7%89%b9%e7%b4%8d%e7%9a%84%e5%ad%b8%e7%bf%92%e5%8d%a1%e7%89%87%e7%ae%b1" target="_blank" >萊特納的學習卡片箱&lt;/a>
+&lt;/li>
+&lt;li>&lt;a href="http://memobank.pixnet.net/blog/post/24950161-%e8%89%be%e8%b3%93%e8%b1%aa%e6%96%af%e7%9a%84%e9%81%ba%e5%bf%98%e6%9b%b2%e7%b7%9a" target="_blank" >艾賓豪斯的遺忘曲線&lt;/a>
+&lt;/li>
 &lt;/ol></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/learning-how-to-learn-summary-of-others-finishing/</guid><pubDate>Mon, 23 Feb 2015 03:35:00 +0000</pubDate></item></channel></rss>
