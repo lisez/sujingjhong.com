@@ -242,7 +242,17 @@ hljs.highlightElement(el);
 &lt;/li>
 &lt;li>&lt;a href="https://fastapi.tiangolo.com/tutorial/encoder/" target="_blank" >https://fastapi.tiangolo.com/tutorial/encoder/&lt;/a>
 &lt;/li>
-&lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-1/</guid><pubDate>Tue, 21 May 2024 01:33:00 +0000</pubDate></item><item><title>後資深工程師的四種職涯角色</title><link>https://sujingjhong.com/posts/four-types-of-post-senior-engineer/</link><description>&lt;h2 id="資深工程師的下一步">資深工程師的下一步 &lt;a href="#%e8%b3%87%e6%b7%b1%e5%b7%a5%e7%a8%8b%e5%b8%ab%e7%9a%84%e4%b8%8b%e4%b8%80%e6%ad%a5" class="hash g">#&lt;/a>&lt;/h2>
+&lt;/ul></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-1/</guid><pubDate>Tue, 21 May 2024 01:33:00 +0000</pubDate></item><item><title>721原則讓你學以致用</title><link>https://sujingjhong.com/posts/721-principle-allows-you-to-apply-what-you-have-learned/</link><description>&lt;p>各位學新東西時，會不會遇到一種狀況：看教學總是懂了，實際來直接不行？&lt;/p>
+&lt;p>此時就可用 「721 原則」規劃學習模型：&lt;/p>
+&lt;p>10% 課程學，20% 問同學，70% 做中學。&lt;/p>
+&lt;p>&lt;a href="https://www.hbrtaiwan.com/article/22717/help-your-employees-develop-the-skills-they-really-need" target="_blank" >這是從哈佛商業評論雜誌中看到的&lt;/a>
+，以及我以前在學程式時，意外地符合。&lt;/p>
+&lt;p>一開始時 10% 的正式學習，就是透過一個有系統、有架構的學習體驗，從裡面獲得知識，簡單講就是：上課、念教科書。&lt;/p>
+&lt;p>再來 20% 是「社交學習」，重點在和其他人學習，例如和導師、同學、同事，獲得他們的經驗談。&lt;/p>
+&lt;p>最後 70% 也是最重要的「做中學」，要在實際環境學習，工作上就是直接下去寫、實際做，要記得定期和其他人分享，分享自己的實踐經驗，同時也可以強化自己教學能力，一舉兩得。&lt;/p>
+&lt;p>我自己是在學寫程式時，無意間遵從這方式。&lt;/p>
+&lt;p>剛開始學 JavaScript 時，只稍微看了一下文件，了解語法怎麼寫（正式學習），接著就直接來寫專案（做中學）。有問題就問 Google，Stackoverflow（社交學習）。就一路到現在了。&lt;/p>
+&lt;p>如果學習卡關了，可以試著嘗試看看，說不定有用。&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/721-principle-allows-you-to-apply-what-you-have-learned/</guid><pubDate>Sun, 14 Jan 2024 22:17:56 +0000</pubDate></item><item><title>後資深工程師的四種職涯角色</title><link>https://sujingjhong.com/posts/four-types-of-post-senior-engineer/</link><description>&lt;h2 id="資深工程師的下一步">資深工程師的下一步 &lt;a href="#%e8%b3%87%e6%b7%b1%e5%b7%a5%e7%a8%8b%e5%b8%ab%e7%9a%84%e4%b8%8b%e4%b8%80%e6%ad%a5" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>當晉級到資深工程師後，後面的職涯就開始模糊了，你是否也有一樣的感受呢？&lt;/p>
 &lt;p>軟體工程師約莫 5-8 年後會晉級到職涯中的「資深工程師」（Senior Software Engineer）階段，不過現階段技術更迭以及累積速度加速下，可能會更加快速。在下一階段職涯中，大多數公司都是用「主任工程師」（Staff Engineer）這職稱描述。&lt;/p>
 &lt;p>這抽象的職稱也導致了一些問題：我需要具備什麼能力才能晉升到主任工程師？僅具有技術能力就可以了嘛？其他具有這職位的人是怎麼達到的呢？在職涯中，你的上級或者主管，應該要扮演什麼角色協助你呢？&lt;/p>
