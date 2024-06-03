@@ -3214,7 +3214,7 @@ height="311"
 class="full-width"
 />
 &lt;/p>
-&lt;p>成功！&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/how-to-know-whether-an-element-in-an-array-by-excel/</guid><pubDate>Sun, 17 Sep 2017 00:11:00 +0800</pubDate></item><item><title>[node.js] #1 node-gyp: xcode-select error</title><link>https://sujingjhong.com/posts/node-js-1-node-gyp-xcode-select-error/</link><description>&lt;p>今天在練習編譯&lt;code>node-gyp&lt;/code>，結果編譯時產生問題&lt;/p>
+&lt;p>成功！&lt;/p></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/how-to-know-whether-an-element-in-an-array-by-excel/</guid><pubDate>Sun, 17 Sep 2017 00:11:00 +0800</pubDate></item><item><title>[node.js] #1 node-gyp: xcode-select error</title><link>https://sujingjhong.com/posts/node-js-1-node-gyp-xcode-select-error/</link><description>&lt;p>今天在練習編譯 &lt;code>node-gyp&lt;/code>，結果編譯時產生問題&lt;/p>
 &lt;pre>&lt;code class="language-bash">xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance
 &lt;/code>&lt;/pre>
 &lt;p>解決方法可以參考&lt;a href="https://github.com/nodejs/node-gyp/issues/569#issuecomment-255589932" target="_blank" >node-gyp #539&lt;/a>
