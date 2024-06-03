@@ -1,4 +1,97 @@
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Thu, 30 May 2024 21:49:58 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>除錯日記#4 ONLYOFFICE JWT Auth</title><link>https://sujingjhong.com/posts/debugday-4/</link><description>&lt;h2 id="because-it-is-private-ip-address">Because, It is private IP address &lt;a href="#because-it-is-private-ip-address" class="hash g">#&lt;/a>&lt;/h2>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>sujingjhong.com</title><description>Minimalistic Hugo blogging theme</description><link>https://sujingjhong.com/</link><language/><copyright>Copyright 2024, Su Jing-Jhong</copyright><lastBuildDate>Tue, 04 Jun 2024 01:06:09 +0800</lastBuildDate><generator>Hugo - gohugo.io</generator><docs>http://cyber.harvard.edu/rss/rss.html</docs><atom:link href="https://sujingjhong.com/atom.xml" rel="self" type="application/atom+xml"/><item><title>除錯日記#5 Debian</title><link>https://sujingjhong.com/posts/debugday-5/</link><description>&lt;p>今天一整天都在除錯 debian&amp;hellip;&lt;/p>
+&lt;h2 id="macos-可以安裝-deb-檔案嘛">MacOS 可以安裝 &lt;code>.deb&lt;/code> 檔案嘛？ &lt;a href="#macos-%e5%8f%af%e4%bb%a5%e5%ae%89%e8%a3%9d-deb-%e6%aa%94%e6%a1%88%e5%98%9b" class="hash g">#&lt;/a>&lt;/h2>
+&lt;p>&lt;a href="https://unix.stackexchange.com/a/542823" target="_blank" >答案是不行&lt;/a>
+。原本查到可以用 &lt;a href="https://www.macports.org/install.php" target="_blank" >MacPorts&lt;/a>
+安裝 deb ，結果是一個名叫 deb 的套件。&lt;/p>
+&lt;p>所以只能請同事弄台 debian/ubuntu 虛擬機給我測試用。&lt;/p>
+&lt;h2 id="要怎麼切換預設-shell">要怎麼切換預設 shell？ &lt;a href="#%e8%a6%81%e6%80%8e%e9%ba%bc%e5%88%87%e6%8f%9b%e9%a0%90%e8%a8%ad-shell" class="hash g">#&lt;/a>&lt;/h2>
+&lt;p>&lt;a href="https://stackoverflow.com/a/13046330" target="_blank" >用 chsh 切換&lt;/a>
+：&lt;/p>
+&lt;pre>&lt;code class="language-bash">chsh -s $(which zsh) $(whoami)
+&lt;/code>&lt;/pre>
+&lt;p>另外記得要確認 &lt;code>which&lt;/code> 的值在不在，我因為沒裝 &lt;code>zsh&lt;/code>，導致寫了空字串進去，root 就壞了。&lt;/p>
+&lt;p>後來是強者同事幫我用 livecd 掛載 host disk 幫我解決。&lt;/p>
+&lt;h2 id="要怎麼切換語言包">要怎麼切換語言包？ &lt;a href="#%e8%a6%81%e6%80%8e%e9%ba%bc%e5%88%87%e6%8f%9b%e8%aa%9e%e8%a8%80%e5%8c%85" class="hash g">#&lt;/a>&lt;/h2>
+&lt;p>查了蠻多的，&lt;a href="https://unix.stackexchange.com/a/669735" target="_blank" >後來有用的是直接安裝全部語言包&lt;/a>
+：&lt;/p>
+&lt;pre>&lt;code class="language-bash">sudo apt install locales-all
+&lt;/code>&lt;/pre>
+&lt;p>查過沒用的：&lt;a href="https://serverfault.com/questions/54591/how-to-install-change-locale-on-debian" target="_blank" >連結一&lt;/a>
+、&lt;a href="https://askubuntu.com/questions/76013/how-do-i-add-locale-to-ubuntu-server" target="_blank" >連結二&lt;/a>
+&lt;/p>
+&lt;h2 id="執行-appimage-時出現-failed-to-exec-fusermount">執行 &lt;code>appimage&lt;/code> 時出現 &lt;code>failed to exec fusermount&lt;/code> &lt;a href="#%e5%9f%b7%e8%a1%8c-appimage-%e6%99%82%e5%87%ba%e7%8f%be-failed-to-exec-fusermount" class="hash g">#&lt;/a>&lt;/h2>
+&lt;pre>&lt;code class="language-bash">fuse: failed to exec fusermount: No such file or directory
+Cannot mount AppImage, please check your FUSE setup.
+You might still be able to extract the contents of this AppImage
+if you run it with the --appimage-extract option.
+See https://github.com/AppImage/AppImageKit/wiki/FUSE
+for more information
+open dir error: No such file or directory
+&lt;/code>&lt;/pre>
+&lt;p>&lt;a href="https://github.com/AppImage/AppImageKit/wiki/FUSE" target="_blank" >指南網站建議的方式&lt;/a>
+：&lt;/p>
+&lt;pre>&lt;code class="language-bash">sudo apt install fuse libfuse2
+sudo modprobe fuse
+sudo groupadd fuse
+user=&amp;quot;$(whoami)&amp;quot;
+sudo usermod -a -G fuse $user
+&lt;/code>&lt;/pre>
+&lt;p>不過我執行下面這行就可以了：&lt;/p>
+&lt;pre>&lt;code class="language-bash">sudo apt install fuse libfuse2
+&lt;/code>&lt;/pre>
+&lt;h2 id="要如何升級到-debian-12">要如何升級到 Debian 12 &lt;a href="#%e8%a6%81%e5%a6%82%e4%bd%95%e5%8d%87%e7%b4%9a%e5%88%b0-debian-12" class="hash g">#&lt;/a>&lt;/h2>
+&lt;p>原本虛擬機是用 Debian 10 然後一堆東西不能使用，只好升級。&lt;/p>
+&lt;p>不過升級途中有些東西沒裝好，導致之後出現 SSH 拒絕連線。最後還是請同事直接幫我開台到 Debian 12 的解決。&lt;/p>
+&lt;p>但還是附上一下 &lt;a href="https://gist.github.com/rrottmann/b0f371a62950a9e149c4358772c5a647" target="_blank" >網路上找到的指令&lt;/a>
+：&lt;/p>
+&lt;pre>&lt;code class="language-bash"># Dist-Upgrade Debian 10 Buster to Debian 12 Bookworm
+# Debian 10
+apt-get -y update
+apt-get -y upgrade
+apt-get -y full-upgrade
+cat &amp;gt; /etc/apt/sources.list &amp;lt;&amp;lt;&amp;quot;EOF&amp;quot;
+deb http://deb.debian.org/debian/ bullseye main
+deb-src http://deb.debian.org/debian/ bullseye main
+deb http://security.debian.org/debian-security stable-security/updates main
+deb-src http://security.debian.org/debian-security stable-security/updates main
+deb http://deb.debian.org/debian/ bullseye-updates main
+deb-src http://deb.debian.org/debian/ bullseye-updates main
+EOF
+apt-get clean
+apt-get -y update
+apt-get -y upgrade
+apt-get -y full-upgrade
+shutdown -r now
+# Debian 11
+cat &amp;gt; /etc/apt/sources.list &amp;lt;&amp;lt;&amp;quot;EOF&amp;quot;
+deb http://deb.debian.org/debian/ bookworm main
+deb-src http://deb.debian.org/debian/ bookworm main
+deb http://security.debian.org/debian-security stable-security/updates main
+deb-src http://security.debian.org/debian-security stable-security/updates main
+deb http://deb.debian.org/debian/ bookworm-updates main
+deb-src http://deb.debian.org/debian/ bookworm-updates main
+EOF
+apt-key adv --keyserver keyserver.ubuntu.com --recv-keys BDE6D2B9216EC7A8
+apt-get clean
+apt-get -y update
+apt-get -y upgrade
+apt-get -y full-upgrade
+# issue with libcrypt.so.1
+cd /tmp
+apt -y download libcrypt1
+dpkg-deb -x libcrypt1_1%3a4.4.25-2_amd64.deb .
+cp -av lib/x86_64-linux-gnu/* /lib/x86_64-linux-gnu/
+apt -y --fix-broken install
+apt-get -y upgrade
+apt-get -y full-upgrade
+apt-get -y auto-remove
+shutdown -r now
+&lt;/code>&lt;/pre>
+&lt;p>另外 &lt;a href="https://gist.github.com/rrottmann/b0f371a62950a9e149c4358772c5a647?permalink_comment_id=5073872#gistcomment-5073872" target="_blank" >有網友提到如果安裝過程出現 &lt;code>broken dependencies&lt;/code>&lt;/a>
+，可以改成用&lt;/p>
+&lt;pre>&lt;code class="language-diff">- apt-get -y upgrade
++ apt-get -y upgrade --without-new-pkgs
+&lt;/code>&lt;/pre></description><author>sujingjhong@gmail.com (Su Jing-Jhong)</author><guid>https://sujingjhong.com/posts/debugday-5/</guid><pubDate>Tue, 04 Jun 2024 01:06:09 +0800</pubDate></item><item><title>除錯日記#4 ONLYOFFICE JWT Auth</title><link>https://sujingjhong.com/posts/debugday-4/</link><description>&lt;h2 id="because-it-is-private-ip-address">Because, It is private IP address &lt;a href="#because-it-is-private-ip-address" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>IP 設定問題，可以 &lt;a href="https://sujingjhong.com/posts/debugday-3/" target="_blank" >參考前一篇&lt;/a>
 設定經過。&lt;/p>
 &lt;p>今天為了盡可能開發功能，所以在 document server 啟動時加入關閉 JWT 選項。&lt;/p>
