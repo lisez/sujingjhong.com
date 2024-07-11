@@ -1207,7 +1207,7 @@ export const ACTION_B = Symbol('ACTION_B');
 &lt;/li>
 &lt;/ul>
 &lt;p>但是很顯然的，在中文介面底下的並不支援，通常我們開起來會是長這個樣子：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/no-option-in-preference.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/no-option-in-preference.jpg"
 alt="通常在設定裡沒有東西"
@@ -1217,8 +1217,7 @@ width="1200"
 height="918"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+-in-preference.jpg)&lt;/p>
 &lt;p>後來實際試了一下，不是找不到，而是「&lt;strong>偏好語言&lt;/strong>」的問題。通常我們會將 &lt;code>macOS&lt;/code> 語系設定成慣用語系，例如通常在台灣的大家，就是設定成**「繁體中文 ( 臺灣 ) 」&lt;strong>。但是，這個&lt;/strong>「East Asian Languages」&lt;strong>是不會出現在我們的偏好語言中，他只會出現英語語系當中。所以才會所有相關文章，都是&lt;/strong>英文介面**說明。&lt;/p>
 &lt;p>為什麼呢？因為他們假設在偏好語言為東亞語言的，例如日文、繁簡中文，他們會認定東亞語言功能已經支援啦：&lt;/p>
 &lt;ul>
@@ -1235,7 +1234,7 @@ class="full-width"
 &lt;h3 id="第一步先將-macos-偏好語言調整成英文">第一步：先將 &lt;code>macOS&lt;/code> 偏好語言調整成英文 &lt;a href="#%e7%ac%ac%e4%b8%80%e6%ad%a5%e5%85%88%e5%b0%87-macos-%e5%81%8f%e5%a5%bd%e8%aa%9e%e8%a8%80%e8%aa%bf%e6%95%b4%e6%88%90%e8%8b%b1%e6%96%87" class="hash g">#&lt;/a>&lt;/h3>
 &lt;p>&lt;strong>＜下列步驟以 macOS Mojave 10.14.5 進行操作＞&lt;/strong>&lt;/p>
 &lt;p>先開啟&lt;strong>系統偏好設定&lt;/strong>，這可在 &lt;code>Dock&lt;/code> 或者啟動台找到：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/find-system-preference.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/find-system-preference.jpg"
 alt="先找到系統偏好設定"
@@ -1245,10 +1244,9 @@ width="2880"
 height="1800"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+tem-preference.jpg)&lt;/p>
 &lt;p>點選&lt;strong>語言與地區&lt;/strong>：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/click-region-and-lang.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/click-region-and-lang.jpg"
 alt="點選語言與地區"
@@ -1258,10 +1256,9 @@ width="1336"
 height="1196"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+egion-and-lang.jpg)&lt;/p>
 &lt;p>點選**「+」**新增偏好的語言：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/click-plus-add-prefer-lang.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/click-plus-add-prefer-lang.jpg"
 alt="點選新增偏好的語言"
@@ -1271,10 +1268,9 @@ width="1336"
 height="942"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+dd-prefer-lang.jpg)&lt;/p>
 &lt;p>選擇**「English」**後點選加入：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/click-english-then-add.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/click-english-then-add.jpg"
 alt="選擇English後點選加入"
@@ -1284,10 +1280,9 @@ width="1336"
 height="942"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+glish-then-add.jpg)&lt;/p>
 &lt;p>接著他會問你是不是要將「英文」作為主要語言，點選是「使用「英文」」：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/use-english-as-prime.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/use-english-as-prime.jpg"
 alt="將英文作為主要語言"
@@ -1297,10 +1292,9 @@ width="1336"
 height="942"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+glish-as-prime.jpg)&lt;/p>
 &lt;p>離開時，他就會你要不要重啟電腦，當然不用立即重新開機，只是要重新開機才會生效。&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/ask-for-restart.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/ask-for-restart.jpg"
 alt="是否要重新開機"
@@ -1310,11 +1304,10 @@ width="1336"
 height="942"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+sk-for-restart.jpg)&lt;/p>
 &lt;h3 id="第二步在英文版中的-ms-word-中設定-east-asian-languages">第二步：在英文版中的 &lt;code>MS Word&lt;/code> 中設定 &lt;code>East Asian Languages&lt;/code> &lt;a href="#%e7%ac%ac%e4%ba%8c%e6%ad%a5%e5%9c%a8%e8%8b%b1%e6%96%87%e7%89%88%e4%b8%ad%e7%9a%84-ms-word-%e4%b8%ad%e8%a8%ad%e5%ae%9a-east-asian-languages" class="hash g">#&lt;/a>&lt;/h3>
 &lt;p>重新開啟後，再次開啟 &lt;code>Word&lt;/code>，他會告訴你編輯語言已經變更，可以直接點掉就好：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/default-editing-language-changed.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/default-editing-language-changed.jpg"
 alt="提示編輯語言已變更"
@@ -1324,10 +1317,9 @@ width="523"
 height="235"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+nguage-changed.jpg)&lt;/p>
 &lt;p>接著點選右上角的 &lt;code>Word&lt;/code> -&amp;gt; &lt;code>Preferences&lt;/code>：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/click-on-word-preferences.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/click-on-word-preferences.jpg"
 alt="點選右上角的Preferences"
@@ -1337,10 +1329,9 @@ width="713"
 height="712"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+rd-preferences.jpg)&lt;/p>
 &lt;p>就會看到在 &lt;code>Word Preferences&lt;/code> 裡面出現 &lt;code>East Asian Languages&lt;/code>：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/eal-in-preferences.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/eal-in-preferences.jpg"
 alt="East Asian Languages 出現了"
@@ -1350,10 +1341,9 @@ width="1200"
 height="918"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+in-preferences.jpg)&lt;/p>
 &lt;p>點擊它後會跳出一個小視窗，點選 &lt;code>Select a language&lt;/code> 這行字下方的下拉選單：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/eal-options-window.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/eal-options-window.jpg"
 alt="點選下拉選單"
@@ -1363,10 +1353,9 @@ width="1200"
 height="738"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+options-window.jpg)&lt;/p>
 &lt;p>在選單中選擇 &lt;code>Japanese&lt;/code>：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/select-japanese-option.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/select-japanese-option.jpg"
 alt="選擇Japanese"
@@ -1376,10 +1365,9 @@ width="354"
 height="160"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+apanese-option.jpg)&lt;/p>
 &lt;p>選完後，他會提示你需要重新啟動 &lt;code>Word&lt;/code> 來變更設定：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/hint-for-restart-word.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/hint-for-restart-word.jpg"
 alt="提示重新啟動Word"
@@ -1389,11 +1377,10 @@ width="1200"
 height="738"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+r-restart-word.jpg)&lt;/p>
 &lt;h3 id="第三部就像那些教學一樣開始注音標示文字">第三部：就像那些教學一樣開始注音標示文字 &lt;a href="#%e7%ac%ac%e4%b8%89%e9%83%a8%e5%b0%b1%e5%83%8f%e9%82%a3%e4%ba%9b%e6%95%99%e5%ad%b8%e4%b8%80%e6%a8%a3%e9%96%8b%e5%a7%8b%e6%b3%a8%e9%9f%b3%e6%a8%99%e7%a4%ba%e6%96%87%e5%ad%97" class="hash g">#&lt;/a>&lt;/h3>
 &lt;p>接著重新啟動 &lt;code>Word&lt;/code>，就可以像那些教學一樣打一些中文或日文漢字，來試試看標記功能：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/type-some-words.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/type-some-words.jpg"
 alt="隨便打一些字"
@@ -1403,10 +1390,9 @@ width="950"
 height="540"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+ype-some-words.jpg)&lt;/p>
 &lt;p>把要標記的文字選起來，點選上方有一個 &lt;code>abc A&lt;/code> 的圖示，就是注音標示功能的圖示：&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/select-and-click-mark.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/select-and-click-mark.jpg"
 alt="選起來後點注音標示"
@@ -1416,10 +1402,9 @@ width="950"
 height="540"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+and-click-mark.jpg)&lt;/p>
 &lt;p>出現了！他會提示要標記的文字，可以做一些調整，這裡就不做介紹了。沒問題就點選 「OK」&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/ruby-text-options.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/ruby-text-options.jpg"
 alt="標記文字選項"
@@ -1429,10 +1414,9 @@ width="898"
 height="1162"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+y-text-options.jpg)&lt;/p>
 &lt;p>回到 &lt;code>Word&lt;/code> 編輯，會發現它就一如往常的標記上去啦。&lt;/p>
-&lt;p>&lt;a href="https://sujingjhong.com/images/2019/6/ruby-text-result.jpg" >
+&lt;p>[
 &lt;img
 src="https://sujingjhong.com/images/2019/6/ruby-text-result.jpg"
 alt="標記文字結果"
@@ -1442,8 +1426,7 @@ width="950"
 height="540"
 class="full-width"
 />
-&lt;/a>
-&lt;/p>
+by-text-result.jpg)&lt;/p>
 &lt;p>還有很可惜的是，這一定要在這狀態底下做，切換回原來的中文語系，他一樣給你不支援。&lt;/p>
 &lt;h2 id="我覺得這一定有-bug">我覺得這一定有 Bug &lt;a href="#%e6%88%91%e8%a6%ba%e5%be%97%e9%80%99%e4%b8%80%e5%ae%9a%e6%9c%89-bug" class="hash g">#&lt;/a>&lt;/h2>
 &lt;p>然後根據那位人員的說法，&lt;strong>「東亞語言介面預期已經支援這些功能」&lt;/strong>，但為何明明都已經把語言改成日文了，但就是弄不出標示呀？這真是太奇怪了。&lt;/p>
